@@ -10,8 +10,8 @@ Team Members:
   
 # Project Schedule #  
 
-Design and Allocation of work		 March 26th	   
-Base class completion	        	 April 12th        	 
-Basic functionalities	         	 April 19th   	
-Testing	                         April 26th   	
+Design and Allocation of work		 March 26th   	   
+Base class completion	        	 April 12th                	 
+Basic functionalities	         	 April 19th       	
+Testing	                         April 26th       	
 
