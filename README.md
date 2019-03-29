@@ -6,9 +6,12 @@ Team Members:
 3. Yousong Zhang – diffServ class  
 4. Yuxin Huang- traffic class, client/server  
 
-Milestones	Status	Team Members	Expected Completion Date	Actual Completion Date   
-Design and Allocation of work	Finished	All	March 26th	March 26th   
-Base class completion	In progress	All	April 12th  	 
-Basic functionalities	In progress	All	April 19th   	
-Testing	Not started	All	April 26th   	
+  
+  
+# Project Schedule #  
+
+Design and Allocation of work		 March 26th	   
+Base class completion	        	 April 12th        	 
+Basic functionalities	         	 April 19th   	
+Testing	                         April 26th   	
 
