@@ -10,7 +10,7 @@ Topology:
             
 client ip : n0 
 
-service ip : n3 
+service ip : n2
 
 QoS enabled router: n1 
 
