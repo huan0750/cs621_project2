@@ -12,7 +12,7 @@ client ip : n0
 
 service ip : n2
 
-QoS enabled router: n1 
+QoS enabled router: n1 -> n2
 
 
 Team Members:   
