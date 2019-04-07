@@ -97,7 +97,7 @@ template <typename Item>
 bool
 DiffServQueue<Item>::Enqueue (Ptr<Item> item)
 {
-  NS_LOG_FUNCTION (this << item);
+  NS_LOG_INFO (this << item <<"  DiffServQueue Enqueue ");
 
   return DoEnqueue (Tail (), item);
 }
@@ -106,11 +106,11 @@ template <typename Item>
 Ptr<Item>
 DiffServQueue<Item>::Dequeue (void)
 {
-  NS_LOG_FUNCTION (this);
+    NS_LOG_INFO (this  <<"  DiffServQueue Dequeue ");
 
   Ptr<Item> item = DoDequeue (Head ());
 
-  NS_LOG_LOGIC ("Popped " << item);
+  NS_LOG_INFO (" Popped packet " << item);
 
   return item;
 }

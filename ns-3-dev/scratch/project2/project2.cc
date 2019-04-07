@@ -19,6 +19,7 @@
 #include "ns3/internet-module.h"
 #include "ns3/point-to-point-module.h"
 #include "ns3/applications-module.h"
+#include "./diffserv-queue.h"
 
 using namespace ns3;
 
@@ -31,6 +32,8 @@ main (int argc, char *argv[])
   cmd.Parse (argc, argv);
 
   Time::SetResolution (Time::NS);
+    LogComponentEnable ("DropTailQueue", LOG_LEVEL_INFO);
+  LogComponentEnable ("DiffServQueue", LOG_LEVEL_INFO);
   LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
   LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
 
@@ -46,7 +49,7 @@ main (int argc, char *argv[])
     //n1-->n2
     PointToPointHelper pointToPoint2;
                           //ns3::DiffServQueue
-    pointToPoint2.SetQueue("ns3::DiffServQueue<Packet>")
+    pointToPoint2.SetQueue("ns3::DiffServQueue<Packet>");
     pointToPoint2.SetDeviceAttribute ("DataRate", StringValue ("1Mbps"));
     pointToPoint2.SetChannelAttribute ("Delay", StringValue ("0ms"));
 
