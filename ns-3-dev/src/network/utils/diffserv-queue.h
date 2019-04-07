@@ -29,7 +29,7 @@ namespace ns3 {
  * \brief A FIFO packet queue that drops tail-end packets on overflow
  */
 template <typename Item>
-class DropTailQueue : public Queue<Item>
+class DiffServQueue : public Queue<Item>
 {
 public:
   /**
@@ -38,13 +38,13 @@ public:
    */
   static TypeId GetTypeId (void);
   /**
-   * \brief DropTailQueue Constructor
+   * \brief DiffServQueue Constructor
    *
    * Creates a droptail queue with a maximum size of 100 packets by default
    */
-  DropTailQueue ();
+  DiffServQueue ();
 
-  virtual ~DropTailQueue ();
+  virtual ~DiffServQueue ();
 
   virtual bool Enqueue (Ptr<Item> item);
   virtual Ptr<Item> Dequeue (void);
@@ -69,33 +69,33 @@ private:
 
 template <typename Item>
 TypeId
-DropTailQueue<Item>::GetTypeId (void)
+DiffServQueue<Item>::GetTypeId (void)
 {
-  static TypeId tid = TypeId (("ns3::DiffServQueue<" + GetTypeParamName<DropTailQueue<Item> > () + ">").c_str ())
+  static TypeId tid = TypeId (("ns3::DiffServQueue<" + GetTypeParamName<DiffServQueue<Item> > () + ">").c_str ())
     .SetParent<Queue<Item> > ()
     .SetGroupName ("Network")
-    .template AddConstructor<DropTailQueue<Item> > ()
+    .template AddConstructor<DiffServQueue<Item> > ()
   ;
   return tid;
 }
 
 template <typename Item>
-DropTailQueue<Item>::DropTailQueue () :
+DiffServQueue<Item>::DiffServQueue () :
   Queue<Item> (),
-  NS_LOG_TEMPLATE_DEFINE ("DropTailQueue")
+  NS_LOG_TEMPLATE_DEFINE ("DiffServQueue")
 {
   NS_LOG_FUNCTION (this);
 }
 
 template <typename Item>
-DropTailQueue<Item>::~DropTailQueue ()
+DiffServQueue<Item>::~DiffServQueue ()
 {
   NS_LOG_FUNCTION (this);
 }
 
 template <typename Item>
 bool
-DropTailQueue<Item>::Enqueue (Ptr<Item> item)
+DiffServQueue<Item>::Enqueue (Ptr<Item> item)
 {
   NS_LOG_FUNCTION (this << item);
 
@@ -104,7 +104,7 @@ DropTailQueue<Item>::Enqueue (Ptr<Item> item)
 
 template <typename Item>
 Ptr<Item>
-DropTailQueue<Item>::Dequeue (void)
+DiffServQueue<Item>::Dequeue (void)
 {
   NS_LOG_FUNCTION (this);
 
@@ -117,7 +117,7 @@ DropTailQueue<Item>::Dequeue (void)
 
 template <typename Item>
 Ptr<Item>
-DropTailQueue<Item>::Remove (void)
+DiffServQueue<Item>::Remove (void)
 {
   NS_LOG_FUNCTION (this);
 
@@ -130,7 +130,7 @@ DropTailQueue<Item>::Remove (void)
 
 template <typename Item>
 Ptr<const Item>
-DropTailQueue<Item>::Peek (void) const
+DiffServQueue<Item>::Peek (void) const
 {
   NS_LOG_FUNCTION (this);
 
@@ -139,13 +139,13 @@ DropTailQueue<Item>::Peek (void) const
 
 // The following explicit template instantiation declarations prevent all the
 // translation units including this header file to implicitly instantiate the
-// DropTailQueue<Packet> class and the DropTailQueue<QueueDiscItem> class. The
+// DiffServQueue<Packet> class and the DiffServQueue<QueueDiscItem> class. The
 // unique instances of these classes are explicitly created through the macros
-// NS_OBJECT_TEMPLATE_CLASS_DEFINE (DropTailQueue,Packet) and
-// NS_OBJECT_TEMPLATE_CLASS_DEFINE (DropTailQueue,QueueDiscItem), which are included
+// NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServQueue,Packet) and
+// NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServQueue,QueueDiscItem), which are included
 // in drop-tail-queue.cc
-extern template class DropTailQueue<Packet>;
-extern template class DropTailQueue<QueueDiscItem>;
+extern template class DiffServQueue<Packet>;
+extern template class DiffServQueue<QueueDiscItem>;
 
 } // namespace ns3
 
