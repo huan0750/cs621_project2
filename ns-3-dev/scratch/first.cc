@@ -45,6 +45,8 @@ main (int argc, char *argv[])
 
     //n1-->n2
     PointToPointHelper pointToPoint2;
+                          //ns3::DiffServQueue
+    pointToPoint2.SetQueue("ns3::DiffServQueue<Packet>")
     pointToPoint2.SetDeviceAttribute ("DataRate", StringValue ("1Mbps"));
     pointToPoint2.SetChannelAttribute ("Delay", StringValue ("0ms"));
 
@@ -53,6 +55,7 @@ main (int argc, char *argv[])
 
 
     NetDeviceContainer devices2;
+
     devices2 = pointToPoint2.Install (nodes.Get(1), nodes.Get(2));
 
 
