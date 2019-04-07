@@ -35,14 +35,28 @@ main (int argc, char *argv[])
   LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
 
   NodeContainer nodes;
-  nodes.Create (2);
+  nodes.Create (3);
 
+    // n0-->n1
   PointToPointHelper pointToPoint;
-  pointToPoint.SetDeviceAttribute ("DataRate", StringValue ("5Mbps"));
-  pointToPoint.SetChannelAttribute ("Delay", StringValue ("2ms"));
+  pointToPoint.SetDeviceAttribute ("DataRate", StringValue ("4Mbps"));
+  pointToPoint.SetChannelAttribute ("Delay", StringValue ("0ms"));
+
+
+    //n1-->n2
+    PointToPointHelper pointToPoint2;
+    pointToPoint2.SetDeviceAttribute ("DataRate", StringValue ("1Mbps"));
+    pointToPoint2.SetChannelAttribute ("Delay", StringValue ("0ms"));
 
   NetDeviceContainer devices;
-  devices = pointToPoint.Install (nodes);
+  devices = pointToPoint.Install (nodes.Get(0), nodes.Get(1));
+
+
+    NetDeviceContainer devices2;
+    devices2 = pointToPoint2.Install (nodes.Get(1), nodes.Get(2));
+
+
+
 
   InternetStackHelper stack;
   stack.Install (nodes);
@@ -51,6 +65,7 @@ main (int argc, char *argv[])
   address.SetBase ("10.1.1.0", "255.255.255.0");
 
   Ipv4InterfaceContainer interfaces = address.Assign (devices);
+    Ipv4InterfaceContainer interfaces2 = address.Assign (devices2);
 
   UdpEchoServerHelper echoServer (9);
 
@@ -58,7 +73,7 @@ main (int argc, char *argv[])
   serverApps.Start (Seconds (1.0));
   serverApps.Stop (Seconds (10.0));
 
-  UdpEchoClientHelper echoClient (interfaces.GetAddress (1), 9);
+  UdpEchoClientHelper echoClient (interfaces2.GetAddress (1), 9);
   echoClient.SetAttribute ("MaxPackets", UintegerValue (1));
   echoClient.SetAttribute ("Interval", TimeValue (Seconds (1.0)));
   echoClient.SetAttribute ("PacketSize", UintegerValue (1024));
