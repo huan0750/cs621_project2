@@ -64,10 +64,16 @@ main (int argc, char *argv[])
   Ipv4AddressHelper address;
   address.SetBase ("10.1.1.0", "255.255.255.0");
 
+    Ipv4AddressHelper address2;
+    address2.SetBase ("10.1.2.0", "255.255.255.0");
+
   Ipv4InterfaceContainer interfaces = address.Assign (devices);
-    Ipv4InterfaceContainer interfaces2 = address.Assign (devices2);
+
+    Ipv4InterfaceContainer interfaces2 = address2.Assign (devices2);
+    Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
 
   UdpEchoServerHelper echoServer (9);
+
 
   ApplicationContainer serverApps = echoServer.Install (nodes.Get (1));
   serverApps.Start (Seconds (1.0));
