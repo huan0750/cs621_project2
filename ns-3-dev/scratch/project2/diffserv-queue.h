@@ -20,6 +20,7 @@
 #define DROPTAIL_H
 
 #include "ns3/queue.h"
+#incldde "ns3/ppp-header.h"
 
 namespace ns3 {
 
@@ -120,13 +121,13 @@ DiffServQueue<Item>::Dequeue (void)
     copy->RemoveHeader (ppp);
     NS_LOG_INFO ( "packet size after remove ppp "<<copy->GetSize() );
 
-    Ipv4Header iph;
-
-    NS_LOG_INFO ( "packet size before peek ip4header "<<copy->GetSize() );
-    copy->PeekHeader (iph);
-    NS_LOG_INFO ( "packet size after peek ip4header "<<copy->GetSize() );
-
-    NS_LOG_INFO ("This is the IP header:" << iph);
+//    Ipv4Header iph;
+//
+//    NS_LOG_INFO ( "packet size before peek ip4header "<<copy->GetSize() );
+//    copy->PeekHeader (iph);
+//    NS_LOG_INFO ( "packet size after peek ip4header "<<copy->GetSize() );
+//
+//    NS_LOG_INFO ("This is the IP header:" << iph);
 
     NS_LOG_INFO (" Popped packet " << item << " packet size "<<p->GetSize() );
   }
