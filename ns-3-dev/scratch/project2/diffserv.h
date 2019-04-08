@@ -25,6 +25,8 @@
 #include "ns3/ppp-header.h"
 #include "ns3/ipv4-header.h"
 #include "ns3/udp-header.h"
+
+#include "TrafficClass.h"
 //#include "../../src/point-to-point/model//ppp-header.h"
 
 namespace ns3 {
@@ -76,8 +78,8 @@ private:
 
   // variable
   QueueMode m_mode;
-  //std::vector<*TrafficClass> q_class;
-  std::vector<std::list<Ptr<Packet>>> packet_queues;
+  std::vector<TrafficClass*> q_class;
+
 
   //function
 public:
