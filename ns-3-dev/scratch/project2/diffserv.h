@@ -76,15 +76,15 @@ private:
 
   // variable
   QueueMode m_mode;
-  std::vector<*TrafficClass> q_class;
+  //std::vector<*TrafficClass> q_class;
   std::vector<std::list<Ptr<Packet>>> packet_queues;
 
   //function
 public:
-    void SetMode(mode QueueMode);
+    void SetMode(QueueMode mode);
     QueueMode GetMode();
     Ptr<Packet> Schedule();
-    unit32_t Classify(Ptr<Packet> p);
+    void Classify(Ptr<Packet> p);
 
 };
 
