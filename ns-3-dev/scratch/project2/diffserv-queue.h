@@ -108,9 +108,15 @@ DiffServQueue<Item>::Dequeue (void)
 {
     NS_LOG_INFO (this  <<"  DiffServQueue Dequeue ");
 
+
   Ptr<Item> item = DoDequeue (Head ());
 
-  NS_LOG_INFO (" Popped packet " << item);
+  if ( item != NULL) {
+    Ptr<Packet> item2 = (Ptr<Packet>)item;
+
+    NS_LOG_INFO (" Popped packet " << item << " packet size "<<item2->GetSize() );
+  }
+
 
   return item;
 }
@@ -145,7 +151,7 @@ DiffServQueue<Item>::Peek (void) const
 // NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServQueue,QueueDiscItem), which are included
 // in drop-tail-queue.cc
 extern template class DiffServQueue<Packet>;
-extern template class DiffServQueue<QueueDiscItem>;
+//extern template class DiffServQueue<QueueDiscItem>;
 
 } // namespace ns3
 
