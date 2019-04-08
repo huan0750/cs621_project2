@@ -20,7 +20,10 @@
 #define DROPTAIL_H
 
 #include "ns3/queue.h"
-#incldde "ns3/ppp-header.h"
+#include "ns3/ppp-header.h"
+#include "ns3/ipv4-header.h"
+#include "ns3/udp-header.h"
+//#include "../../src/point-to-point/model//ppp-header.h"
 
 namespace ns3 {
 
@@ -115,19 +118,29 @@ DiffServQueue<Item>::Dequeue (void)
   if ( item != NULL) {
     Ptr<Packet> p = (Ptr<Packet>)item;
     Ptr<Packet> copy = p->Copy ();
+
     PppHeader ppp;
     NS_LOG_INFO ("PppHeader size:" << sizeof(ppp));
     NS_LOG_INFO ( "packet size before remove ppp "<<copy->GetSize() );
     copy->RemoveHeader (ppp);
     NS_LOG_INFO ( "packet size after remove ppp "<<copy->GetSize() );
 
-//    Ipv4Header iph;
-//
-//    NS_LOG_INFO ( "packet size before peek ip4header "<<copy->GetSize() );
-//    copy->PeekHeader (iph);
-//    NS_LOG_INFO ( "packet size after peek ip4header "<<copy->GetSize() );
-//
-//    NS_LOG_INFO ("This is the IP header:" << iph);
+
+    Ipv4Header iph;
+
+    NS_LOG_INFO ( "packet size before remove ip4header "<<copy->GetSize() );
+    copy->RemoveHeader (iph);
+    NS_LOG_INFO ( "packet size after remove ip4header "<<copy->GetSize() );
+    NS_LOG_INFO ("This is the IP header:" << iph);
+
+     UdpHeader udpHeader;
+     copy->RemoveHeader (udpHeader);
+       NS_LOG_INFO ( "packet size after remove udpheader "<<copy->GetSize() );
+       NS_LOG_INFO ("This is the UDP header:" << udpHeader);
+
+
+
+
 
     NS_LOG_INFO (" Popped packet " << item << " packet size "<<p->GetSize() );
   }
