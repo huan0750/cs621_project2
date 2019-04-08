@@ -106,15 +106,29 @@ template <typename Item>
 Ptr<Item>
 DiffServQueue<Item>::Dequeue (void)
 {
-    NS_LOG_INFO (this  <<"  DiffServQueue Dequeue ");
+    NS_LOG_INFO (this  <<"  DiffServQueue Dequeue   ");
 
 
   Ptr<Item> item = DoDequeue (Head ());
 
   if ( item != NULL) {
-    Ptr<Packet> item2 = (Ptr<Packet>)item;
+    Ptr<Packet> p = (Ptr<Packet>)item;
+    Ptr<Packet> copy = p->Copy ();
+    PppHeader ppp;
+    NS_LOG_INFO ("PppHeader size:" << sizeof(ppp));
+    NS_LOG_INFO ( "packet size before remove ppp "<<copy->GetSize() );
+    copy->RemoveHeader (ppp);
+    NS_LOG_INFO ( "packet size after remove ppp "<<copy->GetSize() );
 
-    NS_LOG_INFO (" Popped packet " << item << " packet size "<<item2->GetSize() );
+    Ipv4Header iph;
+
+    NS_LOG_INFO ( "packet size before peek ip4header "<<copy->GetSize() );
+    copy->PeekHeader (iph);
+    NS_LOG_INFO ( "packet size after peek ip4header "<<copy->GetSize() );
+
+    NS_LOG_INFO ("This is the IP header:" << iph);
+
+    NS_LOG_INFO (" Popped packet " << item << " packet size "<<p->GetSize() );
   }
 
 

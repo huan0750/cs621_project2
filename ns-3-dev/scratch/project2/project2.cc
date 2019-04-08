@@ -95,8 +95,9 @@ main (int argc, char *argv[])
   clientApps.Stop (Seconds (10.0));
 
 
-  pointToPoint.EnablePcapAll ("project2_pointToPoint1");
-  pointToPoint2.EnablePcapAll ("project2_pointToPoint2");
+  // this will record all the nodes in pointToPoint, n0 n1 n2
+  pointToPoint.EnablePcapAll ("project2_pointToPoint");
+
 
   Simulator::Run ();
   Simulator::Destroy ();
