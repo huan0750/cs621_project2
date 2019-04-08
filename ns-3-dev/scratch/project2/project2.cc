@@ -94,6 +94,10 @@ main (int argc, char *argv[])
   clientApps.Start (Seconds (2.0));
   clientApps.Stop (Seconds (10.0));
 
+
+  pointToPoint.EnablePcapAll ("project2_pointToPoint1");
+  pointToPoint2.EnablePcapAll ("project2_pointToPoint2");
+
   Simulator::Run ();
   Simulator::Destroy ();
   return 0;
