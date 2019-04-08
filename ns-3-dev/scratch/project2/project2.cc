@@ -19,7 +19,7 @@
 #include "ns3/internet-module.h"
 #include "ns3/point-to-point-module.h"
 #include "ns3/applications-module.h"
-#include "./diffserv-queue.h"
+#include "diffserv.h"
 
 using namespace ns3;
 
@@ -33,7 +33,7 @@ main (int argc, char *argv[])
 
   Time::SetResolution (Time::NS);
     LogComponentEnable ("DropTailQueue", LOG_LEVEL_INFO);
-  LogComponentEnable ("DiffServQueue", LOG_LEVEL_INFO);
+  LogComponentEnable ("DiffServ", LOG_LEVEL_INFO);
   LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
   LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
 

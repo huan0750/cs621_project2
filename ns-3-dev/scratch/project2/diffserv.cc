@@ -16,13 +16,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "diffserv-queue.h"
+#include "diffserv.h"
 
 namespace ns3 {
 
-NS_LOG_COMPONENT_DEFINE ("DiffServQueue");
+NS_LOG_COMPONENT_DEFINE ("DiffServ");
 
-NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServQueue,Packet);
-//NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServQueue,QueueDiscItem);
+NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServ,Packet);
+//NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServ,QueueDiscItem);
 
 } // namespace ns3

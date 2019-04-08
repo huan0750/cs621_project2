@@ -19,6 +19,8 @@
 #ifndef DROPTAIL_H
 #define DROPTAIL_H
 
+#include <vector>
+
 #include "ns3/queue.h"
 #include "ns3/ppp-header.h"
 #include "ns3/ipv4-header.h"
@@ -26,6 +28,12 @@
 //#include "../../src/point-to-point/model//ppp-header.h"
 
 namespace ns3 {
+class TrafficClass;
+
+enum QueueMode {
+    QueueModePacket = 0,
+    QueueModeByte = 1,
+    };
 
 /**
  * \ingroup queue
@@ -33,7 +41,7 @@ namespace ns3 {
  * \brief A FIFO packet queue that drops tail-end packets on overflow
  */
 template <typename Item>
-class DiffServQueue : public Queue<Item>
+class DiffServ : public Queue<Item>
 {
 public:
   /**
@@ -42,13 +50,13 @@ public:
    */
   static TypeId GetTypeId (void);
   /**
-   * \brief DiffServQueue Constructor
+   * \brief DiffServ Constructor
    *
    * Creates a droptail queue with a maximum size of 100 packets by default
    */
-  DiffServQueue ();
+  DiffServ ();
 
-  virtual ~DiffServQueue ();
+  virtual ~DiffServ ();
 
   virtual bool Enqueue (Ptr<Item> item);
   virtual Ptr<Item> Dequeue (void);
@@ -64,6 +72,20 @@ private:
   using Queue<Item>::DoPeek;
 
   NS_LOG_TEMPLATE_DECLARE;     //!< redefinition of the log component
+
+
+  // variable
+  QueueMode m_mode;
+  std::vector<*TrafficClass> q_class;
+  std::vector<std::list<Ptr<Packet>>> packet_queues;
+
+  //function
+public:
+    void SetMode(mode QueueMode);
+    QueueMode GetMode();
+    Ptr<Packet> Schedule();
+    unit32_t Classify(Ptr<Packet> p);
+
 };
 
 
@@ -73,44 +95,44 @@ private:
 
 template <typename Item>
 TypeId
-DiffServQueue<Item>::GetTypeId (void)
+DiffServ<Item>::GetTypeId (void)
 {
-  static TypeId tid = TypeId (("ns3::DiffServQueue<" + GetTypeParamName<DiffServQueue<Item> > () + ">").c_str ())
+  static TypeId tid = TypeId (("ns3::DiffServ<" + GetTypeParamName<DiffServ<Item> > () + ">").c_str ())
     .SetParent<Queue<Item> > ()
     .SetGroupName ("Network")
-    .template AddConstructor<DiffServQueue<Item> > ()
+    .template AddConstructor<DiffServ<Item> > ()
   ;
   return tid;
 }
 
 template <typename Item>
-DiffServQueue<Item>::DiffServQueue () :
+DiffServ<Item>::DiffServ () :
   Queue<Item> (),
-  NS_LOG_TEMPLATE_DEFINE ("DiffServQueue")
+  NS_LOG_TEMPLATE_DEFINE ("DiffServ")
 {
   NS_LOG_FUNCTION (this);
 }
 
 template <typename Item>
-DiffServQueue<Item>::~DiffServQueue ()
+DiffServ<Item>::~DiffServ ()
 {
   NS_LOG_FUNCTION (this);
 }
 
 template <typename Item>
 bool
-DiffServQueue<Item>::Enqueue (Ptr<Item> item)
+DiffServ<Item>::Enqueue (Ptr<Item> item)
 {
-  NS_LOG_INFO (this << item <<"  DiffServQueue Enqueue ");
+  NS_LOG_INFO (this << item <<"  DiffServ Enqueue ");
 
   return DoEnqueue (Tail (), item);
 }
 
 template <typename Item>
 Ptr<Item>
-DiffServQueue<Item>::Dequeue (void)
+DiffServ<Item>::Dequeue (void)
 {
-    NS_LOG_INFO (this  <<"  DiffServQueue Dequeue   ");
+    NS_LOG_INFO (this  <<"  DiffServ Dequeue   ");
 
 
   Ptr<Item> item = DoDequeue (Head ());
@@ -151,7 +173,7 @@ DiffServQueue<Item>::Dequeue (void)
 
 template <typename Item>
 Ptr<Item>
-DiffServQueue<Item>::Remove (void)
+DiffServ<Item>::Remove (void)
 {
   NS_LOG_FUNCTION (this);
 
@@ -164,7 +186,7 @@ DiffServQueue<Item>::Remove (void)
 
 template <typename Item>
 Ptr<const Item>
-DiffServQueue<Item>::Peek (void) const
+DiffServ<Item>::Peek (void) const
 {
   NS_LOG_FUNCTION (this);
 
@@ -173,13 +195,13 @@ DiffServQueue<Item>::Peek (void) const
 
 // The following explicit template instantiation declarations prevent all the
 // translation units including this header file to implicitly instantiate the
-// DiffServQueue<Packet> class and the DiffServQueue<QueueDiscItem> class. The
+// DiffServ<Packet> class and the DiffServ<QueueDiscItem> class. The
 // unique instances of these classes are explicitly created through the macros
-// NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServQueue,Packet) and
-// NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServQueue,QueueDiscItem), which are included
+// NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServ,Packet) and
+// NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServ,QueueDiscItem), which are included
 // in drop-tail-queue.cc
-extern template class DiffServQueue<Packet>;
-//extern template class DiffServQueue<QueueDiscItem>;
+extern template class DiffServ<Packet>;
+//extern template class DiffServ<QueueDiscItem>;
 
 } // namespace ns3
 
