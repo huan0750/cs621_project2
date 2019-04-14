@@ -1,3 +1,4 @@
+#include "FilterElement.h"
 
 #ifndef CS621_PROJECT2_FILTER_H
 #define CS621_PROJECT2_FILTER_H

@@ -12,6 +12,7 @@
 
 #include "Filter.h"
 
+
 using namespace ns3;
 
 class TrafficClass {
@@ -25,7 +26,6 @@ private:
     bool isDefault;
     double_t weight;
     uint32_t priority_level;
-    std::queue<Ptr<Packet> > m_queue;
     std::vector<ns3::Filter*> filters;
 
 
