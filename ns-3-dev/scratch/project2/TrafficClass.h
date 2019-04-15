@@ -24,4 +24,4 @@ public:
     bool Enqueue(Ptr<Packet> p);
     Ptr<Packet> Dequeue();
     bool match(Ptr<Packet> p);
-}
+};
