@@ -1,7 +1,3 @@
-//
-// Created by zhangyousong on 4/8/19.
-//
-
 #ifndef CS621_PROJECT2_TRAFFICCLASS_H
 #define CS621_PROJECT2_TRAFFICCLASS_H
 
