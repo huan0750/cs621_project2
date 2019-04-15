@@ -1,9 +1,9 @@
+#include "ns3/queue.h"
 
-#ifndef CS621_PROJECT2_FILTERELEMENT_H
-#define CS621_PROJECT2_FILTERELEMENT_H
+namespace ns3 {
+  class FilterElement{
+  public:
+       virtual bool match(Ptr<Packet> p) = 0;
+  };
 
-#endif //CS621_PROJECT2_FILTERELEMENT_H
-
-class FilterElement{
-    bool virtual match(Ptr<Packet> p)=0;
-};
+}

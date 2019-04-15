@@ -5,19 +5,20 @@
 
 #include <stdint.h>
 #include <queue>
+#include "ns3/queue.h"
 
-using namespace ns3;
+namespace ns3 {
+  class TrafficClass {
+  private:
+      uint32_t bytes;
+      std::queue<Ptr<Packet>> m_queue;
+      bool isDefault;
 
-class TrafficClass {
-private:
-    uint32_t bytes;
-    std::queue<Ptr<Packet>> m_queue;
-    bool isDefault;
 
-
-public:
-    TrafficClass(bool isDefault);
-    bool Enqueue(Ptr<Packet> p);
-    Ptr<Packet> Dequeue();
-    bool match(Ptr<Packet> p);
-};
+  public:
+      TrafficClass(bool isDefault);
+      bool Enqueue(Ptr<Packet> p);
+      Ptr<Packet> Dequeue();
+      bool match(Ptr<Packet> p);
+  };
+}

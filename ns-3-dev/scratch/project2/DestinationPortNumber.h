@@ -5,14 +5,21 @@
 #endif //CS621_PROJECT2_DETINATIONPORTNUMBER_H
 
 #include <stdint.h>
+#include "FilterElement.h"
 
-class DestinationPortNumber : public FilterElemet {
-private:
-    uint32_t port;
-public:
-    DestinationPortNumber(uint32_t destination_port){
-        port = destination_port;
+
+namespace ns3 {
+
+  class DestinationPortNumber : public FilterElement{
+  private:
+      uint32_t port;
+  public:
+      DestinationPortNumber(uint32_t destination_port){
+          port = destination_port;
+      }
+      bool match(Ptr<Packet> p){
+        return true;
     }
+  };
 
-
-};
+}
