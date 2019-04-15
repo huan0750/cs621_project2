@@ -7,6 +7,8 @@
 #include <queue>
 #include "ns3/queue.h"
 
+#include "Filter.h"
+
 namespace ns3 {
   class TrafficClass {
   private:
@@ -14,11 +16,28 @@ namespace ns3 {
       std::queue<Ptr<Packet>> m_queue;
       bool isDefault;
 
+      ns3::Filter* fil;
+      uint32_t packets;
+      uint32_t max_bytes;
+      uint32_t max_packets;
+      bool isDefault;
+      double_t weight;
+      uint32_t priority_level;
+      std::vector<ns3::Filter*> filters;
+
 
   public:
       TrafficClass(bool isDefault);
       bool Enqueue(Ptr<Packet> p);
       Ptr<Packet> Dequeue();
-      bool match(Ptr<Packet> p);
+      bool match(Ptr<Packet> p););
+      Ptr<Packet> Dequeue();
+      void setBytes(uint32_t num);
+      void setPackets(uint32_t num);
+      void setMaxPackets(uint32_t num);
+      void setMaxBytes(uint32_t num);
+      void setWeight(double_t num);
+      void setPriorityLevel(uint32_t num);
+      void setIsDefault(bool check);
   };
 }
