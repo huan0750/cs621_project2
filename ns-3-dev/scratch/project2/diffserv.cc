@@ -25,4 +25,16 @@ NS_LOG_COMPONENT_DEFINE ("DiffServ");
 NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServ,Packet);
 //NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServ,QueueDiscItem);
 
+    Ptr<Packet> DiffServ::Schedule(){
+        return NULL;
+    }
+
+
+    void DiffServ::Classify(Ptr<Packet> p){
+
+    }
+
 } // namespace ns3
+
+
+
