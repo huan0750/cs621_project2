@@ -126,6 +126,8 @@ bool
 DiffServ<Item>::Enqueue (Ptr<Item> item)
 {
   NS_LOG_INFO (this << item <<"  DiffServ Enqueue ");
+    Ptr<Packet> p = (Ptr<Packet>)item;
+    Classify(p);
 
   return DoEnqueue (Tail (), item);
 }
@@ -198,12 +200,24 @@ DiffServ<Item>::Peek (void) const
 
     template <typename Item>
     Ptr<Packet> DiffServ<Item>::Schedule(){
+        for (unsigned i=0; i<q_class.size(); i++){
+            TrafficClass* trafficClass = q_class[0];
+            Ptr<Packet> p = trafficClass->Dequeue();
+            if (p != NULL) {
+                return p;
+            } 
+        }
         return NULL;
     }
 
     template <typename Item>
     void DiffServ<Item>::Classify(Ptr<Packet> p){
-
+        for (unsigned i=0; i<q_class.size(); i++){
+            TrafficClass* trafficClass = q_class[0];
+            if(trafficClass->match(p)){
+                trafficClass->Enqueue(p);
+            }
+        }
     }
 
 // The following explicit template instantiation declarations prevent all the
