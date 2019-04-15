@@ -5,6 +5,7 @@
 
 #include <stdint.h>
 #include <queue>
+#include <vector>
 #include "ns3/queue.h"
 
 #include "Filter.h"

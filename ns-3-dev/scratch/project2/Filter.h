@@ -1,3 +1,6 @@
+#include <vector>
+#include <stdint.h>
+#include <queue>
 
 #ifndef CS621_PROJECT2_FILTER_H
 #define CS621_PROJECT2_FILTER_H
