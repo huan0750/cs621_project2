@@ -195,6 +195,17 @@ DiffServ<Item>::Peek (void) const
   return DoPeek (Head ());
 }
 
+
+    template <typename Item>
+    Ptr<Packet> DiffServ<Item>::Schedule(){
+        return NULL;
+    }
+
+    template <typename Item>
+    void DiffServ<Item>::Classify(Ptr<Packet> p){
+
+    }
+
 // The following explicit template instantiation declarations prevent all the
 // translation units including this header file to implicitly instantiate the
 // DiffServ<Packet> class and the DiffServ<QueueDiscItem> class. The
