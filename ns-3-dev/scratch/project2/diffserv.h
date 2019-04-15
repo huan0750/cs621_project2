@@ -30,7 +30,6 @@
 //#include "../../src/point-to-point/model//ppp-header.h"
 
 namespace ns3 {
-class TrafficClass;
 
 enum QueueMode {
     QueueModePacket = 0,
@@ -205,7 +204,7 @@ DiffServ<Item>::Peek (void) const
             Ptr<Packet> p = trafficClass->Dequeue();
             if (p != NULL) {
                 return p;
-            } 
+            }
         }
         return NULL;
     }
