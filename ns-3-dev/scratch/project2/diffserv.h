@@ -81,6 +81,7 @@ private:
   // variable
   QueueMode m_mode;
   std::vector<TrafficClass*> q_class;
+  bool isLoad = false;
 
 
   //function
@@ -122,6 +123,7 @@ DiffServ<Item>::DiffServ () :
   NS_LOG_TEMPLATE_DEFINE ("DiffServ")
 {
   NS_LOG_FUNCTION (this);
+  //isLoad = false;
  // LoadConfig("./load");
 }
 
@@ -240,7 +242,12 @@ DiffServ<Item>::Peek (void) const
 	
 	template <typename Item>
     void DiffServ<Item>::LoadConfig(std::string path){
-        std::cout<<path <<std::endl;
+		if (isLoad){
+			std::cout<<"already load "<<path <<std::endl;
+			return ;
+		}
+		
+       std::cout<<this<<" iaload  "<<isLoad<<path <<std::endl;
 		q_class.resize(2);
 		
 		TrafficClass* trafficClass = new TrafficClass(true);
@@ -262,7 +269,7 @@ DiffServ<Item>::Peek (void) const
 		q_class[0] = trafficClass2;
 		
 		
-		
+		isLoad = true;
 		
     }
 
