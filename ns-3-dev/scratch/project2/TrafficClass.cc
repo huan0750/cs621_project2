@@ -5,7 +5,6 @@ namespace ns3 {
 
     TrafficClass::TrafficClass(bool isDefault) {
         this->isDefault = isDefault;
-
     }
 
 
@@ -58,20 +57,30 @@ namespace ns3 {
 
 
     bool TrafficClass::match(Ptr <Packet> p) {
-        bool check = true;
+		if(isDefault) return true; 
+		
         for (unsigned int i = 0; i < filters.size(); i++) {
-            for (unsigned int j = 0; j < filters[i]->element.size(); j++) {
-                if (filters[i]->element[j]->match(p) == false) {
-                    check = false;
-                    break;
+                if (filters[i]->match(p) == true) {
+                    return true;
                 }
-            }
-            if (check)
-                return true;
         }
 
         return false;
 
     }
+	
+	void TrafficClass::resizeFilters(int size){
+		filters.resize(size);	
+	}
+	
+	void TrafficClass::insertFilter(int pos, ns3::Filter* filter){
+		filters[pos] = filter;
+		
+	}
+	
+	void TrafficClass::print(){
+		std::cout<<"traffic class queue size " <<m_queue.size() <<"  isDefault "<< isDefault 
+		<< " priority_level "<< priority_level <<std::endl;
+	}
 
 }

@@ -32,10 +32,10 @@ main (int argc, char *argv[])
   cmd.Parse (argc, argv);
 
   Time::SetResolution (Time::NS);
-  LogComponentEnable ("DropTailQueue", LOG_LEVEL_INFO);
-  LogComponentEnable ("DiffServ", LOG_LEVEL_INFO);
-  LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
-  LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
+  LogComponentEnable ("DropTailQueue", LOG_LEVEL_ALL);
+  LogComponentEnable ("DiffServ", LOG_LEVEL_ALL);
+  LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_ALL);
+  LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_ALL);
 
   NodeContainer nodes;
   nodes.Create (3);

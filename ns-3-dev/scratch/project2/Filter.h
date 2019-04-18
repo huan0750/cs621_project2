@@ -1,17 +1,32 @@
-#include <vector>
-#include <stdint.h>
-#include <queue>
-
 #ifndef CS621_PROJECT2_FILTER_H
 #define CS621_PROJECT2_FILTER_H
 
 #endif //CS621_PROJECT2_FILTER_H
 
-class Filter{
-private:
-    std::vector<FilterElement*> list;
+
+#include <vector>
+#include <stdint.h>
+#include <queue>
+#include "DestinationPortNumber.h"
+
+//#include "FilterElement.h"
 
 
-public:
-bool match(Ptr<Packet> p);
-};
+
+
+
+namespace ns3 {
+  class Filter{
+  private:
+      std::vector<FilterElement*> list;
+
+
+  public:
+      Filter(int elementSize);
+	  void Resize(int elementSize);
+      void Insert(int pos, FilterElement* element);
+      bool match(Ptr<Packet> p);
+  
+  
+  };
+}

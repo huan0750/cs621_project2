@@ -1,7 +1,7 @@
 #ifndef CS621_PROJECT2_TRAFFICCLASS_H
 #define CS621_PROJECT2_TRAFFICCLASS_H
 
-#endif //CS621_PROJECT2_TRAFFICCLASS_H
+
 
 #include <stdint.h>
 #include <queue>
@@ -27,10 +27,13 @@ namespace ns3 {
 
 
   public:
-      TrafficClass(bool isDefault);
+      TrafficClass(bool isDefault = false);
+	  void resizeFilters(int size);
+	  void insertFilter(int pos, ns3::Filter* filter);
+	  void print();
       bool Enqueue(Ptr<Packet> p);
       Ptr<Packet> Dequeue();
-      bool match(Ptr<Packet> p););
+      bool match(Ptr<Packet> p);
       void setBytes(uint32_t num);
       void setPackets(uint32_t num);
       void setMaxPackets(uint32_t num);
@@ -40,3 +43,6 @@ namespace ns3 {
       void setIsDefault(bool check);
   };
 }
+
+
+#endif //CS621_PROJECT2_TRAFFICCLASS_H

@@ -20,6 +20,7 @@
 #define DROPTAIL_H
 
 #include <vector>
+#include <string>
 
 #include "ns3/queue.h"
 #include "ns3/ppp-header.h"
@@ -27,6 +28,7 @@
 #include "ns3/udp-header.h"
 
 #include "TrafficClass.h"
+#include "DestinationPortNumber.h"
 //#include "../../src/point-to-point/model//ppp-header.h"
 
 namespace ns3 {
@@ -86,6 +88,8 @@ public:
     QueueMode GetMode();
     Ptr<Packet> Schedule();
     void Classify(Ptr<Packet> p);
+	void LoadConfig(std::string path);
+	
 
 };
 
@@ -112,6 +116,7 @@ DiffServ<Item>::DiffServ () :
   NS_LOG_TEMPLATE_DEFINE ("DiffServ")
 {
   NS_LOG_FUNCTION (this);
+  LoadConfig("./load");
 }
 
 template <typename Item>
@@ -142,7 +147,12 @@ DiffServ<Item>::Dequeue (void)
 
   if ( item != NULL) {
     Ptr<Packet> p = (Ptr<Packet>)item;
+	p = Schedule();
     Ptr<Packet> copy = p->Copy ();
+	
+
+	
+	
 
     PppHeader ppp;
     NS_LOG_INFO ("PppHeader size:" << sizeof(ppp));
@@ -215,8 +225,37 @@ DiffServ<Item>::Peek (void) const
             TrafficClass* trafficClass = q_class[0];
             if(trafficClass->match(p)){
                 trafficClass->Enqueue(p);
+				trafficClass->print();
             }
         }
+    }
+	
+	template <typename Item>
+    void DiffServ<Item>::LoadConfig(std::string path){
+        std::cout<<path <<std::endl;
+		q_class.resize(2);
+		
+		TrafficClass* trafficClass = new TrafficClass(true);
+		trafficClass->setPriorityLevel(0);
+		trafficClass->print();
+		q_class[1] = trafficClass;
+		
+		
+		DestinationPortNumber* element = new DestinationPortNumber(80);
+		TrafficClass* trafficClass2 = new TrafficClass();
+		Filter* filter = new Filter(1);
+		filter->Insert(0, element);
+		trafficClass2->resizeFilters(1);
+		trafficClass2->insertFilter(0, filter);
+		trafficClass2->setPriorityLevel(1);
+		
+		trafficClass2->print();
+		
+		q_class[0] = trafficClass2;
+		
+		
+		
+		
     }
 
 // The following explicit template instantiation declarations prevent all the

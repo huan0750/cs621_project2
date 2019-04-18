@@ -2,7 +2,7 @@
 #ifndef CS621_PROJECT2_DETINATIONPORTNUMBER_H
 #define CS621_PROJECT2_DETINATIONPORTNUMBER_H
 
-#endif //CS621_PROJECT2_DETINATIONPORTNUMBER_H
+
 
 #include <stdint.h>
 #include "FilterElement.h"
@@ -23,3 +23,6 @@ namespace ns3 {
   };
 
 }
+
+
+#endif //CS621_PROJECT2_DETINATIONPORTNUMBER_H
