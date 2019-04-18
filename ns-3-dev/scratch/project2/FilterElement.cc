@@ -14,7 +14,7 @@ namespace ns3 {
         return tid;
       }
       */
-  };
+ // };
 /*
   class SrcIPFilterElement : public FilterElement {
       public:
