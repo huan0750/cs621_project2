@@ -26,6 +26,7 @@
 #include "ns3/ppp-header.h"
 #include "ns3/ipv4-header.h"
 #include "ns3/udp-header.h"
+#include "ns3/string.h"
 
 #include "TrafficClass.h"
 #include "DestinationPortNumber.h"
