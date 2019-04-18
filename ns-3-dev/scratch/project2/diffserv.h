@@ -106,6 +106,11 @@ DiffServ<Item>::GetTypeId (void)
     .SetParent<Queue<Item> > ()
     .SetGroupName ("Network")
     .template AddConstructor<DiffServ<Item> > ()
+    .AddAttribute ("ConfigPath",
+                    "The path of config file.",
+                    StringValue ("config.txt"),
+                    MakeStringAccessor(&DiffServ<Item>::LoadConfig),
+                    MakeStringChecker())
   ;
   return tid;
 }
@@ -116,7 +121,7 @@ DiffServ<Item>::DiffServ () :
   NS_LOG_TEMPLATE_DEFINE ("DiffServ")
 {
   NS_LOG_FUNCTION (this);
-  LoadConfig("./load");
+ // LoadConfig("./load");
 }
 
 template <typename Item>
