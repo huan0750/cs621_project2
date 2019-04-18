@@ -129,7 +129,7 @@ template <typename Item>
 bool
 DiffServ<Item>::Enqueue (Ptr<Item> item)
 {
-  NS_LOG_INFO (this << item <<"  DiffServ Enqueue ");
+  NS_LOG_INFO (this << item <<"  DiffServ Enqueue------> ");
     Ptr<Packet> p = (Ptr<Packet>)item;
     Classify(p);
 
@@ -140,7 +140,7 @@ template <typename Item>
 Ptr<Item>
 DiffServ<Item>::Dequeue (void)
 {
-    NS_LOG_INFO (this  <<"  DiffServ Dequeue   ");
+    NS_LOG_INFO (this  <<"  DiffServ Dequeue  <--------- ");
 
 
   Ptr<Item> item = DoDequeue (Head ());
@@ -152,7 +152,7 @@ DiffServ<Item>::Dequeue (void)
 	
 
 	
-	
+	/*
 
     PppHeader ppp;
     NS_LOG_INFO ("PppHeader size:" << sizeof(ppp));
@@ -175,7 +175,7 @@ DiffServ<Item>::Dequeue (void)
 
 
 
-
+     */
 
     NS_LOG_INFO (" Popped packet " << item << " packet size "<<p->GetSize() );
   }
@@ -211,6 +211,7 @@ DiffServ<Item>::Peek (void) const
     Ptr<Packet> DiffServ<Item>::Schedule(){
         for (unsigned i=0; i<q_class.size(); i++){
             TrafficClass* trafficClass = q_class[0];
+			trafficClass->print();
             Ptr<Packet> p = trafficClass->Dequeue();
             if (p != NULL) {
                 return p;
@@ -226,6 +227,7 @@ DiffServ<Item>::Peek (void) const
             if(trafficClass->match(p)){
                 trafficClass->Enqueue(p);
 				trafficClass->print();
+				return; // only insert once, inset high priority_queue
             }
         }
     }
@@ -237,7 +239,7 @@ DiffServ<Item>::Peek (void) const
 		
 		TrafficClass* trafficClass = new TrafficClass(true);
 		trafficClass->setPriorityLevel(0);
-		trafficClass->print();
+		//trafficClass->print();
 		q_class[1] = trafficClass;
 		
 		
@@ -249,7 +251,7 @@ DiffServ<Item>::Peek (void) const
 		trafficClass2->insertFilter(0, filter);
 		trafficClass2->setPriorityLevel(1);
 		
-		trafficClass2->print();
+		//trafficClass2->print();
 		
 		q_class[0] = trafficClass2;
 		

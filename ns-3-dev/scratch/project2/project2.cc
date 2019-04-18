@@ -32,10 +32,10 @@ main (int argc, char *argv[])
   cmd.Parse (argc, argv);
 
   Time::SetResolution (Time::NS);
-  LogComponentEnable ("DropTailQueue", LOG_LEVEL_ALL);
-  LogComponentEnable ("DiffServ", LOG_LEVEL_ALL);
-  LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_ALL);
-  LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_ALL);
+  LogComponentEnable ("DropTailQueue", LOG_LEVEL_INFO);
+  LogComponentEnable ("DiffServ", LOG_LEVEL_INFO);
+  LogComponentEnable ("UdpClient", LOG_LEVEL_ALL);
+  LogComponentEnable ("UdpServer", LOG_LEVEL_ALL);
 
   NodeContainer nodes;
   nodes.Create (3);
@@ -53,8 +53,8 @@ main (int argc, char *argv[])
     pointToPoint2.SetDeviceAttribute ("DataRate", StringValue ("1Mbps"));
     pointToPoint2.SetChannelAttribute ("Delay", StringValue ("0ms"));
 
-  NetDeviceContainer devices;
-  devices = pointToPoint.Install (nodes.Get(0), nodes.Get(1));
+    NetDeviceContainer devices;
+    devices = pointToPoint.Install (nodes.Get(0), nodes.Get(1));
 
 
     NetDeviceContainer devices2;
