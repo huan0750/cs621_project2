@@ -149,8 +149,8 @@ DiffServ<Item>::Enqueue (Ptr<Item> item)
   NS_LOG_INFO (this << item <<"  DiffServ Enqueue------> ");
     Ptr<Packet> p = (Ptr<Packet>)item;
     Classify(p);
-
-  return DoEnqueue (Tail (), item);
+    return true;
+  //return DoEnqueue (Tail (), item);
 }
 
 template <typename Item>
@@ -160,41 +160,12 @@ DiffServ<Item>::Dequeue (void)
     NS_LOG_INFO (this  <<"  DiffServ Dequeue  <--------- ");
 
 
-  Ptr<Item> item = DoDequeue (Head ());
+  Ptr<Item> item = Schedule();
 
   if ( item != NULL) {
     Ptr<Packet> p = (Ptr<Packet>)item;
-	p = Schedule();
     Ptr<Packet> copy = p->Copy ();
 	
-
-	
-	/*
-
-    PppHeader ppp;
-    NS_LOG_INFO ("PppHeader size:" << sizeof(ppp));
-    NS_LOG_INFO ( "packet size before remove ppp "<<copy->GetSize() );
-    copy->RemoveHeader (ppp);
-    NS_LOG_INFO ( "packet size after remove ppp "<<copy->GetSize() );
-
-
-    Ipv4Header iph;
-
-    NS_LOG_INFO ( "packet size before remove ip4header "<<copy->GetSize() );
-    copy->RemoveHeader (iph);
-    NS_LOG_INFO ( "packet size after remove ip4header "<<copy->GetSize() );
-    NS_LOG_INFO ("This is the IP header:" << iph);
-
-     UdpHeader udpHeader;
-     copy->RemoveHeader (udpHeader);
-       NS_LOG_INFO ( "packet size after remove udpheader "<<copy->GetSize() );
-       NS_LOG_INFO ("This is the UDP header:" << udpHeader);
-
-
-
-     */
-
-    NS_LOG_INFO (" Popped packet " << item << " packet size "<<p->GetSize() );
   }
 
 
