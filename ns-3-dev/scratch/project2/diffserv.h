@@ -201,7 +201,7 @@ DiffServ<Item>::Peek (void) const
             TrafficClass* trafficClass = q_class[i];
             Ptr<Packet> p = trafficClass->Dequeue();
             if (p != NULL) {
-				std::cout << "<<<<<<<<<<<packet  dequeue from  queue  priority_level "<< trafficClass->getPriorityLevel()<<std::endl;
+				        std::cout << "<<<<<<<<<<<packet  dequeue from  queue  priority_level "<< trafficClass->getPriorityLevel()<<std::endl;
                 return p;
             }
         }
@@ -214,8 +214,8 @@ DiffServ<Item>::Peek (void) const
             TrafficClass* trafficClass = q_class[i];		
             if(trafficClass->match(p)){
                 trafficClass->Enqueue(p);
-				std::cout << ">>>>>>>>>>>packet  insert to queue with priority_level "<< trafficClass->getPriorityLevel()<<std::endl;
-				return; // only insert once, inset high priority_queue
+				        std::cout << ">>>>>>>>>>>packet  insert to queue with priority_level "<< trafficClass->getPriorityLevel()<<std::endl;
+				        return; // only insert once, inset high priority_queue
             }
         }
     }
@@ -227,7 +227,7 @@ DiffServ<Item>::Peek (void) const
 			return ;
 		}
 		
-       std::cout<<this<<" iaload  "<<isLoad<<path <<std::endl;
+    std::cout<<this<<" iaload  "<<isLoad<<path <<std::endl;
 		q_class.resize(2);
 		
 		TrafficClass* trafficClass = new TrafficClass(true);
@@ -259,7 +259,7 @@ DiffServ<Item>::Peek (void) const
 		std::sort(q_class.begin(), q_class.end(), compareTrafficClass);
 	}
 	
-		template <typename Item>
+	template <typename Item>
 	void DiffServ<Item>::printTrafficClass(){
 		for(std::vector<TrafficClass*>::iterator it = q_class.begin(); it != q_class.end(); it++ ){
 			TrafficClass* c = *it;
