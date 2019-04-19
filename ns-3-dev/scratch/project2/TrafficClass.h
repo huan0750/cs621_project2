@@ -41,6 +41,7 @@ namespace ns3 {
       void setWeight(double_t num);
       void setPriorityLevel(uint32_t num);
       void setIsDefault(bool check);
+	  uint32_t getPriorityLevel();
   };
 }
 

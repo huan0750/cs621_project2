@@ -13,13 +13,13 @@ namespace ns3 {
   class DestinationPortNumber : public FilterElement{
   private:
       uint32_t port;
+	  std::string  protocol;     
   public:
-      DestinationPortNumber(uint32_t destination_port){
+      DestinationPortNumber(uint32_t destination_port,  std::string protocol){
           port = destination_port;
+		  this->protocol = protocol;
       }
-      bool match(Ptr<Packet> p){
-        return true;
-    }
+       bool match(Ptr<Packet> p);
   };
 
 }

@@ -79,21 +79,38 @@ main (int argc, char *argv[])
     Ipv4InterfaceContainer interfaces2 = address2.Assign (devices2);
     Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
 
-  UdpServerHelper udpServer (9);
+  UdpServerHelper udpServer (61);      //realtime transport protocol   priority  0  61 
+  UdpServerHelper udpServer2 (53);  //DNS request , height priority  = 1  53
 
 
   ApplicationContainer serverApps = udpServer.Install (nodes.Get (2));
   serverApps.Start (Seconds (1.0));
   serverApps.Stop (Seconds (10.0));
+  
+    ApplicationContainer serverApps2 = udpServer2.Install (nodes.Get (2));
+  serverApps2.Start (Seconds (1.0));
+  serverApps2.Stop (Seconds (10.0));
+  
 
-  UdpClientHelper udpClient (interfaces2.GetAddress (1), 9);
-  udpClient.SetAttribute ("MaxPackets", UintegerValue (1));
-  udpClient.SetAttribute ("Interval", TimeValue (Seconds (1.0)));
-  udpClient.SetAttribute ("PacketSize", UintegerValue (1024));
+  UdpClientHelper udpClient (interfaces2.GetAddress (1), 61);
+  udpClient.SetAttribute ("MaxPackets", UintegerValue (5));
+  udpClient.SetAttribute ("Interval", TimeValue (Seconds (0.001)));
+  udpClient.SetAttribute ("PacketSize", UintegerValue (900));
 
   ApplicationContainer clientApps = udpClient.Install (nodes.Get (0));
   clientApps.Start (Seconds (2.0));
   clientApps.Stop (Seconds (10.0));
+  
+  
+  // dns query client 
+   UdpClientHelper udpClient2(interfaces2.GetAddress (1), 53);
+  udpClient2.SetAttribute ("MaxPackets", UintegerValue (5));
+  udpClient2.SetAttribute ("Interval", TimeValue (Seconds (0.001)));
+  udpClient2.SetAttribute ("PacketSize", UintegerValue (1024));
+
+  ApplicationContainer clientApps2 = udpClient2.Install (nodes.Get (0));
+  clientApps2.Start (Seconds (2.0));
+  clientApps2.Stop (Seconds (10.0));
 
 
   // this will record all the nodes in pointToPoint, n0 n1 n2

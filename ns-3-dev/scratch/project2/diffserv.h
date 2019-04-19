@@ -19,8 +19,10 @@
 #ifndef DROPTAIL_H
 #define DROPTAIL_H
 
+#include <algorithm>
 #include <vector>
 #include <string>
+
 
 #include "ns3/queue.h"
 #include "ns3/ppp-header.h"
@@ -38,6 +40,11 @@ enum QueueMode {
     QueueModePacket = 0,
     QueueModeByte = 1,
     };
+	
+	
+	bool compareTrafficClass(TrafficClass* a,  TrafficClass*  b){
+		return b->getPriorityLevel() < a->getPriorityLevel();
+	}
 
 /**
  * \ingroup queue
@@ -91,6 +98,8 @@ public:
     Ptr<Packet> Schedule();
     void Classify(Ptr<Packet> p);
 	void LoadConfig(std::string path);
+	void orderTrafficClassByPriority(); 
+	void printTrafficClass();
 	
 
 };
@@ -218,10 +227,10 @@ DiffServ<Item>::Peek (void) const
     template <typename Item>
     Ptr<Packet> DiffServ<Item>::Schedule(){
         for (unsigned i=0; i<q_class.size(); i++){
-            TrafficClass* trafficClass = q_class[0];
-			trafficClass->print();
+            TrafficClass* trafficClass = q_class[i];
             Ptr<Packet> p = trafficClass->Dequeue();
             if (p != NULL) {
+				std::cout << "<<<<<<<<<<<packet  dequeue from  queue  priority_level "<< trafficClass->getPriorityLevel()<<std::endl;
                 return p;
             }
         }
@@ -231,10 +240,10 @@ DiffServ<Item>::Peek (void) const
     template <typename Item>
     void DiffServ<Item>::Classify(Ptr<Packet> p){
         for (unsigned i=0; i<q_class.size(); i++){
-            TrafficClass* trafficClass = q_class[0];
+            TrafficClass* trafficClass = q_class[i];		
             if(trafficClass->match(p)){
                 trafficClass->Enqueue(p);
-				trafficClass->print();
+				std::cout << ">>>>>>>>>>>packet  insert to queue with priority_level "<< trafficClass->getPriorityLevel()<<std::endl;
 				return; // only insert once, inset high priority_queue
             }
         }
@@ -256,7 +265,7 @@ DiffServ<Item>::Peek (void) const
 		q_class[1] = trafficClass;
 		
 		
-		DestinationPortNumber* element = new DestinationPortNumber(80);
+		DestinationPortNumber* element = new DestinationPortNumber(53, "UDP");  // 53 DNS heigh priority 
 		TrafficClass* trafficClass2 = new TrafficClass();
 		Filter* filter = new Filter(1);
 		filter->Insert(0, element);
@@ -268,10 +277,28 @@ DiffServ<Item>::Peek (void) const
 		
 		q_class[0] = trafficClass2;
 		
-		
+		orderTrafficClassByPriority();
+		printTrafficClass();
 		isLoad = true;
 		
     }
+	
+	template <typename Item>
+	void DiffServ<Item>::orderTrafficClassByPriority(){
+		std::sort(q_class.begin(), q_class.end(), compareTrafficClass);
+	}
+	
+		template <typename Item>
+	void DiffServ<Item>::printTrafficClass(){
+		for(std::vector<TrafficClass*>::iterator it = q_class.begin(); it != q_class.end(); it++ ){
+			TrafficClass* c = *it;
+			std::cout << " trafficClass  priority  : "<< c->getPriorityLevel()<<std::endl;
+		}
+	}
+	
+	
+	
+	
 
 // The following explicit template instantiation declarations prevent all the
 // translation units including this header file to implicitly instantiate the

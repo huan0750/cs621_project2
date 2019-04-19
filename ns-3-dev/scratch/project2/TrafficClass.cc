@@ -50,6 +50,10 @@ namespace ns3 {
     void TrafficClass::setPriorityLevel(uint32_t num) {
         this->priority_level = num;
     }
+	
+	uint32_t  TrafficClass::getPriorityLevel(){
+		return priority_level;
+	}
 
     void TrafficClass::setWeight(double_t num) {
         this->weight = num;
@@ -57,6 +61,7 @@ namespace ns3 {
 
 
     bool TrafficClass::match(Ptr <Packet> p) {
+		std::cout<<"is default "<<isDefault << " priority "<<priority_level <<std::endl; 
 		if(isDefault) return true; 
 		
         for (unsigned int i = 0; i < filters.size(); i++) {

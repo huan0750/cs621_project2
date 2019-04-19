@@ -24,7 +24,12 @@ namespace ns3 {
 			 
    
             bool  Filter::match (Ptr<Packet> p) {
-                return true;
-            };
+                   for(std::vector<FilterElement*>::iterator it = list.begin(); it != list.end(); it++){
+					   FilterElement* element = *it;
+					   if ( element->match(p) == false ) return false;
+				   }
+				   
+				   return true;   // all elements pass match. so it is ok 
+            }
    
 }
