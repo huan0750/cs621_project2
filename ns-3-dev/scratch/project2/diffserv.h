@@ -103,7 +103,6 @@ public:
 	void orderTrafficClassByPriority(); 
 	void printTrafficClass();
   void nextTurn();
-  void addQuantum(double_t i);
 	
 
 };
@@ -280,11 +279,6 @@ DiffServ<Item>::Peek (void) const
     TrafficClass* tc = q_class[curTurn];
     tc->addWeight(quantum);
     curTurn = (curTurn + 1) % q_class.size();
-	}
-
-  template <typename Item>
-	void DiffServ<Item>::addQuantum(double_t i){
-    quantums.push(i);
 	}
 	
 	template <typename Item>
