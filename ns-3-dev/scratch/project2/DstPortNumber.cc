@@ -1,4 +1,4 @@
-#include "DestinationPortNumber.h"
+#include "DstPortNumber.h"
 #include "ns3/ppp-header.h"
 #include "ns3/ipv4-header.h"
 #include "ns3/udp-header.h"
@@ -8,7 +8,7 @@
 
 
 namespace ns3 {
-    bool DestinationPortNumber::match(Ptr<Packet> p){
+    bool DstPortNumber::match(Ptr<Packet> p){
 		    Ptr<Packet> copy = p->Copy ();
             PppHeader ppp;
 			copy->RemoveHeader (ppp);
