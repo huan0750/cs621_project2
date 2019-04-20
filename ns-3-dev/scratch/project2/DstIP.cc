@@ -21,16 +21,19 @@ namespace ns3 {
 		
             if (protocol == "TCP" && iph.GetProtocol() == 0x06){
 							TcpHeader tcpHeader;
-			                copy->RemoveHeader (tcpHeader);
-                            if(address.IsEqual(tcpHeader.GetDestinationIpv4Address())) return true;
+			                // copy->RemoveHeader (tcpHeader);
+							copy->RemoveHeader (iph);
+                            if(address.IsEqual(iph.GetDestinationIpv4Address())) return true;
+						
 				
 			}else if (protocol == "UDP" && iph.GetProtocol() == 0x11){
 							UdpHeader udpHeader;
-			                copy->RemoveHeader (udpHeader);
+			                // copy->RemoveHeader (udpHeader);
+							copy->RemoveHeader (iph);
 							//std::cout <<"start print udpHeader  "<<std::endl;
 		                     //udpHeader.Print(std::cout);
-		                     std::cout <<"packet udpHeader port  "<<int(udpHeader.GetDestinationPort())<<std::endl;
-							 if(address.IsEqual(udpHeader.GetDestinationIpv4Address())) return true;
+		                     std::cout <<"packet udpHeader destination ip: "<< iph.GetDestinationIpv4Address() <<std::endl;
+							if(address.IsEqual(iph.GetDestinationIpv4Address())) return true;
 							 std::cout <<"does not match expected ip "<< address <<std::endl;
 							 
 					
