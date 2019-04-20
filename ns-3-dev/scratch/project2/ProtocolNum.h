@@ -7,8 +7,9 @@
 #include "FilterElement.h"
 #include "ns3/ipv4-address.h"
 
-class ProtocolNum : public FilterElement
-{
+namespace ns3 {
+  class ProtocolNum : public FilterElement
+  {
   private:
     int32_t protocol_num;
 	std::string  protocol;     

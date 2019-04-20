@@ -10,7 +10,8 @@
 
 namespace ns3 {
 
-  class SrcPortNumber : public FilterElement{
+  class SrcPortNumber : public FilterElement
+  {
   private:
       uint32_t port;
 	  std::string  protocol;     
