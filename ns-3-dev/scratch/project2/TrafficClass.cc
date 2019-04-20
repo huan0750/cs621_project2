@@ -51,6 +51,27 @@ namespace ns3 {
         }
     }
 
+    Ptr <Packet> TrafficClass::DequeueDrr() {
+        if (m_queue.empty()) {
+            return NULL;
+        } else {
+            Ptr <Packet> p = m_queue.front();
+            double_t size = (double_t)(p -> GetSize());
+            if(size > weight){
+                return NULL;
+            }
+            m_queue.pop();
+            if (m_queueMode == QueueModeByte)
+            {
+                bytes -= p->GetSize ();
+            } else {
+                packets--;
+            }
+            weight -= size;
+            return p;
+        }
+    }
+
 
     uint32_t TrafficClass::getBytes(){
         return this->bytes;

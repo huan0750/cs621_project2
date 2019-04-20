@@ -214,15 +214,12 @@ DiffServ<Item>::Peek (void) const
 
     template <typename Item>
     Ptr<Packet> DiffServ<Item>::ScheduleDrr(){
-        for (unsigned i=0; i<q_class.size(); i++){
-            TrafficClass* trafficClass = q_class[i];
-            Ptr<Packet> p = trafficClass->Dequeue();
-            if (p != NULL) {
-				        std::cout << "<<<<<<<<<<<packet  dequeue from  queue  priority_level "<< trafficClass->getPriorityLevel()<<std::endl;
-                return p;
-            }
-        }
-        return NULL;
+      TrafficClass* tc = q_class[curTurn];
+      Ptr<Packet> p = tc->DequeueDrr();
+      if(p != NULL){
+        return p;
+      } 
+      nextTurn();
     }
 
     template <typename Item>

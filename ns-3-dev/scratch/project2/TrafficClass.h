@@ -49,6 +49,7 @@ namespace ns3 {
       void setPriorityLevel(uint32_t num);
       void setIsDefault(bool check);
       void addWeight(double_t num);
+      Ptr <Packet> DequeueDrr();
   };
 }
 
