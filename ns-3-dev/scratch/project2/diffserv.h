@@ -88,8 +88,9 @@ private:
   // variable
   QueueMode m_mode;
   std::vector<TrafficClass*> q_class;
+  std::vector<double_t> quantums;
   bool isLoad = false;
-
+  int curTurn = 0;
 
   //function
 public:
@@ -101,6 +102,8 @@ public:
 	void LoadConfig(std::string path);
 	void orderTrafficClassByPriority(); 
 	void printTrafficClass();
+  void nextTurn();
+  void addQuantum(double_t i)
 	
 
 };
@@ -271,6 +274,20 @@ DiffServ<Item>::Peek (void) const
 	template <typename Item>
 	void DiffServ<Item>::orderTrafficClassByPriority(){
 		std::sort(q_class.begin(), q_class.end(), compareTrafficClass);
+	}
+
+  template <typename Item>
+	void DiffServ<Item>::nextTurn(){
+    //plus traffic quantum
+    double_t quantum = quantums[curTurn];
+    TrafficClass* tc = q_class[curTurn];
+    tc->addWeight(quantum);
+    curTurn++ % q_class.size();
+	}
+
+  template <typename Item>
+	void DiffServ<Item>::addQuantum(double_t i){
+    quantums.push(i);
 	}
 	
 	template <typename Item>
