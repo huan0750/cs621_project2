@@ -5,6 +5,8 @@
 
 #include "ns3/queue.h"
 #include "src/json/json.h"
+#include "TrafficClass.h"
+#include "DstPortNumber.h"
 #include <map>
 
 typedef std::map<std::string, std::string>  FilterElementConfig;

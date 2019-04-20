@@ -44,25 +44,30 @@ namespace ns3 {
 
 
 	void readFileJson() {
-		Json::Reader reader;
+		//Json::Reader reader;
+		Json::CharReaderBuilder rbuilder;
 		Json::Value root;
+		std::string errs;
+		std::ifstream config_doc("scratch/project2/spq.json", std::ifstream::binary);
+		config_doc >> root;
+		Json::parseFromStream (rbuilder, config_doc, &root, &errs);
 
-		ifstream in("test.json", ios::binary);
+		//ifstream in("test.json", ios::binary);
 
-		if (!in.is_open()) {
-			cout << "Error opening file\n";
-			return;
-		}
+//		if (!in.is_open()) {
+//			cout << "Error opening file\n";
+//			return;
+//		}
 
 
         //test.json content：
 		/*
         {
             "num_queues": 2,
-            "traffic"[
+            "traffic":[
                      {
                          "priority_level": 0,
-        		         "filters"[
+        		         "filters":[
                                     {
                                      "filter_element":[
                                      {
@@ -76,22 +81,14 @@ namespace ns3 {
                                          "port":80
                                      }
                                      ]
-                                  ,
-
-                                     "filter_element":[
-                                     {
-                                         "type":"DestinationPortNumber",
-                                         "protocol":"UDP",
-                                         "port":80
-                                     }
-                                     ]
-        		                  ]
                                     }
+
+        		                  ]
 
                          },
                                 {
                                         "priority_level": 1,
-                                        "filters"[
+                                        "filters":[
                                         {
                                             "filter_element":[
                                             {
@@ -146,9 +143,9 @@ namespace ns3 {
 
         //trafficClass2->print();
 
-        q_class[0] = trafficClass2;
+        //q_class[0] = trafficClass2;
 
-		if (reader.parse(in, root)) {
+		//if (reader.parse(in, root)) {
             int num_queues = root["num_queues"].asInt();
             list.resize(num_queues);
 
@@ -216,11 +213,11 @@ namespace ns3 {
 //
 //
 //			cout << "All Reading Complete!" << endl;
-		} else {
-			cout << "parse error\n" << endl;
-		}
+//		} else {
+//			cout << "parse error\n" << endl;
+//		}
 
-		in.close();
+		//in.close();
 	}
 
 }
