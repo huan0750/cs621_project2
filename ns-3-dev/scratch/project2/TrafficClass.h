@@ -10,7 +10,10 @@
 
 #include "Filter.h"
 
-
+enum QueueMode {
+	QueueModePacket = 0,
+	QueueModeByte = 1,
+};
 namespace ns3 {
   class TrafficClass {
   private:

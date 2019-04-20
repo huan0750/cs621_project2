@@ -1,10 +1,7 @@
 #include "TrafficClass.h"
 namespace ns3 {
 
-    enum QueueMode {
-        QueueModePacket = 0,
-        QueueModeByte = 1,
-    };
+
 
     //constructor
 
