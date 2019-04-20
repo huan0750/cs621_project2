@@ -31,7 +31,7 @@ namespace ns3 {
 		                     //udpHeader.Print(std::cout);
 		                     std::cout <<"packet udpHeader port  "<<int(udpHeader.GetDestinationPort())<<std::endl;
 							 if(address.IsEqual(udpHeader.GetDestinationIpv4Address())) return true;
-							 std::cout <<"does not match expected port "<<port <<std::endl;
+							 std::cout <<"does not match expected ip "<< address <<std::endl;
 							 
 					
 			}else{

@@ -23,7 +23,7 @@ namespace ns3 {
 							TcpHeader tcpHeader;
 			                copy->RemoveHeader (tcpHeader);
 							//  if (port == int(tcpHeader.GetDestinationPort())) return true;
-                            if(address.IsEqual(TcpHeader.GetSourceIpv4Address())) return true;
+                            if(address.IsEqual(tcpHeader.GetSourceIpv4Address())) return true;
 				
 			}else if (protocol == "UDP" && iph.GetProtocol() == 0x11){
 							UdpHeader udpHeader;
@@ -31,8 +31,8 @@ namespace ns3 {
 							//std::cout <<"start print udpHeader  "<<std::endl;
 		                     //udpHeader.Print(std::cout);
 		                     std::cout <<"packet udpHeader port  "<<int(udpHeader.GetDestinationPort())<<std::endl;
-							 if(address.IsEqual(TcpHeader.GetSourceIpv4Address())) return true;
-							 std::cout <<"does not match expected port "<<port <<std::endl;
+							 if(address.IsEqual(udpHeader.GetSourceIpv4Address())) return true;
+							 std::cout <<"does not match expected ip "<< address <<std::endl;
 							 
 					
 			}else{
