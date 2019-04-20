@@ -1,5 +1,5 @@
 #include "FilterElement.h"
-#include "ipv4-header.h"
+#include "ns3/ipv4-header.h"
 
 namespace ns3 {
     
