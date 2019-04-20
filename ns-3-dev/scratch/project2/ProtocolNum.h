@@ -14,7 +14,7 @@ namespace ns3 {
     int32_t protocol_num;
 	std::string  protocol;     
   public:
-      DestIP(int32_t protocol_num,  std::string protocol){
+      ProtocolNum(int32_t protocol_num,  std::string protocol){
         this->protocol_num = protocol_num;
 		this->protocol = protocol;
       }
