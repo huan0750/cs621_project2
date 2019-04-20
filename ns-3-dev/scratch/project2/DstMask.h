@@ -16,8 +16,8 @@ namespace ns3 {
       Ipv4Mask ipv4_mask;
 	  std::string  protocol;     
   public:
-      DestIP(Ipv4Address ipv4_address,  std::string protocol){
-          ipv4_mask = ipv4_address.GetDest().GetMask();
+      DstMask(Ipv4Mask ipv4_mask,  std::string protocol){
+          this->ipv4_mask = ipv4_mask;
 		  this->protocol = protocol;
       }
        bool match(Ptr<Packet> p);
