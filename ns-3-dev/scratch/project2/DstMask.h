@@ -1,6 +1,6 @@
 
-#ifndef CS621_PROJECT2_DESTMASK_H
-#define CS621_PROJECT2_DESTMASK_H
+#ifndef CS621_PROJECT2_DSTMASK_H
+#define CS621_PROJECT2_DSTMASK_H
 
 
 
@@ -11,7 +11,7 @@
 
 namespace ns3 {
 
-  class DestMask : public FilterElement{
+  class DstMask : public FilterElement{
   private:
       Ipv4Mask ipv4_mask;
 	  std::string  protocol;     
@@ -26,4 +26,4 @@ namespace ns3 {
 }
 
 
-#endif //CS621_PROJECT2_DETINATIONPORTNUMBER_H
+#endif //CS621_PROJECT2_DSTMASK_H

@@ -7,9 +7,15 @@
 #include <vector>
 #include <stdint.h>
 #include <queue>
-#include "DestinationPortNumber.h"
+#include "DstPortNumber.h"
+#include "DstIP.h"
+#include "DstMask.h"
+#include "ProtocolNum.h"
+#include "SrcIP.h"
+#include "SrcMask.h"
+#include "SrcPortNumber.h"
 
-//#include "FilterElement.h"
+#include "FilterElement.h"
 
 
 
