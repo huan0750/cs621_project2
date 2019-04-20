@@ -40,6 +40,11 @@ enum QueueMode {
     QueueModePacket = 0,
     QueueModeByte = 1,
     };
+
+enum QOSMode{
+  SPQ = 0,
+  DRR = 1,
+};
 	
 	
 	bool compareTrafficClass(TrafficClass* a,  TrafficClass*  b){
@@ -91,6 +96,7 @@ private:
   std::vector<double_t> quantums;
   bool isLoad = false;
   int curTurn = 0;
+  QOSMode qos = SPQ;
 
   //function
 public:
@@ -103,6 +109,7 @@ public:
 	void orderTrafficClassByPriority(); 
 	void printTrafficClass();
   void nextTurn();
+  void setQOS(QOSMode mode);
 	
 
 };
@@ -163,7 +170,12 @@ DiffServ<Item>::Dequeue (void)
     NS_LOG_INFO (this  <<"  DiffServ Dequeue  <--------- ");
 
 
-  Ptr<Item> item = Schedule();
+  Ptr<Item> item;
+  if(qos == SPQ){
+    item = Schedule();
+  }else{
+    item = ScheduleDrr();
+  }
 
   if ( item != NULL) {
     Ptr<Packet> p = (Ptr<Packet>)item;
@@ -288,6 +300,11 @@ DiffServ<Item>::Peek (void) const
 			TrafficClass* c = *it;
 			std::cout << " trafficClass  priority  : "<< c->getPriorityLevel()<<std::endl;
 		}
+	}
+
+  template <typename Item>
+	void DiffServ<Item>::setQOS(QOSMode mode){
+		qos = mode;
 	}
 	
 	
