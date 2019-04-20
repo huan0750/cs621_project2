@@ -1,26 +1,24 @@
 #include "FilterElement.h"
+#include "ipv4-header.h"
+
 namespace ns3 {
+    
+    // TypeId
+    // FilterElement::GetTypeId (void)
+    // {
+    // static TypeId tid = TypeId ("ns3::FilterElement")
+    //     .SetParent<Object> ()
+    //     .SetGroupName("DiffServ")
+    // ;
+    // return tid;
+    // }
+      
 
-
-
-    /*
-      TypeId
-      FilterElement::GetTypeId (void)
-      {
-        static TypeId tid = TypeId ("ns3::FilterElement")
-          .SetParent<Object> ()
-          .SetGroupName("DiffServ")
-        ;
-        return tid;
-      }
-      */
- // };
-/*
   class SrcIPFilterElement : public FilterElement {
       public:
       bool match(Ptr<Packet> p)
       {
-         return p.address == value;
+        return p.GetSource.GetIpv4 == value;
       }
 
       private:
@@ -31,7 +29,7 @@ namespace ns3 {
       public:
       bool match(Ptr<Packet> p)
       {
-         return p.mask == value;
+         return p.GetSource.GetMask == value;
       }
 
       private:
@@ -42,7 +40,7 @@ namespace ns3 {
       public:
       bool match(Ptr<Packet> p)
       {
-         return p.port == value;
+         return p.GetSource.GetPort == value;
       }
 
       private:
@@ -53,7 +51,7 @@ namespace ns3 {
       public:
       bool match(Ptr<Packet> p)
       {
-         return p.address == value;
+         return p.GetDestination.GetIpv4 == value;
       }
 
       private:
@@ -64,7 +62,7 @@ namespace ns3 {
       public:
       bool match(Ptr<Packet> p)
       {
-         return p.mask == value;
+         return p.GetDestination.GetMask == value;
       }
 
       private:
@@ -75,7 +73,7 @@ namespace ns3 {
       public:
       bool match(Ptr<Packet> p)
       {
-         return p.port == value;
+         return p.GetDestination.GetPort == value;
       }
 
       private:
@@ -86,12 +84,12 @@ namespace ns3 {
       public:
       bool match(Ptr<Packet> p)
       {
-         return p.protocolNumber == value;
+         return p.GetHeader.GetProtocol == value;
       }
 
       private:
       uint32_t value;
   }
-  */
+  
 
 }
