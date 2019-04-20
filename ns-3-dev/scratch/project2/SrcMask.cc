@@ -24,7 +24,7 @@ namespace ns3 {
 			                // copy->RemoveHeader (tcpHeader);
 							copy->RemoveHeader (iph);
 							//  if (port == int(tcpHeader.GetDestinationPort())) return true;
-                            if(ipv4_mask.IsEqual(iph.GetSource().GetMask()) return true;
+                            if(ipv4_mask.IsEqual(iph.GetSource().GetMask())) return true;
 				
 			}else if (protocol == "UDP" && iph.GetProtocol() == 0x11){
 							// UdpHeader udpHeader;
