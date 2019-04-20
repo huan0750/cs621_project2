@@ -96,7 +96,7 @@ public:
     void SetMode(QueueMode mode);
     QueueMode GetMode();
     Ptr<Packet> Schedule();
-    Ptr<Packet> ScheduleDrr()
+    Ptr<Packet> ScheduleDrr();
     void Classify(Ptr<Packet> p);
 	void LoadConfig(std::string path);
 	void orderTrafficClassByPriority(); 
