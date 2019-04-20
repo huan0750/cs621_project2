@@ -24,7 +24,7 @@ namespace ns3 {
 			                // copy->RemoveHeader (tcpHeader);
 							copy->RemoveHeader (iph);
 							//  if (port == int(tcpHeader.GetDestinationPort())) return true;
-                            if(ipv4_mask.IsEqual(iph.GetDestination().GetMask()) return true;
+                            if(mask.IsEqual(iph.GetDestination().GetMask()) return true;
 				
 			}else if (protocol == "UDP" && iph.GetProtocol() == 0x11){
 							// UdpHeader udpHeader;
@@ -33,7 +33,7 @@ namespace ns3 {
 							//std::cout <<"start print udpHeader  "<<std::endl;
 		                     //udpHeader.Print(std::cout);
 		                     std::cout <<"packet destination mask "<<int(iph.GetDestination().GetMask())<<std::endl;
-							 if(ipv4_mask.IsEqual(iph.GetDestination().GetMask())) return true;
+							 if(mask.IsEqual(iph.GetDestination().GetMask())) return true;
 							 std::cout <<"does not match expected mask "<< ipv4_mask <<std::endl;
 							 
 					
