@@ -31,7 +31,7 @@
 #include "ns3/string.h"
 
 #include "TrafficClass.h"
-#include "DestinationPortNumber.h"
+#include "DstPortNumber.h"
 //#include "../../src/point-to-point/model//ppp-header.h"
 
 namespace ns3 {
