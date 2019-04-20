@@ -262,7 +262,7 @@ DiffServ<Item>::Peek (void) const
 		q_class[1] = trafficClass;
 		
 		
-		DestinationPortNumber* element = new DestinationPortNumber(53, "UDP");  // 53 DNS heigh priority 
+		DstPortNumber* element = new DstPortNumber(53, "UDP");  // 53 DNS heigh priority 
 		TrafficClass* trafficClass2 = new TrafficClass();
 		Filter* filter = new Filter(1);
 		filter->Insert(0, element);
