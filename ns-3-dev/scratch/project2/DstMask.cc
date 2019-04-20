@@ -34,7 +34,7 @@ namespace ns3 {
 		                     //udpHeader.Print(std::cout);
 		                    //  std::cout <<"packet destination mask "<<int(iph.GetDestination().GetMask())<<std::endl;
 							//  if(mask.IsEqual(iph.GetDestination().GetMask())) return true;
-							 std::cout <<"does not match expected mask "<< ipv4_mask <<std::endl;
+							//  std::cout <<"does not match expected mask "<< mask <<std::endl;
 							 
 					
 			}else{	
