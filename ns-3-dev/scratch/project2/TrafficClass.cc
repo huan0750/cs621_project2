@@ -16,7 +16,7 @@ namespace ns3 {
     bool TrafficClass::Enqueue(Ptr <Packet> p) {
         if (m_queueMode == QueueModeByte)
         {
-            if (bytes + p->GetSize () <= maxBytes) {
+            if (bytes + p->GetSize () <= max_bytes) {
 
                 m_queue.push(p);
                 bytes += p->GetSize ();
@@ -25,7 +25,7 @@ namespace ns3 {
                 return false;
             }
         } else {
-            if (packets + 1 <= maxPackets) {
+            if (packets + 1 <= max_packets) {
                 m_queue.push(p);
                 packets++;
                 return true;

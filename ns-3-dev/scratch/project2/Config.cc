@@ -1,4 +1,4 @@
-#include "Config.h"
+//#include "Config.h"
 
 
 
@@ -43,88 +43,88 @@ namespace ns3 {
 
 
 
-	void readFileJson() {
-		Json::Reader reader;
-		Json::Value root;
-
-		ifstream in("test.json", ios::binary);
-
-		if (!in.is_open()) {
-			cout << "Error opening file\n";
-			return;
-		}
-
-		/*
-        //test.json content：
-        {
-            "priority_level":"1",
-             "filter":[
-             	"filters":
-            	{
-					"type":"DestinationPortNumber",
-                	"protocol":"UDP",
-                	"port":80
-            	},
-            	"filters":
-            	{
-					"type":"DestinationPortNumber",
-                	"protocol":"UDP",
-                	"port":80
-            	}
-            ]
-            "filters":
-            {
-                "type":"DestinationPortNumber",
-                "protocol":"UDP",
-                "port":80
-            },
-			"priority_level_second":"2",
-            "type_element_second":
-            {
-                "type":"DestinationPortNumber",
-                "protocol":"UDP",
-                "port":80
-            }
-        }
-        */
-
-		if (reader.parse(in, root)) {
-			//读取根节点信息
-			//string name = root["name"].asString();
-			int priority_level_first = root["priority_level_first"].asInt();
-
-			cout << "priority level is" << priority_level_first << endl;
-
-			string type_first = root["type_element_first"]["type"].asString();
-			string protocol_first = root["type_element_first"]["protocol"].asString();
-			int port_first = root["type_element_first"]["port"].asInt();
-
-			cout << "type is " << type_first << endl;
-			cout << "protocol is " << protocol_first << endl;
-			cout << "port is " << port_first << endl;
-
-
-			cout << "Reading 1 is Complete!" << endl;
-
-			int priority_level_second = root["priority_level_second"].asInt();
-
-			cout << "priority level is" << priority_level_second << endl;
-
-			string type_second = root["type_element_second"]["type"].asString();
-			string protocol_second = root["type_element_second"]["protocol"].asString();
-			int port_second = root["type_element_second"]["port_second"].asInt();
-
-			cout << "second type is " << type_second << endl;
-			cout << "second protocol is " << protocol_second << endl;
-			cout << "second port is " << port_second << endl;
-
-
-			cout << "All Reading Complete!" << endl;
-		} else {
-			cout << "parse error\n" << endl;
-		}
-
-		in.close();
-	}
+//	void readFileJson() {
+//		Json::Reader reader;
+//		Json::Value root;
+//
+//		ifstream in("test.json", ios::binary);
+//
+//		if (!in.is_open()) {
+//			cout << "Error opening file\n";
+//			return;
+//		}
+//
+//		/*
+//        //test.json content：
+//        {
+//            "priority_level":"1",
+//             "filter":[
+//             	"filters":
+//            	{
+//					"type":"DestinationPortNumber",
+//                	"protocol":"UDP",
+//                	"port":80
+//            	},
+//            	"filters":
+//            	{
+//					"type":"DestinationPortNumber",
+//                	"protocol":"UDP",
+//                	"port":80
+//            	}
+//            ]
+//            "filters":
+//            {
+//                "type":"DestinationPortNumber",
+//                "protocol":"UDP",
+//                "port":80
+//            },
+//			"priority_level_second":"2",
+//            "type_element_second":
+//            {
+//                "type":"DestinationPortNumber",
+//                "protocol":"UDP",
+//                "port":80
+//            }
+//        }
+//        */
+//
+//		if (reader.parse(in, root)) {
+//
+//			//string name = root["name"].asString();
+//			int priority_level_first = root["priority_level_first"].asInt();
+//
+//			cout << "priority level is" << priority_level_first << endl;
+//
+//			string type_first = root["type_element_first"]["type"].asString();
+//			string protocol_first = root["type_element_first"]["protocol"].asString();
+//			int port_first = root["type_element_first"]["port"].asInt();
+//
+//			cout << "type is " << type_first << endl;
+//			cout << "protocol is " << protocol_first << endl;
+//			cout << "port is " << port_first << endl;
+//
+//
+//			cout << "Reading 1 is Complete!" << endl;
+//
+//			int priority_level_second = root["priority_level_second"].asInt();
+//
+//			cout << "priority level is" << priority_level_second << endl;
+//
+//			string type_second = root["type_element_second"]["type"].asString();
+//			string protocol_second = root["type_element_second"]["protocol"].asString();
+//			int port_second = root["type_element_second"]["port_second"].asInt();
+//
+//			cout << "second type is " << type_second << endl;
+//			cout << "second protocol is " << protocol_second << endl;
+//			cout << "second port is " << port_second << endl;
+//
+//
+//			cout << "All Reading Complete!" << endl;
+//		} else {
+//			cout << "parse error\n" << endl;
+//		}
+//
+//		in.close();
+//	}
 
 }
