@@ -43,54 +43,150 @@ namespace ns3 {
 
 
 
-//	void readFileJson() {
-//		Json::Reader reader;
-//		Json::Value root;
+	void readFileJson() {
+		Json::Reader reader;
+		Json::Value root;
+
+		ifstream in("test.json", ios::binary);
+
+		if (!in.is_open()) {
+			cout << "Error opening file\n";
+			return;
+		}
+
+
+        //test.json content：
+		/*
+        {
+            "num_queues": 2,
+            "traffic"[
+                     {
+                         "priority_level": 0,
+        		         "filters"[
+                                    {
+                                     "filter_element":[
+                                     {
+                                         "type":"DestinationPortNumber",
+                                         "protocol":"UDP",
+                                         "port":80
+                                     },
+                                     {
+                                         "type":"DestinationPortNumber",
+                                         "protocol":"UDP",
+                                         "port":80
+                                     }
+                                     ]
+                                  ,
+
+                                     "filter_element":[
+                                     {
+                                         "type":"DestinationPortNumber",
+                                         "protocol":"UDP",
+                                         "port":80
+                                     }
+                                     ]
+        		                  ]
+                                    }
+
+                         },
+                                {
+                                        "priority_level": 1,
+                                        "filters"[
+                                        {
+                                            "filter_element":[
+                                            {
+                                                "type":"DestinationPortNumber",
+                                                "protocol":"UDP",
+                                                "port":80
+                                            },
+                                            {
+                                                "type":"DestinationPortNumber",
+                                                "protocol":"UDP",
+                                                "port":80
+                                            }
+                                            ]
+
+                                        },
+                                        {
+                                            "filter_element":[
+                                            {
+                                                "type":"DestinationPortNumber",
+                                                "protocol":"UDP",
+                                                "port":80
+                                            },
+                                            {
+                                                "type":"DestinationPortNumber",
+                                                "protocol":"UDP",
+                                                "port":80
+                                            }
+                                            ]
+                                        }
+                                ]
+                                }
+                         ]
+
+        }
+        */
+
+//        q_class.resize(2);
 //
-//		ifstream in("test.json", ios::binary);
+//        TrafficClass* trafficClass = new TrafficClass(true);
+//        trafficClass->setPriorityLevel(0);
+//        //trafficClass->print();
+//        q_class[1] = trafficClass;
 //
-//		if (!in.is_open()) {
-//			cout << "Error opening file\n";
-//			return;
-//		}
 //
-//		/*
-//        //test.json content：
-//        {
-//            "priority_level":"1",
-//             "filter":[
-//             	"filters":
-//            	{
-//					"type":"DestinationPortNumber",
-//                	"protocol":"UDP",
-//                	"port":80
-//            	},
-//            	"filters":
-//            	{
-//					"type":"DestinationPortNumber",
-//                	"protocol":"UDP",
-//                	"port":80
-//            	}
-//            ]
-//            "filters":
-//            {
-//                "type":"DestinationPortNumber",
-//                "protocol":"UDP",
-//                "port":80
-//            },
-//			"priority_level_second":"2",
-//            "type_element_second":
-//            {
-//                "type":"DestinationPortNumber",
-//                "protocol":"UDP",
-//                "port":80
-//            }
-//        }
-//        */
+//        DestinationPortNumber* element = new DestinationPortNumber(53, "UDP");  // 53 DNS heigh priority
+//        TrafficClass* trafficClass2 = new TrafficClass();
+//        Filter* filter = new Filter(1);
+//        filter->Insert(0, element);
+//        trafficClass2->resizeFilters(1);
+//        trafficClass2->insertFilter(0, filter);
+//        trafficClass2->setPriorityLevel(1);
+
+        //trafficClass2->print();
+
+        q_class[0] = trafficClass2;
+
+		if (reader.parse(in, root)) {
+            int num_queues = root["num_queues"].asInt();
+            list.resize(num_queues);
+
+            Json::Value traffic_array = root["traffic"];
+            cout << "array size = " << traffic_array.size() << endl;
+            for(unsigned int i = 0; i < traffic_array.size(); i++)
+                 {
+                     TrafficClass* trafficClass = new TrafficClass(true);
+                     if (traffic_array[i].isMember("priority_level")){
+                         int priority_level = traffic_arrray[i]["priority_level"].asInt();
+                         trafficClass->setPriorityLevel(priority_level);
+                     }
+
+                     Json::Value filter_array = root["traffic"][i]["filters"];
+
+                     int filter_size = filter_array.size();
+                     Filter* filter = new Filter(filter_size);
+
+                     for(unsigned int j = 0; j < filter_size; ++j){
+                         Json::Value filter_elem_array = root["traffic"][i]["filters"][j]["filter_element"];
+
+                         int filter_elem_size = filter_elem_array.size();
+
+                         for(unsigned int k = 0; k < filter_elem_size; ++k){
+                             string type = filter_elem_array[j]["type"].asString();
+                             string protocol = filter_elem_array[j]["protocol"].asString();
+                             int port = filter_elem_array[j]["port"].asInt();
+                             DestinationPortNumber* element = new DestinationPortNumber(port, protocol);
+                             filter->Insert(0, element);
+                         }
+                         trafficClass->insertFilter(0, filter);
+                     }
+                     list[i] = trafficClass;
+
+                 }
+
 //
-//		if (reader.parse(in, root)) {
 //
-//			//string name = root["name"].asString();
 //			int priority_level_first = root["priority_level_first"].asInt();
 //
 //			cout << "priority level is" << priority_level_first << endl;
@@ -120,11 +216,11 @@ namespace ns3 {
 //
 //
 //			cout << "All Reading Complete!" << endl;
-//		} else {
-//			cout << "parse error\n" << endl;
-//		}
-//
-//		in.close();
-//	}
+		} else {
+			cout << "parse error\n" << endl;
+		}
+
+		in.close();
+	}
 
 }

@@ -4,7 +4,7 @@
 
 
 #include "ns3/queue.h"
-//#include <json/json.h>
+#include <json/json.h>
 #include <map>
 
 typedef std::map<std::string, std::string>  FilterElementConfig;
@@ -25,6 +25,7 @@ namespace ns3 {
       bool load(std::string path);
 	  int  getTrafficClassSize();
 	  std::vector<TrafficClassConfig> getTrafficClass();
+	  void readFileJson();
   };
 }
 
