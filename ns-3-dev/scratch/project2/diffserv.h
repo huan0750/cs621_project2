@@ -96,6 +96,7 @@ public:
     void SetMode(QueueMode mode);
     QueueMode GetMode();
     Ptr<Packet> Schedule();
+    Ptr<Packet> ScheduleDrr();
     void Classify(Ptr<Packet> p);
 	void LoadConfig(std::string path);
 	void orderTrafficClassByPriority(); 
@@ -197,6 +198,19 @@ DiffServ<Item>::Peek (void) const
 
     template <typename Item>
     Ptr<Packet> DiffServ<Item>::Schedule(){
+        for (unsigned i=0; i<q_class.size(); i++){
+            TrafficClass* trafficClass = q_class[i];
+            Ptr<Packet> p = trafficClass->Dequeue();
+            if (p != NULL) {
+				        std::cout << "<<<<<<<<<<<packet  dequeue from  queue  priority_level "<< trafficClass->getPriorityLevel()<<std::endl;
+                return p;
+            }
+        }
+        return NULL;
+    }
+
+    template <typename Item>
+    Ptr<Packet> DiffServ<Item>::ScheduleDrr(){
         for (unsigned i=0; i<q_class.size(); i++){
             TrafficClass* trafficClass = q_class[i];
             Ptr<Packet> p = trafficClass->Dequeue();
