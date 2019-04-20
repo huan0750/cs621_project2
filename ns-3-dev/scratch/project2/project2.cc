@@ -38,7 +38,7 @@ main (int argc, char *argv[])
   LogComponentEnable ("UdpServer", LOG_LEVEL_ALL);
 
   NodeContainer nodes;
-  nodes.Create (3);
+  nodes.Creacte (3);
 
     // n0-->n1
   PointToPointHelper pointToPoint;
