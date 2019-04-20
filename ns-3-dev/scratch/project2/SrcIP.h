@@ -16,7 +16,7 @@ namespace ns3 {
       Ipv4Address address;
 	  std::string  protocol;     
   public:
-      DestIP(Ipv4Address ipv4_address,  std::string protocol){
+      SrcIP(Ipv4Address ipv4_address,  std::string protocol){
           address = ipv4_address;
 		  this->protocol = protocol;
       }

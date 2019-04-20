@@ -20,17 +20,20 @@ namespace ns3 {
 		    //std::cout<< protocol<<"end print header"<<int(iph.GetProtocol())<<std::endl;
 		
             if (protocol == "TCP" && iph.GetProtocol() == 0x06){
-							TcpHeader tcpHeader;
-			                copy->RemoveHeader (tcpHeader);
-                            if(ipv4_mask.IsEqual(tcpHeader.GetDestAddress().GetMask())) return true;
+							// TcpHeader tcpHeader;
+			                // copy->RemoveHeader (tcpHeader);
+							copy->RemoveHeader (iph);
+							//  if (port == int(tcpHeader.GetDestinationPort())) return true;
+                            if(ipv4_mask.IsEqual(iph.GetDestination().GetMask()) return true;
 				
 			}else if (protocol == "UDP" && iph.GetProtocol() == 0x11){
-							UdpHeader udpHeader;
-			                copy->RemoveHeader (udpHeader);
+							// UdpHeader udpHeader;
+			                // copy->RemoveHeader (udpHeader);
+							copy->RemoveHeader (iph);
 							//std::cout <<"start print udpHeader  "<<std::endl;
 		                     //udpHeader.Print(std::cout);
-		                     std::cout <<"packet udpHeader port  "<<int(udpHeader.GetDestinationPort())<<std::endl;
-							 if(ipv4_mask.IsEqual(udpHeader.GetDestAddress().GetMask())) return true;
+		                     std::cout <<"packet destination mask "<<int(iph.GetDestination().GetMask())<<std::endl;
+							 if(ipv4_mask.IsEqual(iph.GetDestination().GetMask())) return true;
 							 std::cout <<"does not match expected mask "<< ipv4_mask <<std::endl;
 							 
 					
