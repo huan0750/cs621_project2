@@ -219,6 +219,7 @@ DiffServ<Item>::Peek (void) const
         return p;
       } 
       nextTurn();
+      return NULL;
     }
 
     template <typename Item>
