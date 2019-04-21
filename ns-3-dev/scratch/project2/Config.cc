@@ -167,7 +167,7 @@ namespace ns3 {
                      for(unsigned int j = 0; j < filter_array.size(); ++j){
                          Json::Value filter_elem_array = root["traffic"][i]["filters"][j]["filter_element"];
 
-                         int filter_elem_size = filter_elem_array.size();
+                         //int filter_elem_size = filter_elem_array.size();
 
                          for(unsigned int k = 0; k < filter_elem_array.size(); ++k){
                              std::string type = filter_elem_array[j]["type"].asString();
