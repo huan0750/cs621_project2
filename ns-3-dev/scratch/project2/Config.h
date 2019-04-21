@@ -44,7 +44,7 @@ namespace ns3 {
 	  int  getTrafficClassSize();
 	  std::vector<TrafficClassConfig> getTrafficClass();
 	  std::vector<ns3::TrafficClass*> readFileJson(std::string path);
-	  std::vector<ns3::TrafficClass*> Config::getTraffics();
+	  std::vector<ns3::TrafficClass*> getTraffics();
   };
 }
 
