@@ -75,13 +75,12 @@ namespace ns3 {
         //q_class[0] = trafficClass2;
 
 		//if (reader.parse(in, root)) {
-            int num_queues = root["num_queues"].asInt();
+		int num_queues = root["num_queues"].asInt();
 
-            //qConfig.resize(num_queues);
+		qConfig.resize(num_queues);
 
-            Json::Value traffic_array = root["traffic"];
-            //cout << "array size = " << traffic_array.size() << endl;
-            for(unsigned int i = 0; i < traffic_array.size(); i++)
+		Json::Value traffic_array = root["traffic"];
+		for(unsigned int i = 0; i < traffic_array.size(); i++)
                  {
                      TrafficClass* trafficClass = new TrafficClass(true);
                      if (traffic_array[i].isMember("priority_level")){
@@ -108,7 +107,7 @@ namespace ns3 {
                          }
                          trafficClass->insertFilter(0, filter);
                      }
-                     qConfig[i] = trafficClass;
+                     trafficClass = qConfig[i];
 
                  }
 

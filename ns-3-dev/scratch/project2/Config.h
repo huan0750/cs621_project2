@@ -22,13 +22,14 @@ typedef std::vector<FilterConfig> TrafficClassConfig;
 namespace ns3 {
 
   class Config{
-  public:
-     Config();
+//  public:
+//     Config();
      
 	 
    private:
+     std::vector<ns3::TrafficClass*> qConfig;
 	 std::vector<TrafficClassConfig> list;
-	 std::vector<ns3::TrafficClass*> qConfig;
+
 
   public :
       bool load(std::string path);
