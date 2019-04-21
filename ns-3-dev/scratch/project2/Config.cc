@@ -105,24 +105,28 @@ namespace ns3 {
 							 }
 
 							 if((type.compare("SourceMask")) == 0){
-//							 	 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
-//								 SrcMask* element = new SrcMask(ipv4_mask, protocol);
-//								 filter->Insert(0, element);
+							 	 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
+								 Ipv4Address* address = new Ipv4Address(ipv4_mask);
+								 SrcMask* element = new SrcMask(address, protocol);
+								 filter->Insert(0, element);
 							 }
 							 if((type.compare("DestinationMask")) == 0){
-//								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
-//								 DstMask* element = new DstMask(ipv4_mask, protocol);
-//								 filter->Insert(0, element);
+								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
+								 Ipv4Address* address = new Ipv4Address(ipv4_mask);
+								 DstMask* element = new DstMask(address, protocol);
+								 filter->Insert(0, element);
 							 }
 							 if((type.compare("DestinationIP")) == 0){
-//								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
-//								 DstIP* element = new DstIP(ipv4_mask", protocol);
-//								 filter->Insert(0, element);
+								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
+								 Ipv4Address* address = new Ipv4Address(ipv4_mask);
+								 DstIP* element = new DstIP(address, protocol);
+								 filter->Insert(0, element);
 							 }
 							 if((type.compare("SourceIP")) == 0){
-//								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
-//								 SrcIP* element = new SrcIP(ipv4_mask, protocol);
-//								 filter->Insert(0, element);
+								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
+								 Ipv4Address* address = new Ipv4Address(ipv4_mask);
+								 SrcIP* element = new SrcIP(address, protocol);
+								 filter->Insert(0, element);
 							 }
                          }
                          trafficClass->insertFilter(0, filter);
