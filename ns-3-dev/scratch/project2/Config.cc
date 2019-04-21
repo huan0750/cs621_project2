@@ -43,7 +43,7 @@ namespace ns3 {
 
 
 
-	void readFileJson() {
+	void Config::readFileJson() {
 		//Json::Reader reader;
 		Json::CharReaderBuilder rbuilder;
 		Json::Value root;
