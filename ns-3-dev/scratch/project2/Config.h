@@ -12,6 +12,13 @@
 #include "src/json/json.h"
 #include "TrafficClass.h"
 #include "DstPortNumber.h"
+#include "DstIP.h"
+#include "DstMask.h"
+#include "ProtocolNum.h"
+#include "SrcIP.h"
+#include "SrcMask.h"
+#include "SrcPortNumber.h"
+
 
 #include <map>
 
@@ -31,11 +38,13 @@ namespace ns3 {
 	 std::vector<TrafficClassConfig> list;
 
 
+
   public :
       bool load(std::string path);
 	  int  getTrafficClassSize();
 	  std::vector<TrafficClassConfig> getTrafficClass();
-	  void readFileJson();
+	  std::vector<TrafficClassConfig> readFileJson(std::string path);
+	  std::vector<TrafficClassConfig> Config::getTraffics();
   };
 }
 

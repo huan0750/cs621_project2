@@ -41,52 +41,38 @@ namespace ns3 {
 		 
 	 }
 
+	std::vector<TrafficClassConfig> Config::getTraffics(){
+		return qConfig;
 
+	}
 
-	void Config::readFileJson() {
-		//Json::Reader reader;
+	
+	std::vector<TrafficClassConfig> Config::readFileJson(std::string path) {
 		Json::CharReaderBuilder rbuilder;
 		Json::Value root;
 		std::string errs;
-		std::ifstream config_doc("scratch/project2/spq.json", std::ifstream::binary);
+		std::ifstream config_doc(path, std::ifstream::binary);
 		config_doc >> root;
 		Json::parseFromStream (rbuilder, config_doc, &root, &errs);
-
-
-
-//        q_class.resize(2);
-//
-//        TrafficClass* trafficClass = new TrafficClass(true);
-//        trafficClass->setPriorityLevel(0);
-//        //trafficClass->print();
-//        q_class[1] = trafficClass;
-//
-//
-//        DestinationPortNumber* element = new DestinationPortNumber(53, "UDP");  // 53 DNS heigh priority
-//        TrafficClass* trafficClass2 = new TrafficClass();
-//        Filter* filter = new Filter(1);
-//        filter->Insert(0, element);
-//        trafficClass2->resizeFilters(1);
-//        trafficClass2->insertFilter(0, filter);
-//        trafficClass2->setPriorityLevel(1);
-
-        //trafficClass2->print();
-
-        //q_class[0] = trafficClass2;
-
-		//if (reader.parse(in, root)) {
 		int num_queues = root["num_queues"].asInt();
 
 		qConfig.resize(num_queues);
-
 		Json::Value traffic_array = root["traffic"];
 		for(unsigned int i = 0; i < traffic_array.size(); i++)
                  {
                      TrafficClass* trafficClass = new TrafficClass(true);
+					 if (traffic_array[i].isMember("ifDefault")){
+						 bool ifDefault = traffic_array[i]["ifDefault"].asBool();
+						 trafficClass = new TrafficClass(ifDefault);
+					 }
                      if (traffic_array[i].isMember("priority_level")){
                          int priority_level = traffic_array[i]["priority_level"].asInt();
                          trafficClass->setPriorityLevel(priority_level);
                      }
+					 if (traffic_array[i].isMember("quantum")){
+						 int quantum = traffic_array[i]["quantum"].asInt();
+						 trafficClass->setWeight(quantum);
+					 }
 
                      Json::Value filter_array = root["traffic"][i]["filters"];
 
@@ -99,54 +85,51 @@ namespace ns3 {
                          //int filter_elem_size = filter_elem_array.size();
 
                          for(unsigned int k = 0; k < filter_elem_array.size(); ++k){
-                             std::string type = filter_elem_array[j]["type"].asString();
-                             std::string protocol = filter_elem_array[j]["protocol"].asString();
-                             int port = filter_elem_array[j]["port"].asInt();
-                             DstPortNumber* element = new DstPortNumber(port, protocol);
-                             filter->Insert(0, element);
+							 std::string type = filter_elem_array[j]["type"].asString();
+							 std::string protocol = filter_elem_array[j]["protocol"].asString();
+
+							 if((type.compare("DestinationPortNumber")) == 0){
+								 int port = filter_elem_array[j]["port"].asInt();
+								 DstPortNumber* element = new DstPortNumber(port, protocol);
+								 filter->Insert(0, element);
+							 }
+							 if((type.compare("SourcePortNumber")) == 0){
+								 int port = filter_elem_array[j]["port"].asInt();
+								 SrcPortNumber* element = new SrcPortNumber(port, protocol);
+								 filter->Insert(0, element);
+							 }
+							 if((type.compare("ProtocolNumber")) == 0){
+								 int protocol_num = filter_elem_array[j]["protocol_num"].asInt();
+								 ProtocolNum* element = new ProtocolNum(protocol_num, protocol);
+								 filter->Insert(0, element);
+							 }
+
+							 if((type.compare("SourceMask")) == 0){
+//							 	 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
+//								 SrcMask* element = new SrcMask(ipv4_mask, protocol);
+//								 filter->Insert(0, element);
+							 }
+							 if((type.compare("DestinationMask")) == 0){
+//								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
+//								 DstMask* element = new DstMask(ipv4_mask, protocol);
+//								 filter->Insert(0, element);
+							 }
+							 if((type.compare("DestinationIP")) == 0){
+//								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
+//								 DstIP* element = new DstIP(ipv4_mask", protocol);
+//								 filter->Insert(0, element);
+							 }
+							 if((type.compare("SourceIP")) == 0){
+//								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
+//								 SrcIP* element = new SrcIP(ipv4_mask, protocol);
+//								 filter->Insert(0, element);
+							 }
                          }
                          trafficClass->insertFilter(0, filter);
                      }
                      trafficClass = qConfig[i];
-
                  }
-
-//
-//
-//			int priority_level_first = root["priority_level_first"].asInt();
-//
-//			cout << "priority level is" << priority_level_first << endl;
-//
-//			string type_first = root["type_element_first"]["type"].asString();
-//			string protocol_first = root["type_element_first"]["protocol"].asString();
-//			int port_first = root["type_element_first"]["port"].asInt();
-//
-//			cout << "type is " << type_first << endl;
-//			cout << "protocol is " << protocol_first << endl;
-//			cout << "port is " << port_first << endl;
-//
-//
-//			cout << "Reading 1 is Complete!" << endl;
-//
-//			int priority_level_second = root["priority_level_second"].asInt();
-//
-//			cout << "priority level is" << priority_level_second << endl;
-//
-//			string type_second = root["type_element_second"]["type"].asString();
-//			string protocol_second = root["type_element_second"]["protocol"].asString();
-//			int port_second = root["type_element_second"]["port_second"].asInt();
-//
-//			cout << "second type is " << type_second << endl;
-//			cout << "second protocol is " << protocol_second << endl;
-//			cout << "second port is " << port_second << endl;
-//
-//
-//			cout << "All Reading Complete!" << endl;
-//		} else {
-//			cout << "parse error\n" << endl;
-//		}
-
-		//in.close();
+		return qConfig;
 	}
 
 }
