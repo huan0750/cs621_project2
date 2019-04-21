@@ -1,6 +1,6 @@
 
-#ifndef CS621_PROJECT2_DSTIP_H
-#define CS621_PROJECT2_DSTIP_H
+#ifndef CS621_PROJECT2_DESTINATIONIP_H
+#define CS621_PROJECT2_DESTINATIONIP_H
 
 
 
@@ -11,12 +11,12 @@
 
 namespace ns3 {
 
-  class DstIP : public FilterElement{
+  class DestinationIP : public FilterElement{
   private:
       Ipv4Address address;
 	  std::string  protocol;     
   public:
-      DstIP(Ipv4Address ipv4_address,  std::string protocol){
+      DestinationIP(Ipv4Address ipv4_address,  std::string protocol){
           address = ipv4_address;
 		  this->protocol = protocol;
       }
@@ -26,4 +26,4 @@ namespace ns3 {
 }
 
 
-#endif //CS621_PROJECT2_DSTIP_H
+#endif //CS621_PROJECT2_DESTINATIONIP_H

@@ -1,5 +1,5 @@
-#ifndef CS621_PROJECT2_PROTOCOLNUM_H
-#define CS621_PROJECT2_PROTOCOLNUM_H
+#ifndef CS621_PROJECT2_PROTOCOLNUMBER_H
+#define CS621_PROJECT2_PROTOCOLNUMBER_H
 
 
 
@@ -8,13 +8,13 @@
 #include "ns3/ipv4-address.h"
 
 namespace ns3 {
-  class ProtocolNum : public FilterElement
+  class ProtocolNumber : public FilterElement
   {
   private:
     int32_t protocol_num;
 	std::string  protocol;     
   public:
-      ProtocolNum(int32_t protocol_num,  std::string protocol){
+      ProtocolNumber(int32_t protocol_num,  std::string protocol){
         this->protocol_num = protocol_num;
 		this->protocol = protocol;
       }
@@ -23,4 +23,4 @@ namespace ns3 {
 }
 
 
-#endif //CS621_PROJECT2_DETINATIONPORTNUMBER_H
+#endif //CS621_PROJECT2_PROTOCOLNUMBER_H

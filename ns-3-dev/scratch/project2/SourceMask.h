@@ -1,6 +1,6 @@
 
-#ifndef CS621_PROJECT2_SRCMASK_H
-#define CS621_PROJECT2_SRCMASK_H
+#ifndef CS621_PROJECT2_SOURCEMASK_H
+#define CS621_PROJECT2_SOURCEMASK_H
 
 
 
@@ -11,12 +11,12 @@
 
 namespace ns3 {
 
-  class SrcMask : public FilterElement{
+  class SourceMask : public FilterElement{
   private:
       Ipv4Mask ipv4_mask;
 	  std::string  protocol;     
   public:
-      SrcMask(Ipv4Mask ipv4_mask,  std::string protocol){
+        SourceMask(Ipv4Mask ipv4_mask,  std::string protocol){
           this->ipv4_mask = ipv4_mask;
 		  this->protocol = protocol;
       }
@@ -26,4 +26,4 @@ namespace ns3 {
 }
 
 
-#endif //CS621_PROJECT2_SRCMASK_H
+#endif //CS621_PROJECT2_SOURCEMASK_H

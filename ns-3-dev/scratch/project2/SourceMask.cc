@@ -1,4 +1,4 @@
-#include "SrcPortNumber.h"
+#include "SourceMask.h"
 #include "ns3/ppp-header.h"
 #include "ns3/ipv4-header.h"
 #include "ns3/udp-header.h"
@@ -8,7 +8,7 @@
 
 
 namespace ns3 {
-    bool SrcPortNumber::match(Ptr<Packet> p){
+    bool SourceMask::match(Ptr<Packet> p){
 		    Ptr<Packet> copy = p->Copy ();
             PppHeader ppp;
 			copy->RemoveHeader (ppp);
@@ -20,22 +20,24 @@ namespace ns3 {
 		    //std::cout<< protocol<<"end print header"<<int(iph.GetProtocol())<<std::endl;
 		
             if (protocol == "TCP" && iph.GetProtocol() == 0x06){
-							TcpHeader tcpHeader;
-			                copy->RemoveHeader (tcpHeader);
-							 if (port == int(tcpHeader.GetSourcePort())) return true;
+							// TcpHeader tcpHeader;
+			                // copy->RemoveHeader (tcpHeader);
+							copy->RemoveHeader (iph);
+							//  if (port == int(tcpHeader.GetDestinationPort())) return true;
+                            // if(ipv4_mask.IsEqual(iph.GetSource().GetMask())) return true;
 				
 			}else if (protocol == "UDP" && iph.GetProtocol() == 0x11){
-							UdpHeader udpHeader;
-			                copy->RemoveHeader (udpHeader);
+							// UdpHeader udpHeader;
+			                // copy->RemoveHeader (udpHeader);
+							copy->RemoveHeader (iph);
 							//std::cout <<"start print udpHeader  "<<std::endl;
 		                     //udpHeader.Print(std::cout);
-		                     std::cout <<"packet udpHeader port  "<<int(udpHeader.GetDestinationPort())<<std::endl;
-							 if (port == int(udpHeader.GetSourcePort())) return true; 
-							 std::cout <<"not matching expect  port "<<port <<std::endl;
+		                    //  std::cout <<"packet source mask "<<int(iph.GetSource().GetMask())<<std::endl;
+							//  if(ipv4_mask.IsEqual(iph.GetSource().GetMask())) return true;
+							 std::cout <<"does not match expected mask "<< ipv4_mask <<std::endl;
 							 
 					
-			}else{
-				
+			}else{	
 				return false;
 			}
         return false;

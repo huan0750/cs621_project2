@@ -1,6 +1,6 @@
 
-#ifndef CS621_PROJECT2_SRCPORTNUMBER_H
-#define CS621_PROJECT2_SRCPORTNUMBER_H
+#ifndef CS621_PROJECT2_SOURCEPORTNUMBER_H
+#define CS621_PROJECT2_SOURCEPORTNUMBER_H
 
 
 
@@ -10,13 +10,13 @@
 
 namespace ns3 {
 
-  class SrcPortNumber : public FilterElement
+  class SourcePortNumber : public FilterElement
   {
   private:
       uint32_t port;
 	  std::string  protocol;     
   public:
-      SrcPortNumber(uint32_t destination_port,  std::string protocol){
+      SourcePortNumber(uint32_t destination_port,  std::string protocol){
           port = destination_port;
 		  this->protocol = protocol;
       }
@@ -26,4 +26,4 @@ namespace ns3 {
 }
 
 
-#endif //CS621_PROJECT2_SRCPORTNUMBER_H
+#endif //CS621_PROJECT2_SOURCEPORTNUMBER_H

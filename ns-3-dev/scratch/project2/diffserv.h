@@ -31,7 +31,7 @@
 #include "ns3/string.h"
 
 #include "TrafficClass.h"
-#include "DstPortNumber.h"
+#include "DestinationPortNumber.h"
 //#include "../../src/point-to-point/model//ppp-header.h"
 
 namespace ns3 {
@@ -262,7 +262,7 @@ DiffServ<Item>::Peek (void) const
 		q_class[1] = trafficClass;
 		
 		
-		DstPortNumber* element = new DstPortNumber(53, "UDP");  // 53 DNS heigh priority 
+		DestinationPortNumber* element = new DestinationPortNumber(53, "UDP");  // 53 DNS high priority 
 		TrafficClass* trafficClass2 = new TrafficClass();
 		Filter* filter = new Filter(1);
 		filter->Insert(0, element);

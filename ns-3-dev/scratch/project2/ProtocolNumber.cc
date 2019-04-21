@@ -1,4 +1,4 @@
-#include "ProtocolNum.h"
+#include "ProtocolNumber.h"
 #include "ns3/ppp-header.h"
 #include "ns3/ipv4-header.h"
 #include "ns3/udp-header.h"
@@ -8,7 +8,7 @@
 
 
 namespace ns3 {
-    bool ProtocolNum::match(Ptr<Packet> p){
+    bool ProtocolNumber::match(Ptr<Packet> p){
 		    Ptr<Packet> copy = p->Copy ();
             PppHeader ppp;
 			copy->RemoveHeader (ppp);
