@@ -147,7 +147,7 @@ namespace ns3 {
 
 		//if (reader.parse(in, root)) {
             int num_queues = root["num_queues"].asInt();
-            q_class.resize(num_queues);
+            queues.resize(num_queues);
 
             Json::Value traffic_array = root["traffic"];
             //cout << "array size = " << traffic_array.size() << endl;
@@ -178,7 +178,7 @@ namespace ns3 {
                          }
                          trafficClass->insertFilter(0, filter);
                      }
-                     q_class[i] = trafficClass;
+                     queues[i] = trafficClass;
 
                  }
 
