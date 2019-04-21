@@ -161,13 +161,13 @@ namespace ns3 {
 
                      Json::Value filter_array = root["traffic"][i]["filters"];
 
-                    // int filter_size = filter_array.size();
+                     int filter_size = filter_array.size();
                      Filter* filter = new Filter(filter_size);
 
                      for(unsigned int j = 0; j < filter_array.size(); ++j){
                          Json::Value filter_elem_array = root["traffic"][i]["filters"][j]["filter_element"];
 
-                         //int filter_elem_size = filter_elem_array.size();
+                         int filter_elem_size = filter_elem_array.size();
 
                          for(unsigned int k = 0; k < filter_elem_array.size(); ++k){
                              string type = filter_elem_array[j]["type"].asString();

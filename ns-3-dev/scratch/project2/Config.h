@@ -11,7 +11,6 @@
 #include "TrafficClass.h"
 #include "DstPortNumber.h"
 
-#include "ns3/string.h"
 #include <map>
 
 typedef std::map<std::string, std::string>  FilterElementConfig;
