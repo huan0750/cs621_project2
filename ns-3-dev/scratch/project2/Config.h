@@ -6,6 +6,8 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <stdint.h>
+
 #include "ns3/queue.h"
 #include "src/json/json.h"
 #include "TrafficClass.h"

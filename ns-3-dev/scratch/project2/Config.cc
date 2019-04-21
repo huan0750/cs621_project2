@@ -170,8 +170,8 @@ namespace ns3 {
                          int filter_elem_size = filter_elem_array.size();
 
                          for(unsigned int k = 0; k < filter_elem_array.size(); ++k){
-                             string type = filter_elem_array[j]["type"].asString();
-                             string protocol = filter_elem_array[j]["protocol"].asString();
+                             std::string type = filter_elem_array[j]["type"].asString();
+                             std::string protocol = filter_elem_array[j]["protocol"].asString();
                              int port = filter_elem_array[j]["port"].asInt();
                              DstPortNumber* element = new DstPortNumber(port, protocol);
                              filter->Insert(0, element);
