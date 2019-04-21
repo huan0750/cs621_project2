@@ -52,78 +52,7 @@ namespace ns3 {
 		config_doc >> root;
 		Json::parseFromStream (rbuilder, config_doc, &root, &errs);
 
-		//ifstream in("test.json", ios::binary);
 
-//		if (!in.is_open()) {
-//			cout << "Error opening file\n";
-//			return;
-//		}
-
-
-        //test.json content：
-		/*
-        {
-            "num_queues": 2,
-            "traffic":[
-                     {
-                         "priority_level": 0,
-        		         "filters":[
-                                    {
-                                     "filter_element":[
-                                     {
-                                         "type":"DestinationPortNumber",
-                                         "protocol":"UDP",
-                                         "port":80
-                                     },
-                                     {
-                                         "type":"DestinationPortNumber",
-                                         "protocol":"UDP",
-                                         "port":80
-                                     }
-                                     ]
-                                    }
-
-        		                  ]
-
-                         },
-                                {
-                                        "priority_level": 1,
-                                        "filters":[
-                                        {
-                                            "filter_element":[
-                                            {
-                                                "type":"DestinationPortNumber",
-                                                "protocol":"UDP",
-                                                "port":80
-                                            },
-                                            {
-                                                "type":"DestinationPortNumber",
-                                                "protocol":"UDP",
-                                                "port":80
-                                            }
-                                            ]
-
-                                        },
-                                        {
-                                            "filter_element":[
-                                            {
-                                                "type":"DestinationPortNumber",
-                                                "protocol":"UDP",
-                                                "port":80
-                                            },
-                                            {
-                                                "type":"DestinationPortNumber",
-                                                "protocol":"UDP",
-                                                "port":80
-                                            }
-                                            ]
-                                        }
-                                ]
-                                }
-                         ]
-
-        }
-        */
 
 //        q_class.resize(2);
 //
@@ -147,10 +76,11 @@ namespace ns3 {
 
 		//if (reader.parse(in, root)) {
             int num_queues = root["num_queues"].asInt();
-            queues.resize(num_queues);
+
+            qConfig.resize(num_queues);
 
             Json::Value traffic_array = root["traffic"];
-            //cout << "array size = " << traffic_array.size() << endl;
+            cout << "array size = " << traffic_array.size() << endl;
             for(unsigned int i = 0; i < traffic_array.size(); i++)
                  {
                      TrafficClass* trafficClass = new TrafficClass(true);
@@ -178,7 +108,7 @@ namespace ns3 {
                          }
                          trafficClass->insertFilter(0, filter);
                      }
-                     queues[i] = trafficClass;
+                     qConfig[i] = trafficClass;
 
                  }
 

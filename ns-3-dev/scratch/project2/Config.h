@@ -28,7 +28,7 @@ namespace ns3 {
 	 
    private:
 	 std::vector<TrafficClassConfig> list;
-	 std::vector<ns3::TrafficClass*> queues;
+	 std::vector<ns3::TrafficClass*> qConfig;
 
   public :
       bool load(std::string path);
