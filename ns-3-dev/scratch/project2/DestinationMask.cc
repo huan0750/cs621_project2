@@ -1,4 +1,4 @@
-#include "DstMask.h"
+#include "DestinatioMask.h"
 #include "ns3/ppp-header.h"
 #include "ns3/ipv4-header.h"
 #include "ns3/udp-header.h"
@@ -8,7 +8,7 @@
 
 
 namespace ns3 {
-    bool DstMask::match(Ptr<Packet> p){
+    bool DestinationMask::match(Ptr<Packet> p){
 		    Ptr<Packet> copy = p->Copy ();
             PppHeader ppp;
 			copy->RemoveHeader (ppp);
@@ -20,24 +20,25 @@ namespace ns3 {
 		    //std::cout<< protocol<<"end print header"<<int(iph.GetProtocol())<<std::endl;
 		
             if (protocol == "TCP" && iph.GetProtocol() == 0x06){
-							// TcpHeader tcpHeader;
+							TcpHeader tcpHeader;
 			                // copy->RemoveHeader (tcpHeader);
 							copy->RemoveHeader (iph);
-							//  if (port == int(tcpHeader.GetDestinationPort())) return true;
-                            // if(mask.IsEqual(iph.GetDestination().GetMask())) return true;
+                            if(address.IsEqual(iph.GetDestination())) return true;
+						
 				
 			}else if (protocol == "UDP" && iph.GetProtocol() == 0x11){
-							// UdpHeader udpHeader;
+							UdpHeader udpHeader;
 			                // copy->RemoveHeader (udpHeader);
 							copy->RemoveHeader (iph);
 							//std::cout <<"start print udpHeader  "<<std::endl;
 		                     //udpHeader.Print(std::cout);
-		                    //  std::cout <<"packet destination mask "<<int(iph.GetDestination().GetMask())<<std::endl;
-							//  if(mask.IsEqual(iph.GetDestination().GetMask())) return true;
-							//  std::cout <<"does not match expected mask "<< mask <<std::endl;
+		                     std::cout <<"packet udpHeader destination ip: "<< iph.GetDestination() <<std::endl;
+							if(address.IsEqual(iph.GetDestination())) return true;
+							 std::cout <<"does not match expected ip "<< address <<std::endl;
 							 
 					
-			}else{	
+			}else{
+				
 				return false;
 			}
         return false;

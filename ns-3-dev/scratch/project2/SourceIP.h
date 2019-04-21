@@ -1,6 +1,6 @@
 
-#ifndef CS621_PROJECT2_SRCIP_H
-#define CS621_PROJECT2_SRCTIP_H
+#ifndef CS621_PROJECT2_SOURCEIP_H
+#define CS621_PROJECT2_SOURCEIP_H
 
 
 
@@ -11,12 +11,12 @@
 
 namespace ns3 {
 
-  class SrcIP : public FilterElement{
+  class SourceIP : public FilterElement{
   private:
       Ipv4Address address;
 	  std::string  protocol;     
   public:
-      SrcIP(Ipv4Address ipv4_address,  std::string protocol){
+      SourceIP(Ipv4Address ipv4_address,  std::string protocol){
           address = ipv4_address;
 		  this->protocol = protocol;
       }
@@ -26,4 +26,4 @@ namespace ns3 {
 }
 
 
-#endif //CS621_PROJECT2_DETINATIONPORTNUMBER_H
+#endif //CS621_PROJECT2_SOURCEIP_H

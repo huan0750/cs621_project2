@@ -1,4 +1,4 @@
-#include "DstPortNumber.h"
+#include "DestinationIP.h"
 #include "ns3/ppp-header.h"
 #include "ns3/ipv4-header.h"
 #include "ns3/udp-header.h"
@@ -8,7 +8,7 @@
 
 
 namespace ns3 {
-    bool DstPortNumber::match(Ptr<Packet> p){
+    bool DestinationIP::match(Ptr<Packet> p){
 		    Ptr<Packet> copy = p->Copy ();
             PppHeader ppp;
 			copy->RemoveHeader (ppp);
@@ -21,17 +21,20 @@ namespace ns3 {
 		
             if (protocol == "TCP" && iph.GetProtocol() == 0x06){
 							TcpHeader tcpHeader;
-			                copy->RemoveHeader (tcpHeader);
-							 if (port == int(tcpHeader.GetDestinationPort())) return true;
+			                // copy->RemoveHeader (tcpHeader);
+							copy->RemoveHeader (iph);
+                            if(address.IsEqual(iph.GetDestination())) return true;
+						
 				
 			}else if (protocol == "UDP" && iph.GetProtocol() == 0x11){
 							UdpHeader udpHeader;
-			                copy->RemoveHeader (udpHeader);
+			                // copy->RemoveHeader (udpHeader);
+							copy->RemoveHeader (iph);
 							//std::cout <<"start print udpHeader  "<<std::endl;
 		                     //udpHeader.Print(std::cout);
-		                     std::cout <<"packet udpHeader port  "<<int(udpHeader.GetDestinationPort())<<std::endl;
-							 if (port == int(udpHeader.GetDestinationPort())) return true; 
-							 std::cout <<"not matching expect  port "<<port <<std::endl;
+		                     std::cout <<"packet udpHeader destination ip: "<< iph.GetDestination() <<std::endl;
+							if(address.IsEqual(iph.GetDestination())) return true;
+							 std::cout <<"does not match expected ip "<< address <<std::endl;
 							 
 					
 			}else{
