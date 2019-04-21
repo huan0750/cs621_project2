@@ -253,7 +253,16 @@ DiffServ<Item>::Peek (void) const
 			return ;
 		}
 		
-    std::cout<<this<<" iaload  "<<isLoad<<path <<std::endl;
+    if(qos == SPQ){
+      LoadSPQ(path);
+    }
+		
+    }
+
+  template <typename Item>
+    void DiffServ<Item>::LoadSPQ(std::string path){
+
+    std::cout<<this<<" ialoadSPQ  "<<isLoad<<path <<std::endl;
 		q_class.resize(2);
 		
 		TrafficClass* trafficClass = new TrafficClass(true);
@@ -263,6 +272,36 @@ DiffServ<Item>::Peek (void) const
 		
 		
 		DestinationPortNumber* element = new DestinationPortNumber(53, "UDP");  // 53 DNS high priority 
+		TrafficClass* trafficClass2 = new TrafficClass();
+		Filter* filter = new Filter(1);
+		filter->Insert(0, element);
+		trafficClass2->resizeFilters(1);
+		trafficClass2->insertFilter(0, filter);
+		trafficClass2->setPriorityLevel(1);
+		
+		//trafficClass2->print();
+		
+		q_class[0] = trafficClass2;
+		
+		orderTrafficClassByPriority();
+		printTrafficClass();
+		isLoad = true;
+		
+    }
+
+  template <typename Item>
+    void DiffServ<Item>::LoadDRR(std::string path){
+
+    std::cout<<this<<" ialoadDRR  "<<isLoad<<path <<std::endl;
+		q_class.resize(3);
+		
+		TrafficClass* trafficClass = new TrafficClass(true);
+		// trafficClass->setPriorityLevel(0);
+		//trafficClass->print();
+		q_class[1] = trafficClass;
+		
+		
+		DstPortNumber* element = new DstPortNumber(53, "UDP");  // 53 DNS heigh priority 
 		TrafficClass* trafficClass2 = new TrafficClass();
 		Filter* filter = new Filter(1);
 		filter->Insert(0, element);
