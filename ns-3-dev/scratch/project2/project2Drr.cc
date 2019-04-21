@@ -54,70 +54,70 @@ main (int argc, char *argv[])
     pointToPoint2.SetChannelAttribute ("Delay", StringValue ("0ms"));
     Config::SetDefault ("ns3::DiffServ<Packet>::ConfigPath", StringValue ("config_spq.txt"));
 
-    // NetDeviceContainer devices;
-  //   devices = pointToPoint.Install (nodes.Get(0), nodes.Get(1));
+    NetDeviceContainer devices;
+    devices = pointToPoint.Install (nodes.Get(0), nodes.Get(1));
 
 
-  //   NetDeviceContainer devices2;
+    NetDeviceContainer devices2;
 
-  //   devices2 = pointToPoint2.Install (nodes.Get(1), nodes.Get(2));
-
-
+    devices2 = pointToPoint2.Install (nodes.Get(1), nodes.Get(2));
 
 
-  // InternetStackHelper stack;
-  // stack.Install (nodes);
-
-  // Ipv4AddressHelper address;
-  // address.SetBase ("10.1.1.0", "255.255.255.0");
-
-  //   Ipv4AddressHelper address2;
-  //   address2.SetBase ("10.1.2.0", "255.255.255.0");
-
-  // Ipv4InterfaceContainer interfaces = address.Assign (devices);
-
-  //   Ipv4InterfaceContainer interfaces2 = address2.Assign (devices2);
-  //   Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
-
-  // UdpServerHelper udpServer (61);      //realtime transport protocol   priority  0  61 
-  // UdpServerHelper udpServer2 (53);  //DNS request , height priority  = 1  53
 
 
-  // ApplicationContainer serverApps = udpServer.Install (nodes.Get (2));
-  // serverApps.Start (Seconds (1.0));
-  // serverApps.Stop (Seconds (10.0));
+  InternetStackHelper stack;
+  stack.Install (nodes);
+
+  Ipv4AddressHelper address;
+  address.SetBase ("10.1.1.0", "255.255.255.0");
+
+    Ipv4AddressHelper address2;
+    address2.SetBase ("10.1.2.0", "255.255.255.0");
+
+  Ipv4InterfaceContainer interfaces = address.Assign (devices);
+
+    Ipv4InterfaceContainer interfaces2 = address2.Assign (devices2);
+    Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
+
+  UdpServerHelper udpServer (61);      //realtime transport protocol   priority  0  61 
+  UdpServerHelper udpServer2 (53);  //DNS request , height priority  = 1  53
+
+
+  ApplicationContainer serverApps = udpServer.Install (nodes.Get (2));
+  serverApps.Start (Seconds (1.0));
+  serverApps.Stop (Seconds (10.0));
   
-  //   ApplicationContainer serverApps2 = udpServer2.Install (nodes.Get (2));
-  // serverApps2.Start (Seconds (1.0));
-  // serverApps2.Stop (Seconds (10.0));
+    ApplicationContainer serverApps2 = udpServer2.Install (nodes.Get (2));
+  serverApps2.Start (Seconds (1.0));
+  serverApps2.Stop (Seconds (10.0));
   
 
-  // UdpClientHelper udpClient (interfaces2.GetAddress (1), 61);
-  // udpClient.SetAttribute ("MaxPackets", UintegerValue (5));
-  // udpClient.SetAttribute ("Interval", TimeValue (Seconds (0.001)));
-  // udpClient.SetAttribute ("PacketSize", UintegerValue (1024));
+  UdpClientHelper udpClient (interfaces2.GetAddress (1), 61);
+  udpClient.SetAttribute ("MaxPackets", UintegerValue (5));
+  udpClient.SetAttribute ("Interval", TimeValue (Seconds (0.001)));
+  udpClient.SetAttribute ("PacketSize", UintegerValue (1024));
 
-  // ApplicationContainer clientApps = udpClient.Install (nodes.Get (0));
-  // clientApps.Start (Seconds (2.0));
-  // clientApps.Stop (Seconds (10.0));
+  ApplicationContainer clientApps = udpClient.Install (nodes.Get (0));
+  clientApps.Start (Seconds (2.0));
+  clientApps.Stop (Seconds (10.0));
   
   
-  // // dns query client 
-  //  UdpClientHelper udpClient2(interfaces2.GetAddress (1), 53);
-  // udpClient2.SetAttribute ("MaxPackets", UintegerValue (5));
-  // udpClient2.SetAttribute ("Interval", TimeValue (Seconds (0.001)));
-  // udpClient2.SetAttribute ("PacketSize", UintegerValue (1024));
+  // dns query client 
+   UdpClientHelper udpClient2(interfaces2.GetAddress (1), 53);
+  udpClient2.SetAttribute ("MaxPackets", UintegerValue (5));
+  udpClient2.SetAttribute ("Interval", TimeValue (Seconds (0.001)));
+  udpClient2.SetAttribute ("PacketSize", UintegerValue (1024));
 
-  // ApplicationContainer clientApps2 = udpClient2.Install (nodes.Get (0));
-  // clientApps2.Start (Seconds (2.0));
-  // clientApps2.Stop (Seconds (10.0));
-
-
-  // // this will record all the nodes in pointToPoint, n0 n1 n2
-  // pointToPoint.EnablePcapAll ("project2_pointToPoint");
+  ApplicationContainer clientApps2 = udpClient2.Install (nodes.Get (0));
+  clientApps2.Start (Seconds (2.0));
+  clientApps2.Stop (Seconds (10.0));
 
 
-  // Simulator::Run ();
-  // Simulator::Destroy ();
+  // this will record all the nodes in pointToPoint, n0 n1 n2
+  pointToPoint.EnablePcapAll ("project2_pointToPoint");
+
+
+  Simulator::Run ();
+  Simulator::Destroy ();
   return 0;
 }
