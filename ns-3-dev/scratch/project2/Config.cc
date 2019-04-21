@@ -41,13 +41,13 @@ namespace ns3 {
 		 
 	 }
 
-	std::vector<TrafficClassConfig> Config::getTraffics(){
+	std::vector<ns3::TrafficClass*> Config::getTraffics(){
 		return qConfig;
 
 	}
 
-	
-	std::vector<TrafficClassConfig> Config::readFileJson(std::string path) {
+
+	std::vector<ns3::TrafficClass*> Config::readFileJson(std::string path) {
 		Json::CharReaderBuilder rbuilder;
 		Json::Value root;
 		std::string errs;
