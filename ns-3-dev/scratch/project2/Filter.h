@@ -7,13 +7,13 @@
 #include <vector>
 #include <stdint.h>
 #include <queue>
-#include "DstPortNumber.h"
-#include "DstIP.h"
-#include "DstMask.h"
-#include "ProtocolNum.h"
-#include "SrcIP.h"
-#include "SrcMask.h"
-#include "SrcPortNumber.h"
+#include "DestinationPortNumber.h"
+#include "DestinationIP.h"
+#include "DestinationMask.h"
+#include "ProtocolNumber.h"
+#include "SourceIP.h"
+#include "SourceMask.h"
+#include "SourcePortNumber.h"
 
 #include "FilterElement.h"
 
