@@ -1,0 +1,53 @@
+{
+  "num_queues": 3,
+  "traffic":[
+    {
+      "quantum": 1200,
+      "ifDefault": false,
+      "filters":[
+        {
+          "filter_element":[
+            {
+              "type":"DestinationPortNumber",
+              "protocol":"UDP",
+              "port":80
+            }
+          ]
+        }
+
+      ]
+
+    },
+    {
+      "quantum": 800,
+      "ifDefault": false,
+      "filters":[
+        {
+          "filter_element":[
+            {
+              "type":"DestinationPortNumber",
+              "protocol":"UDP",
+              "port":70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "quantum": 400,
+      "ifDefault": true,
+      "filters":[
+        {
+          "filter_element":[
+            {
+              "type":"DestinationPortNumber",
+              "protocol":"UDP",
+              "port":60
+            }
+          ]
+        }
+      ]
+    }
+  ]
+
+}
