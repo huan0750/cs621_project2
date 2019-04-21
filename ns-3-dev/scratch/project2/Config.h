@@ -18,6 +18,7 @@
 #include "SrcIP.h"
 #include "SrcMask.h"
 #include "SrcPortNumber.h"
+#include "ns3/ipv4-address.h"
 
 
 #include <map>
