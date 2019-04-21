@@ -77,10 +77,10 @@ namespace ns3 {
 		//if (reader.parse(in, root)) {
             int num_queues = root["num_queues"].asInt();
 
-            qConfig.resize(num_queues);
+            //qConfig.resize(num_queues);
 
             Json::Value traffic_array = root["traffic"];
-            cout << "array size = " << traffic_array.size() << endl;
+            //cout << "array size = " << traffic_array.size() << endl;
             for(unsigned int i = 0; i < traffic_array.size(); i++)
                  {
                      TrafficClass* trafficClass = new TrafficClass(true);
