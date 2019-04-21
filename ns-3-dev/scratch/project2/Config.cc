@@ -150,30 +150,30 @@ namespace ns3 {
             q_class.resize(num_queues);
 
             Json::Value traffic_array = root["traffic"];
-            cout << "array size = " << traffic_array.size() << endl;
+            //cout << "array size = " << traffic_array.size() << endl;
             for(unsigned int i = 0; i < traffic_array.size(); i++)
                  {
                      TrafficClass* trafficClass = new TrafficClass(true);
                      if (traffic_array[i].isMember("priority_level")){
-                         int priority_level = traffic_arrray[i]["priority_level"].asInt();
+                         int priority_level = traffic_array[i]["priority_level"].asInt();
                          trafficClass->setPriorityLevel(priority_level);
                      }
 
                      Json::Value filter_array = root["traffic"][i]["filters"];
 
-                     int filter_size = filter_array.size();
+                    // int filter_size = filter_array.size();
                      Filter* filter = new Filter(filter_size);
 
-                     for(unsigned int j = 0; j < filter_size; ++j){
+                     for(unsigned int j = 0; j < filter_array.size(); ++j){
                          Json::Value filter_elem_array = root["traffic"][i]["filters"][j]["filter_element"];
 
-                         int filter_elem_size = filter_elem_array.size();
+                         //int filter_elem_size = filter_elem_array.size();
 
-                         for(unsigned int k = 0; k < filter_elem_size; ++k){
+                         for(unsigned int k = 0; k < filter_elem_array.size(); ++k){
                              string type = filter_elem_array[j]["type"].asString();
                              string protocol = filter_elem_array[j]["protocol"].asString();
                              int port = filter_elem_array[j]["port"].asInt();
-                             DestinationPortNumber* element = new DestinationPortNumber(port, protocol);
+                             DstPortNumber* element = new DstPortNumber(port, protocol);
                              filter->Insert(0, element);
                          }
                          trafficClass->insertFilter(0, filter);
