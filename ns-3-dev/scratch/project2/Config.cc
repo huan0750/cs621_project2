@@ -116,22 +116,29 @@ namespace ns3 {
 								 filter->Insert(0, element);
 							 }
 							 if((type.compare("DestinationMask")) == 0){
-//								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
-//								 Ipv4Address* address = new Ipv4Address(ipv4_mask);
-//								 DestinationMask* element = new DestinationMask(address, protocol);
-//								 filter->Insert(0, element);
+								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
+								 std::string ipv4_address = filter_elem_array[j]["ipv4_address"].asString();
+								 auto mask = ipv4_mask.c_str();
+								 auto address = ipv4_address.c_str();
+
+								 Ipv4Address* Ipaddress = new Ipv4Address(address);
+								 Ipv4Mask* Ipmask = new Ipv4Mask(mask);
+								 DestinationMask* element = new DestinationMask(Ipaddress,Ipmask,protocol);
+								 filter->Insert(0, element);
 							 }
 							 if((type.compare("DestinationIP")) == 0){
-//								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
-//								 Ipv4Address* address = new Ipv4Address(ipv4_mask);
-//								 DestinationIP* element = new DestinationIP(address, protocol);
-//								 filter->Insert(0, element);
+								 std::string ipv4_address = filter_elem_array[j]["ipv4_address"].asString();
+								 auto address = ipv4_address.c_str();
+								 Ipv4Address* Ipaddress = new Ipv4Address(address);
+								 DestinationIP* element = new DestinationIP(Ipaddress, protocol);
+								 filter->Insert(0, element);
 							 }
 							 if((type.compare("SourceIP")) == 0){
-//								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
-//								 Ipv4Address* address = new Ipv4Address(ipv4_mask);
-//								 SourceIP* element = new SourceIP(address, protocol);
-//								 filter->Insert(0, element);
+								 std::string ipv4_address = filter_elem_array[j]["ipv4_address"].asString();
+								 auto address = ipv4_address.c_str();
+								 Ipv4Address* Ipaddress = new Ipv4Address(address);
+								 SourceIP* element = new SourceIP(Ipaddress, protocol);
+								 filter->Insert(0, element);
 							 }
                          }
                          trafficClass->insertFilter(0, filter);
