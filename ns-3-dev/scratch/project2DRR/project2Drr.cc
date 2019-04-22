@@ -33,7 +33,7 @@ main (int argc, char *argv[])
 
   Time::SetResolution (Time::NS);
   LogComponentEnable ("DropTailQueue", LOG_LEVEL_INFO);
-  LogComponentEnable ("DiffServ", LOG_LEVEL_INFO);
+  // LogComponentEnable ("DiffServ", LOG_LEVEL_INFO);
   LogComponentEnable ("UdpClient", LOG_LEVEL_ALL);
   LogComponentEnable ("UdpServer", LOG_LEVEL_ALL);
 
