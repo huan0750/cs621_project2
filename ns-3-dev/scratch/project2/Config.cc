@@ -123,21 +123,21 @@ namespace ns3 {
 
 								 Ipv4Address* Ipaddress = new Ipv4Address(address);
 								 Ipv4Mask* Ipmask = new Ipv4Mask(mask);
-								 DestinationMask* element = new DestinationMask(Ipaddress,Ipmask,protocol);
+								 DestinationMask* element = new DestinationMask(*Ipaddress,*Ipmask,protocol);
 								 filter->Insert(0, element);
 							 }
 							 if((type.compare("DestinationIP")) == 0){
 								 std::string ipv4_address = filter_elem_array[j]["ipv4_address"].asString();
 								 auto address = ipv4_address.c_str();
 								 Ipv4Address* Ipaddress = new Ipv4Address(address);
-								 DestinationIP* element = new DestinationIP(Ipaddress, protocol);
+								 DestinationIP* element = new DestinationIP(*Ipaddress, protocol);
 								 filter->Insert(0, element);
 							 }
 							 if((type.compare("SourceIP")) == 0){
 								 std::string ipv4_address = filter_elem_array[j]["ipv4_address"].asString();
 								 auto address = ipv4_address.c_str();
 								 Ipv4Address* Ipaddress = new Ipv4Address(address);
-								 SourceIP* element = new SourceIP(Ipaddress, protocol);
+								 SourceIP* element = new SourceIP(*Ipaddress, protocol);
 								 filter->Insert(0, element);
 							 }
                          }
