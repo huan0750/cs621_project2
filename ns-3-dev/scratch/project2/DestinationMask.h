@@ -13,11 +13,13 @@ namespace ns3 {
 
   class DestinationMask : public FilterElement{
   private:
-      char const * mask;
+      Ipv4Mask mask;
+      Ipv4Address start_address;
 	  std::string  protocol;     
   public:
-      DestinationMask(char const * 	mask,  std::string protocol){
+      DestinationMask(Ipv4Address start_address, Ipv4Mask mask,  std::string protocol){
           this->mask = mask;
+          this->start_address = start_address;
 		  this->protocol = protocol;
       }
        bool match(Ptr<Packet> p);

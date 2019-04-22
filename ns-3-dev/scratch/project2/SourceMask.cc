@@ -20,22 +20,25 @@ namespace ns3 {
 		    //std::cout<< protocol<<"end print header"<<int(iph.GetProtocol())<<std::endl;
 		
             if (protocol == "TCP" && iph.GetProtocol() == 0x06){
-							// TcpHeader tcpHeader;
+							TcpHeader tcpHeader;
 			                // copy->RemoveHeader (tcpHeader);
 							copy->RemoveHeader (iph);
-							//  if (port == int(tcpHeader.GetDestinationPort())) return true;
-                            // if(ipv4_mask.IsEqual(iph.GetSource().GetMask())) return true;
+							if(mask.IsMatch(start_address, iph.GetSource())) return true;
+						
 				
 			}else if (protocol == "UDP" && iph.GetProtocol() == 0x11){
-							// UdpHeader udpHeader;
+							UdpHeader udpHeader;
 			                // copy->RemoveHeader (udpHeader);
 							copy->RemoveHeader (iph);
 							//std::cout <<"start print udpHeader  "<<std::endl;
 		                     //udpHeader.Print(std::cout);
-		                    //  std::cout <<"packet source mask "<<int(iph.GetSource().GetMask())<<std::endl;
-							//  if(ipv4_mask.IsEqual(iph.GetSource().GetMask())) return true;
-							 std::cout <<"does not match expected mask "<< ipv4_mask <<std::endl;
-							 
+		                     std::cout <<"packet udpHeader source ip: "<< iph.GetSource() <<std::endl;
+							if(mask.IsMatch(start_address, iph.GetSource())) {
+								std::cout <<"matches expected ip mask"<< mask <<std::endl;
+								return true;
+							}
+							 std::cout <<"does not match expected ip mask"<< mask <<std::endl;
+								 
 					
 			}else{	
 				return false;
