@@ -23,7 +23,7 @@ namespace ns3 {
 							TcpHeader tcpHeader;
 			                // copy->RemoveHeader (tcpHeader);
 							copy->RemoveHeader (iph);
-                            if(address.IsEqual(iph.GetDestination())) return true;
+                            // if(address.IsEqual(iph.GetDestination())) return true;
 						
 				
 			}else if (protocol == "UDP" && iph.GetProtocol() == 0x11){
@@ -33,8 +33,8 @@ namespace ns3 {
 							//std::cout <<"start print udpHeader  "<<std::endl;
 		                     //udpHeader.Print(std::cout);
 		                     std::cout <<"packet udpHeader destination ip: "<< iph.GetDestination() <<std::endl;
-							if(address.IsEqual(iph.GetDestination())) return true;
-							 std::cout <<"does not match expected ip "<< address <<std::endl;
+							// if(address.IsEqual(iph.GetDestination())) return true;
+							//  std::cout <<"does not match expected ip "<< address <<std::endl;
 							 
 					
 			}else{
