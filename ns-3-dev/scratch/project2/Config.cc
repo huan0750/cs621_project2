@@ -112,7 +112,7 @@ namespace ns3 {
 
 								 Ipv4Address* Ipaddress = new Ipv4Address(address);
 								 Ipv4Mask* Ipmask = new Ipv4Mask(mask);
-								 SourceMask* element = new SourceMask(Ipaddress,Ipmask,protocol);
+								 SourceMask* element = new SourceMask(*Ipaddress,*Ipmask,protocol);
 								 filter->Insert(0, element);
 							 }
 							 if((type.compare("DestinationMask")) == 0){
