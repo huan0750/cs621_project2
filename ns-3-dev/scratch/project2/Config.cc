@@ -105,10 +105,15 @@ namespace ns3 {
 							 }
 
 							 if((type.compare("SourceMask")) == 0){
-//							 	 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
-//								 Ipv4Address* address = new Ipv4Address(ipv4_mask);
-//								 SourceMask* element = new SourceMask(address, protocol);
-//								 filter->Insert(0, element);
+							 	 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
+								 std::string ipv4_address = filter_elem_array[j]["ipv4_address"].asString();
+								 auto mask = ipv4_mask.c_str();
+								 auto address = ipv4_address.c_str();
+
+								 Ipv4Address* Ipaddress = new Ipv4Address(address);
+								 Ipv4Mask* Ipmask = new Ipv4Mask(mask)
+								 SourceMask* element = new SourceMask(Ipaddress,Ipmask,protocol);
+								 filter->Insert(0, element);
 							 }
 							 if((type.compare("DestinationMask")) == 0){
 //								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
