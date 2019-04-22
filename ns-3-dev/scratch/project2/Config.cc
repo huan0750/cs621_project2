@@ -111,7 +111,7 @@ namespace ns3 {
 								 auto address = ipv4_address.c_str();
 
 								 Ipv4Address* Ipaddress = new Ipv4Address(address);
-								 Ipv4Mask* Ipmask = new Ipv4Mask(mask)
+								 Ipv4Mask* Ipmask = new Ipv4Mask(mask);
 								 SourceMask* element = new SourceMask(Ipaddress,Ipmask,protocol);
 								 filter->Insert(0, element);
 							 }
