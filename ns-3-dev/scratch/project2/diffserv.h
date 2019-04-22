@@ -110,7 +110,8 @@ public:
 	void printTrafficClass();
   void nextTurn();
   void setQOS(QOSMode mode);
-	
+	void LoadSPQ(std::string path);
+  void LoadDRR(std::string path);
 
 };
 
