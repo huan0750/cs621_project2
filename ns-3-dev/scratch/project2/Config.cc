@@ -89,43 +89,43 @@ namespace ns3 {
 							 std::string protocol = filter_elem_array[j]["protocol"].asString();
 
 							 if((type.compare("DestinationPortNumber")) == 0){
-								 int port = filter_elem_array[j]["port"].asInt();
-								 DstPortNumber* element = new DstPortNumber(port, protocol);
+								//  int port = filter_elem_array[j]["port"].asInt();
+								 DestinationPortNumber* element = new DestinationPortNumber(port, protocol);
 								 filter->Insert(0, element);
 							 }
 							 if((type.compare("SourcePortNumber")) == 0){
-								 int port = filter_elem_array[j]["port"].asInt();
-								 SrcPortNumber* element = new SrcPortNumber(port, protocol);
+								//  int port = filter_elem_array[j]["port"].asInt();
+								 SourcePortNumber* element = new SourcePortNumber(port, protocol);
 								 filter->Insert(0, element);
 							 }
 							 if((type.compare("ProtocolNumber")) == 0){
-								 int protocol_num = filter_elem_array[j]["protocol_num"].asInt();
-								 ProtocolNum* element = new ProtocolNum(protocol_num, protocol);
+								//  int protocol_num = filter_elem_array[j]["protocol_num"].asInt();
+								 ProtocolNumber* element = new ProtocolNumber(protocol_num, protocol);
 								 filter->Insert(0, element);
 							 }
 
 							 if((type.compare("SourceMask")) == 0){
 //							 	 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
 //								 Ipv4Address* address = new Ipv4Address(ipv4_mask);
-//								 SrcMask* element = new SrcMask(address, protocol);
+//								 SourceMask* element = new SourceMask(address, protocol);
 //								 filter->Insert(0, element);
 							 }
 							 if((type.compare("DestinationMask")) == 0){
 //								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
 //								 Ipv4Address* address = new Ipv4Address(ipv4_mask);
-//								 DstMask* element = new DstMask(address, protocol);
+//								 DestinationMask* element = new DestinationMask(address, protocol);
 //								 filter->Insert(0, element);
 							 }
 							 if((type.compare("DestinationIP")) == 0){
 //								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
 //								 Ipv4Address* address = new Ipv4Address(ipv4_mask);
-//								 DstIP* element = new DstIP(address, protocol);
+//								 DestinationIP* element = new DestinationIP(address, protocol);
 //								 filter->Insert(0, element);
 							 }
 							 if((type.compare("SourceIP")) == 0){
 //								 std::string ipv4_mask = filter_elem_array[j]["ipv4_mask"].asString();
 //								 Ipv4Address* address = new Ipv4Address(ipv4_mask);
-//								 SrcIP* element = new SrcIP(address, protocol);
+//								 SourceIP* element = new SourceIP(address, protocol);
 //								 filter->Insert(0, element);
 							 }
                          }
