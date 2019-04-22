@@ -1,4 +1,4 @@
-#include "DestinatioMask.h"
+#include "DestinationMask.h"
 #include "ns3/ppp-header.h"
 #include "ns3/ipv4-header.h"
 #include "ns3/udp-header.h"
