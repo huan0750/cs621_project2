@@ -89,17 +89,17 @@ namespace ns3 {
 							 std::string protocol = filter_elem_array[j]["protocol"].asString();
 
 							 if((type.compare("DestinationPortNumber")) == 0){
-								//  int port = filter_elem_array[j]["port"].asInt();
+								 int port = filter_elem_array[j]["port"].asInt();
 								 DestinationPortNumber* element = new DestinationPortNumber(port, protocol);
 								 filter->Insert(0, element);
 							 }
 							 if((type.compare("SourcePortNumber")) == 0){
-								//  int port = filter_elem_array[j]["port"].asInt();
+								 int port = filter_elem_array[j]["port"].asInt();
 								 SourcePortNumber* element = new SourcePortNumber(port, protocol);
 								 filter->Insert(0, element);
 							 }
 							 if((type.compare("ProtocolNumber")) == 0){
-								//  int protocol_num = filter_elem_array[j]["protocol_num"].asInt();
+								 int protocol_num = filter_elem_array[j]["protocol_num"].asInt();
 								 ProtocolNumber* element = new ProtocolNumber(protocol_num, protocol);
 								 filter->Insert(0, element);
 							 }
