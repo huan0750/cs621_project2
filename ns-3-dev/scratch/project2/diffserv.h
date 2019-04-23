@@ -40,11 +40,6 @@ enum QueueMode {
     QueueModePacket = 0,
     QueueModeByte = 1,
     };
-
-enum QOSMode{
-  SPQ = 0,
-  DRR = 1,
-};
 	
 	
 	bool compareTrafficClass(TrafficClass* a,  TrafficClass*  b){
@@ -93,25 +88,17 @@ private:
   // variable
   QueueMode m_mode;
   std::vector<TrafficClass*> q_class;
-  std::vector<double_t> quantums;
   bool isLoad = false;
-  int curTurn = 0;
-  QOSMode qos = SPQ;
 
   //function
 public:
     void SetMode(QueueMode mode);
     QueueMode GetMode();
     Ptr<Packet> Schedule();
-    Ptr<Packet> ScheduleDrr();
     void Classify(Ptr<Packet> p);
 	void LoadConfig(std::string path);
 	void orderTrafficClassByPriority(); 
 	void printTrafficClass();
-  void nextTurn();
-  void setQOS(QOSMode mode);
-	void LoadSPQ(std::string path);
-  void LoadDRR(std::string path);
 
 };
 
@@ -171,12 +158,7 @@ DiffServ<Item>::Dequeue (void)
     NS_LOG_INFO (this  <<"  DiffServ Dequeue  <--------- ");
 
 
-  Ptr<Item> item;
-  if(qos == SPQ){
-    item = Schedule();
-  }else{
-    item = ScheduleDrr();
-  }
+  Ptr<Item> item = Schedule();
 
   if ( item != NULL) {
     Ptr<Packet> p = (Ptr<Packet>)item;
@@ -225,17 +207,6 @@ DiffServ<Item>::Peek (void) const
     }
 
     template <typename Item>
-    Ptr<Packet> DiffServ<Item>::ScheduleDrr(){
-      TrafficClass* tc = q_class[curTurn];
-      Ptr<Packet> p = tc->DequeueDrr();
-      if(p != NULL){
-        return p;
-      } 
-      nextTurn();
-      return NULL;
-    }
-
-    template <typename Item>
     void DiffServ<Item>::Classify(Ptr<Packet> p){
         for (unsigned i=0; i<q_class.size(); i++){
             TrafficClass* trafficClass = q_class[i];		
@@ -254,15 +225,6 @@ DiffServ<Item>::Peek (void) const
 			return ;
 		}
 		
-    if(qos == SPQ){
-      LoadSPQ(path);
-    }
-		
-    }
-
-  template <typename Item>
-    void DiffServ<Item>::LoadSPQ(std::string path){
-
     std::cout<<this<<" ialoadSPQ  "<<isLoad<<path <<std::endl;
 		q_class.resize(2);
 		
@@ -289,49 +251,10 @@ DiffServ<Item>::Peek (void) const
 		isLoad = true;
 		
     }
-
-  template <typename Item>
-    void DiffServ<Item>::LoadDRR(std::string path){
-
-    std::cout<<this<<" ialoadDRR  "<<isLoad<<path <<std::endl;
-		q_class.resize(3);
-		
-		TrafficClass* trafficClass = new TrafficClass(true);
-		// trafficClass->setPriorityLevel(0);
-		//trafficClass->print();
-		q_class[1] = trafficClass;
-		
-		
-		DestinationPortNumber* element = new DestinationPortNumber(53, "UDP");  // 53 DNS heigh priority 
-		TrafficClass* trafficClass2 = new TrafficClass();
-		Filter* filter = new Filter(1);
-		filter->Insert(0, element);
-		trafficClass2->resizeFilters(1);
-		trafficClass2->insertFilter(0, filter);
-		trafficClass2->setPriorityLevel(1);
-		
-		//trafficClass2->print();
-		
-		q_class[0] = trafficClass2;
-		
-		orderTrafficClassByPriority();
-		printTrafficClass();
-		isLoad = true;
-		
-    }
 	
 	template <typename Item>
 	void DiffServ<Item>::orderTrafficClassByPriority(){
 		std::sort(q_class.begin(), q_class.end(), compareTrafficClass);
-	}
-
-  template <typename Item>
-	void DiffServ<Item>::nextTurn(){
-    //plus traffic quantum
-    double_t quantum = quantums[curTurn];
-    TrafficClass* tc = q_class[curTurn];
-    tc->addWeight(quantum);
-    curTurn = (curTurn + 1) % q_class.size();
 	}
 	
 	template <typename Item>
@@ -342,10 +265,6 @@ DiffServ<Item>::Peek (void) const
 		}
 	}
 
-  template <typename Item>
-	void DiffServ<Item>::setQOS(QOSMode mode){
-		qos = mode;
-	}
 	
 	
 	
