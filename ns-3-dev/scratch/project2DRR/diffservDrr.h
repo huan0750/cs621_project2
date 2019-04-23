@@ -40,7 +40,7 @@ namespace ns3{
     * \brief A FIFO packet queue that drops tail-end packets on overflow
     */
     template <typename Item>
-    class DiffServDrr : public DiffServ<Item>
+    class DiffServDrr : public DiffServ
     {
     public:
     /**
@@ -105,7 +105,7 @@ template <typename Item>
     }
 
 template <typename Item>
-	void DiffServ<Item>::nextTurn(){
+	void DiffServDrr<Item>::nextTurn(){
     //plus traffic quantum
     double_t quantum = quantums[curTurn];
     TrafficClass* tc = q_class[curTurn];
@@ -114,7 +114,7 @@ template <typename Item>
 	}
 
 template <typename Item>
-    void DiffServ<Item>::LoadConfig(std::string path){
+    void DiffServDrr<Item>::LoadConfig(std::string path){
 		if (isLoad){
 			std::cout<<"already load "<<path <<std::endl;
 			return ;
