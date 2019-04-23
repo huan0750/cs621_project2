@@ -30,6 +30,7 @@
 #include "ns3/udp-header.h"
 #include "ns3/string.h"
 
+#include "../project2/diffserv.h"
 #include "../project2/TrafficClass.h"
 #include "../project2/DestinationPortNumber.h"
 
@@ -40,7 +41,7 @@ namespace ns3{
     * \brief A FIFO packet queue that drops tail-end packets on overflow
     */
     template <typename Item>
-    class DiffServDrr : public DiffServ
+    class DiffServDrr : public DiffServ<Item>
     {
     public:
     /**
