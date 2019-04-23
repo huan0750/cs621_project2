@@ -84,7 +84,7 @@ private:
 
   NS_LOG_TEMPLATE_DECLARE;     //!< redefinition of the log component
 
-
+protected:
   // variable
   QueueMode m_mode;
   std::vector<TrafficClass*> q_class;
