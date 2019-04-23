@@ -33,6 +33,7 @@
 #include "../project2/diffserv.h"
 #include "../project2/TrafficClass.h"
 #include "../project2/DestinationPortNumber.h"
+class DiffServ;
 
 namespace ns3{
     /**
