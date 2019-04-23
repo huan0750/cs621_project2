@@ -41,8 +41,7 @@ namespace ns3{
     * \brief A FIFO packet queue that drops tail-end packets on overflow
     */
     template <typename Item>
-    class DiffServDrr : public DiffServ<Item>
-    {
+    class DiffServDrr : public DiffServ<Item>{
     public:
     /**
     * \brief DiffServ Constructor
