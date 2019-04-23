@@ -40,8 +40,7 @@ namespace ns3{
     *
     * \brief A FIFO packet queue that drops tail-end packets on overflow
     */
-    template <typename Item>
-    class DiffServDrr : public DiffServ{
+    class DiffServDrr : public DiffServ<ns3::Packet>{
     public:
     /**
     * \brief DiffServ Constructor
@@ -77,9 +76,8 @@ public:
 
 };
 
-template <typename Item>
-DiffServDrr<Item>::DiffServDrr () :
-  DiffServ<Item> (),
+DiffServDrr<ns3::Packet>::DiffServDrr () :
+  DiffServ<ns3::Packet> (),
   NS_LOG_TEMPLATE_DEFINE ("DiffServDrr")
 {
   NS_LOG_FUNCTION (this);
@@ -87,14 +85,12 @@ DiffServDrr<Item>::DiffServDrr () :
  // LoadConfig("./load");
 }
 
-template <typename Item>
-DiffServDrr<Item>::~DiffServDrr ()
+DiffServDrr<ns3::Packet>::~DiffServDrr ()
 {
   NS_LOG_FUNCTION (this);
 }
 
-template <typename Item>
-    Ptr<Packet> DiffServDrr<Item>::Schedule(){
+    Ptr<Packet> DiffServDrr<ns3::Packet>::Schedule(){
       TrafficClass* tc = q_class[curTurn];
       Ptr<Packet> p = tc->DequeueDrr();
       if(p != NULL){
@@ -104,8 +100,7 @@ template <typename Item>
       return NULL;
     }
 
-template <typename Item>
-	void DiffServDrr<Item>::nextTurn(){
+	void DiffServDrr<ns3::Packet>::nextTurn(){
     //plus traffic quantum
     double_t quantum = quantums[curTurn];
     TrafficClass* tc = q_class[curTurn];
@@ -113,8 +108,7 @@ template <typename Item>
     curTurn = (curTurn + 1) % q_class.size();
 	}
 
-template <typename Item>
-    void DiffServDrr<Item>::LoadConfig(std::string path){
+    void DiffServDrr<ns3::Packet>::LoadConfig(std::string path){
 		if (isLoad){
 			std::cout<<"already load "<<path <<std::endl;
 			return ;
@@ -148,7 +142,7 @@ template <typename Item>
     }
 
 
-extern template class DiffServDrr<Packet>;
+extern template class DiffServDrr<ns3::Packet>;
 
 }
 
