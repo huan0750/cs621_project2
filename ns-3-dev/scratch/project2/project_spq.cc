@@ -49,10 +49,10 @@ main (int argc, char *argv[])
     //n1-->n2
     PointToPointHelper pointToPoint2;
                           //ns3::DiffServQueue
-    pointToPoint2.SetQueue("ns3::DiffServ<Packet>");
+    pointToPoint2.SetQueue("ns3::SPQ<Packet>");
     pointToPoint2.SetDeviceAttribute ("DataRate", StringValue ("1Mbps"));
     pointToPoint2.SetChannelAttribute ("Delay", StringValue ("0ms"));
-    Config::SetDefault ("ns3::DiffServ<Packet>::ConfigPath", StringValue ("config_spq.txt"));
+    Config::SetDefault ("ns3::SPQ<Packet>::ConfigPath", StringValue ("config_spq.txt"));
 
     NetDeviceContainer devices;
     devices = pointToPoint.Install (nodes.Get(0), nodes.Get(1));

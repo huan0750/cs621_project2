@@ -42,9 +42,7 @@ enum QueueMode {
     };
 	
 	
-	bool compareTrafficClass(TrafficClass* a,  TrafficClass*  b){
-		return b->getPriorityLevel() < a->getPriorityLevel();
-	}
+	bool compareTrafficClass(TrafficClass* a,  TrafficClass*  b);
 
 /**
  * \ingroup queue
@@ -227,7 +225,7 @@ DiffServ<Item>::Peek (void) const
 			return ;
 		}
 		
-       std::cout<<this<<" iaload  "<<isLoad<<path <<std::endl;
+       std::cout<<this<<"DiffServ----------> isload  "<<isLoad<<path <<std::endl;
 		q_class.resize(2);
 		
 		TrafficClass* trafficClass = new TrafficClass(true);
