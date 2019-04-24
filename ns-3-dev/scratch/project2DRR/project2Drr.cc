@@ -19,7 +19,7 @@
 #include "ns3/internet-module.h"
 #include "ns3/point-to-point-module.h"
 #include "ns3/applications-module.h"
-#include "diffservDrr.h"
+#include "../project2/DRR.h"
 
 using namespace ns3;
 

@@ -16,7 +16,7 @@ namespace ns3{
         Ptr<Packet> Schedule();
         void LoadConfig(std::string path);
         void nextTurn();
-    }
+    };
 
 }
 

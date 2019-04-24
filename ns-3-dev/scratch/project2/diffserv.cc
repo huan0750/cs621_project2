@@ -25,6 +25,10 @@ NS_LOG_COMPONENT_DEFINE ("DiffServ");
 NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServ,Packet);
 //NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServ,QueueDiscItem);
 
+bool compareTrafficClass(TrafficClass* a,  TrafficClass*  b){
+		return b->getPriorityLevel() < a->getPriorityLevel();
+	}
+
 } // namespace ns3
 
 

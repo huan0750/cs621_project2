@@ -3,7 +3,7 @@
 namespace ns3{
 
     template <typename Item>
-    Ptr<Packet> DiffServDrr<Item>::Schedule(){
+    Ptr<Packet> DRR<Item>::Schedule(){
     //   TrafficClass* tc = q_class[curTurn];
     //   Ptr<Packet> p = tc->DequeueDrr();
     //   if(p != NULL){
@@ -14,7 +14,7 @@ namespace ns3{
     }
 
     template <typename Item>
-	void DiffServDrr<Item>::nextTurn(){
+	void DRR<Item>::nextTurn(){
         //plus traffic quantum
         // double_t quantum = quantums[curTurn];
         // TrafficClass* tc = q_class[curTurn];
@@ -23,7 +23,7 @@ namespace ns3{
 	}
 
     template <typename Item>
-    void DiffServDrr<Item>::LoadConfig(std::string path){
+    void DRR<Item>::LoadConfig(std::string path){
 		// if (isLoad){
 		// 	std::cout<<"already load "<<path <<std::endl;
 		// 	return ;

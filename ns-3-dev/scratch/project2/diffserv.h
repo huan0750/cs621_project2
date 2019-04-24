@@ -42,9 +42,7 @@ enum QueueMode {
     };
 	
 	
-	bool compareTrafficClass(TrafficClass* a,  TrafficClass*  b){
-		return b->getPriorityLevel() < a->getPriorityLevel();
-	}
+	bool compareTrafficClass(TrafficClass* a,  TrafficClass*  b);
 
 /**
  * \ingroup queue
