@@ -765,6 +765,27 @@ def add_examples_programs(bld):
                     bld.recurse(os.path.join('examples', dir))
         except OSError:
             return
+def add_scratch2_programs(bld):
+    all_modules = [mod[len("ns3-"):] for mod in bld.env['NS3_ENABLED_MODULES'] + bld.env['NS3_ENABLED_CONTRIBUTED_MODULES']]
+
+    try:
+        for filename in os.listdir("scratch"):
+            if filename.startswith('spq'):
+                 obj = bld.create_ns3_program(filename, all_modules)
+                 obj.path = obj.path.find_dir('scratch').find_dir(filename)
+                 obj.source = obj.path.ant_glob('project2/*.cc')
+                 obj.target = filename
+                 obj.name = obj.target
+                 obj.install_path = None
+            if filename.startswith('drr'):
+                    obj = bld.create_ns3_program(filename, all_modules)
+                    obj.path = obj.path.find_dir('scratch').find_dir(filename)
+                    obj.source = obj.path.ant_glob('project2/*.cc')
+                    obj.target = filename
+                    obj.name = obj.target
+                    obj.install_path = None
+    except OSError:
+        return
 
 def add_scratch_programs(bld):
     all_modules = [mod[len("ns3-"):] for mod in bld.env['NS3_ENABLED_MODULES'] + bld.env['NS3_ENABLED_CONTRIBUTED_MODULES']]
