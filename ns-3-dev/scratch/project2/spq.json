@@ -1,0 +1,61 @@
+{
+  "num_queues": 2,
+  "traffic":[
+    {
+      "priority_level": 0,
+      "filters":[
+        {
+          "filter_element":[
+            {
+              "type":"DestinationPortNumber",
+              "protocol":"UDP",
+              "port":80
+            },
+            {
+              "type":"DestinationPortNumber",
+              "protocol":"UDP",
+              "port":80
+            }
+          ]
+        }
+
+      ]
+
+    },
+    {
+      "priority_level": 1,
+      "filters":[
+        {
+          "filter_element":[
+            {
+              "type":"DestinationPortNumber",
+              "protocol":"UDP",
+              "port":80
+            },
+            {
+              "type":"DestinationPortNumber",
+              "protocol":"UDP",
+              "port":80
+            }
+          ]
+
+        },
+        {
+          "filter_element":[
+            {
+              "type":"DestinationPortNumber",
+              "protocol":"UDP",
+              "port":80
+            },
+            {
+              "type":"DestinationPortNumber",
+              "protocol":"UDP",
+              "port":80
+            }
+          ]
+        }
+      ]
+    }
+  ]
+
+}

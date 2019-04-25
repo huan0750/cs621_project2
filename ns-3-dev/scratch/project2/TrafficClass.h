@@ -10,7 +10,10 @@
 
 #include "Filter.h"
 
-
+enum QueueMode {
+	QueueModePacket = 0,
+	QueueModeByte = 1,
+};
 namespace ns3 {
   class TrafficClass {
   private:
@@ -24,6 +27,7 @@ namespace ns3 {
       double_t weight;
       uint32_t priority_level;
       std::vector<ns3::Filter*> filters;
+	  QueueMode m_queueMode;
 
 
   public:
@@ -34,14 +38,21 @@ namespace ns3 {
       bool Enqueue(Ptr<Packet> p);
       Ptr<Packet> Dequeue();
       bool match(Ptr<Packet> p);
+	  uint32_t getBytes();
       void setBytes(uint32_t num);
+	  uint32_t getPackets();
       void setPackets(uint32_t num);
+	  uint32_t getMaxPackets();
       void setMaxPackets(uint32_t num);
+	  uint32_t getMaxBytes();
       void setMaxBytes(uint32_t num);
+	  double getWeight();
       void setWeight(double_t num);
+	  uint32_t  getPriorityLevel();
       void setPriorityLevel(uint32_t num);
       void setIsDefault(bool check);
-	  uint32_t getPriorityLevel();
+      void addWeight(double_t num);
+      Ptr <Packet> DequeueDrr();
   };
 }
 

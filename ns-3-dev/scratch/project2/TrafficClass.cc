@@ -1,6 +1,8 @@
 #include "TrafficClass.h"
 namespace ns3 {
 
+
+
     //constructor
 
     TrafficClass::TrafficClass(bool isDefault) {
@@ -9,8 +11,25 @@ namespace ns3 {
 
 
     bool TrafficClass::Enqueue(Ptr <Packet> p) {
-        m_queue.push(p);
-        return true;
+        if (m_queueMode == QueueModeByte)
+        {
+            if (bytes + p->GetSize () <= max_bytes) {
+
+                m_queue.push(p);
+                bytes += p->GetSize ();
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (packets + 1 <= max_packets) {
+                m_queue.push(p);
+                packets++;
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     Ptr <Packet> TrafficClass::Dequeue() {
@@ -19,16 +38,50 @@ namespace ns3 {
         } else {
             Ptr <Packet> p = m_queue.front();
             m_queue.pop();
-
+            if (m_queueMode == QueueModeByte)
+            {
+                bytes -= p->GetSize ();
+            } else {
+                packets--;
+            }
             return p;
         }
+    }
 
-
+    Ptr <Packet> TrafficClass::DequeueDrr() {
+        if (m_queue.empty()) {
+            return NULL;
+        } else {
+            Ptr <Packet> p = m_queue.front();
+            double_t size = (double_t)(p -> GetSize());
+            if(size > weight){
+                return NULL;
+            }
+            m_queue.pop();
+            if (m_queueMode == QueueModeByte)
+            {
+                bytes -= p->GetSize ();
+            } else {
+                packets--;
+            }
+            weight -= size;
+            return p;
+        }
     }
 
 
+    uint32_t TrafficClass::getBytes(){
+        return this->bytes;
+
+    }
+
     void TrafficClass::setBytes(uint32_t num) {
         this->bytes = num;
+
+    }
+
+    uint32_t TrafficClass::getPackets(){
+        return this->packets;
 
     }
 
@@ -37,8 +90,18 @@ namespace ns3 {
 
     }
 
+    uint32_t TrafficClass::getMaxPackets(){
+        return this->max_packets;
+
+    }
+
     void TrafficClass::setMaxPackets(uint32_t num) {
         this->max_packets = num;
+
+    }
+
+    uint32_t TrafficClass::getMaxBytes(){
+        return this->max_bytes;
 
     }
 
@@ -46,6 +109,7 @@ namespace ns3 {
         this->max_bytes = num;
 
     }
+
 
     void TrafficClass::setPriorityLevel(uint32_t num) {
         this->priority_level = num;
@@ -57,6 +121,15 @@ namespace ns3 {
 
     void TrafficClass::setWeight(double_t num) {
         this->weight = num;
+    }
+
+    void TrafficClass::addWeight(double_t num) {
+        this->weight += num;
+    }
+
+    double TrafficClass::getWeight(){
+        return this->weight;
+
     }
 
 
@@ -73,6 +146,7 @@ namespace ns3 {
         return false;
 
     }
+
 	
 	void TrafficClass::resizeFilters(int size){
 		filters.resize(size);	

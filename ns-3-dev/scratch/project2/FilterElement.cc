@@ -1,97 +1,95 @@
 #include "FilterElement.h"
+#include "ns3/ipv4-header.h"
+
 namespace ns3 {
+    
+    // TypeId
+    // FilterElement::GetTypeId (void)
+    // {
+    // static TypeId tid = TypeId ("ns3::FilterElement")
+    //     .SetParent<Object> ()
+    //     .SetGroupName("DiffServ")
+    // ;
+    // return tid;
+    // }
+      
 
+//   class SrcIPFilterElement : public FilterElement {
+//       public:
+//       bool match(Ptr<Packet> p)
+//       {
+//         return p.GetSource.GetIpv4 == value;
+//       }
 
+//       private:
+//       Ipv4Address value;
+//   }
 
-    /*
-      TypeId
-      FilterElement::GetTypeId (void)
-      {
-        static TypeId tid = TypeId ("ns3::FilterElement")
-          .SetParent<Object> ()
-          .SetGroupName("DiffServ")
-        ;
-        return tid;
-      }
-      */
- // };
-/*
-  class SrcIPFilterElement : public FilterElement {
-      public:
-      bool match(Ptr<Packet> p)
-      {
-         return p.address == value;
-      }
+//   class SrcMaskFilterElement : public FilterElement {
+//       public:
+//       bool match(Ptr<Packet> p)
+//       {
+//          return p.GetSource.GetMask == value;
+//       }
 
-      private:
-      Ipv4Address value;
-  }
+//       private:
+//       Ipv4Mask value;
+//   }
 
-  class SrcMaskFilterElement : public FilterElement {
-      public:
-      bool match(Ptr<Packet> p)
-      {
-         return p.mask == value;
-      }
+//   class SrcPortFilterElement : public FilterElement {
+//       public:
+//       bool match(Ptr<Packet> p)
+//       {
+//          return p.GetSource.GetPort == value;
+//       }
 
-      private:
-      Ipv4Mask value;
-  }
+//       private:
+//       uint32_t value;
+//   }
 
-  class SrcPortFilterElement : public FilterElement {
-      public:
-      bool match(Ptr<Packet> p)
-      {
-         return p.port == value;
-      }
+//   class DstIPFilterElement : public FilterElement {
+//       public:
+//       bool match(Ptr<Packet> p)
+//       {
+//          return p.GetDestination.GetIpv4 == value;
+//       }
 
-      private:
-      uint32_t value;
-  }
+//       private:
+//       Ipv4Address value;
+//   }
 
-  class DstIPFilterElement : public FilterElement {
-      public:
-      bool match(Ptr<Packet> p)
-      {
-         return p.address == value;
-      }
+//   class DstMaskFilterElement : public FilterElement {
+//       public:
+//       bool match(Ptr<Packet> p)
+//       {
+//          return p.GetDestination.GetMask == value;
+//       }
 
-      private:
-      Ipv4Address value;
-  }
+//       private:
+//       Ipv4Mask value;
+//   }
 
-  class DstMaskFilterElement : public FilterElement {
-      public:
-      bool match(Ptr<Packet> p)
-      {
-         return p.mask == value;
-      }
+//   class DstPortFilterElement : public FilterElement {
+//       public:
+//       bool match(Ptr<Packet> p)
+//       {
+//          return p.GetDestination.GetPort == value;
+//       }
 
-      private:
-      Ipv4Mask value;
-  }
+//       private:
+//       uint32_t value;
+//   }
 
-  class DstPortFilterElement : public FilterElement {
-      public:
-      bool match(Ptr<Packet> p)
-      {
-         return p.port == value;
-      }
+//   class ProtocolNumFilterElement : public FilterElement {
+//       public:
+//       bool match(Ptr<Packet> p)
+//       {
+//          return p.GetHeader.GetProtocol == value;
+//       }
 
-      private:
-      uint32_t value;
-  }
-
-  class ProtocolNumFilterElement : public FilterElement {
-      public:
-      bool match(Ptr<Packet> p)
-      {
-         return p.protocolNumber == value;
-      }
-
-      private:
-      uint32_t value;
-  }
-  */
+//       private:
+//       uint32_t value;
+//   }
+  
 
 }

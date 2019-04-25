@@ -8,8 +8,14 @@
 #include <stdint.h>
 #include <queue>
 #include "DestinationPortNumber.h"
+#include "DestinationIP.h"
+#include "DestinationMask.h"
+#include "ProtocolNumber.h"
+#include "SourceIP.h"
+#include "SourceMask.h"
+#include "SourcePortNumber.h"
 
-//#include "FilterElement.h"
+#include "FilterElement.h"
 
 
 
