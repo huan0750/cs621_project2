@@ -1,0 +1,12 @@
+## -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
+
+def build(bld):
+    all_modules = [mod[len("ns3-"):] for mod in bld.env['NS3_ENABLED_MODULES'] + bld.env['NS3_ENABLED_CONTRIBUTED_MODULES']]
+    obj = bld.create_ns3_program('spq',  all_modules)
+    obj.source = 'spq_main.cc  Config.cc DestinationIP.cc DestinationMask.cc DestinationPortNumber.cc diffserv.cc Filter.cc FilterElement.cc ProtocolNumber.cc SourceIP.cc SourceMask.cc SourcePortNumber.cc SPQ.cc TrafficClass.cc'
+
+    obj = bld.create_ns3_program('udp-echo2', ['csma', 'internet', 'applications'])
+    obj.source = 'udp-echo2.cc'
+
+
+

@@ -1,0 +1,25 @@
+{
+  "num_queues": 1,
+  "traffic":[
+    {
+      "priority_level": 1,
+      "filters":[
+        {
+          "filter":[
+            {
+              "type":"DestinationPortNumber",
+              "protocol":"UDP",
+              "port":53
+            },
+            {
+              "type":"DestinationPortNumber",
+              "protocol":"UDP",
+              "port":85
+            }
+          ]
+        }
+      ]
+
+    }
+  ]
+}
