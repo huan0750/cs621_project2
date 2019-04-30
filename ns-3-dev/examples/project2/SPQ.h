@@ -3,18 +3,25 @@
 
 #include "diffserv.h"
 
+
 namespace ns3 {
+	
 	
 template <typename Item>
   class SPQ : public  DiffServ<Item> {
 	  
-  public:
-    static TypeId GetTypeId (void);
-     Ptr<Packet> Schedule();
+	  
+  private:
+	using  DiffServ<Item>::q_class;
+  //using  DiffServ<Item> 
+	  
+  public: 
+    SPQ ();
+	static TypeId GetTypeId (void);
+	virtual Ptr<Packet> Schedule();
   };
   
   
-
 template <typename Item>
 TypeId
 SPQ<Item>::GetTypeId (void)
@@ -22,7 +29,7 @@ SPQ<Item>::GetTypeId (void)
   static TypeId tid = TypeId (("ns3::SPQ<" + GetTypeParamName<SPQ<Item> > () + ">").c_str ())
     .SetParent<Queue<Item> > ()
     .SetGroupName ("Network")
-    .template AddConstructor<DiffServ<Item> > ()
+    .template AddConstructor<SPQ<Item> > ()
     .AddAttribute ("ConfigPath",
                     "The path of config file.",
                     StringValue ("config.txt"),
@@ -31,6 +38,7 @@ SPQ<Item>::GetTypeId (void)
   ;
   return tid;
 }
+
 
 
 

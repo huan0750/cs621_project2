@@ -72,7 +72,7 @@ public:
   virtual Ptr<Item> Remove (void);
   virtual Ptr<const Item> Peek (void) const;
 
-private:
+public:
   using Queue<Item>::Head;
   using Queue<Item>::Tail;
   using Queue<Item>::DoEnqueue;
@@ -84,17 +84,19 @@ private:
 
 
   // variable
+ public:
   QueueMode m_mode;
   std::vector<TrafficClass*> q_class;
   std::vector<double_t> quantums;
   bool isLoad = false;
   int curTurn = 0;
+  
 
   //function
 public:
     void SetMode(QueueMode mode);
     QueueMode GetMode();
-    Ptr<Packet> Schedule();
+    virtual Ptr<Packet> Schedule();
     Ptr<Packet> ScheduleDrr();
     void Classify(Ptr<Packet> p);
 	void LoadConfig(std::string path);
@@ -105,199 +107,8 @@ public:
 };
 
 
-/**
- * Implementation of the templates declared above.
- */
-
-template <typename Item>
-TypeId
-DiffServ<Item>::GetTypeId (void)
-{
-  static TypeId tid = TypeId (("ns3::DiffServ<" + GetTypeParamName<DiffServ<Item> > () + ">").c_str ())
-    .SetParent<Queue<Item> > ()
-    .SetGroupName ("Network")
-    .template AddConstructor<DiffServ<Item> > ()
-    .AddAttribute ("ConfigPath",
-                    "The path of config file.",
-                    StringValue ("config.txt"),
-                    MakeStringAccessor(&DiffServ<Item>::LoadConfig),
-                    MakeStringChecker())
-  ;
-  return tid;
-}
-
-template <typename Item>
-DiffServ<Item>::DiffServ () :
-  Queue<Item> (),
-  NS_LOG_TEMPLATE_DEFINE ("DiffServ")
-{
-  NS_LOG_FUNCTION (this);
-  //isLoad = false;
- // LoadConfig("./load");
-}
-
-template <typename Item>
-DiffServ<Item>::~DiffServ ()
-{
-  NS_LOG_FUNCTION (this);
-}
-
-template <typename Item>
-bool
-DiffServ<Item>::Enqueue (Ptr<Item> item)
-{
-  NS_LOG_INFO (this << item <<"  DiffServ Enqueue------> ");
-    Ptr<Packet> p = (Ptr<Packet>)item;
-    Classify(p);
-    return true;
-  //return DoEnqueue (Tail (), item);
-}
-
-template <typename Item>
-Ptr<Item>
-DiffServ<Item>::Dequeue (void)
-{
-    NS_LOG_INFO (this  <<"  DiffServ Dequeue  <--------- ");
-    Ptr<Item>  item = Schedule();
-    return item;
-}
-
-template <typename Item>
-Ptr<Item>
-DiffServ<Item>::Remove (void)
-{
-  NS_LOG_FUNCTION (this);
-
-  Ptr<Item> item = DoRemove (Head ());
-
-  NS_LOG_LOGIC ("Removed " << item);
-
-  return item;
-}
-
-template <typename Item>
-Ptr<const Item>
-DiffServ<Item>::Peek (void) const
-{
-  NS_LOG_FUNCTION (this);
-
-  return DoPeek (Head ());
-}
-
-
-    template <typename Item>
-    Ptr<Packet> DiffServ<Item>::Schedule(){
-        for (unsigned i=0; i<q_class.size(); i++){
-            TrafficClass* trafficClass = q_class[i];
-            Ptr<Packet> p = trafficClass->Dequeue();
-            if (p != NULL) {
-				        std::cout << "<<<<<<<<<<<packet  dequeue from  queue  priority_level "<< trafficClass->getPriorityLevel()<<std::endl;
-                return p;
-            }
-        }
-        return NULL;
-    }
-
-    template <typename Item>
-    Ptr<Packet> DiffServ<Item>::ScheduleDrr(){
-      TrafficClass* tc = q_class[curTurn];
-      Ptr<Packet> p = tc->DequeueDrr();
-      if(p != NULL){
-        return p;
-      } 
-      nextTurn();
-      return NULL;
-    }
-
-    template <typename Item>
-    void DiffServ<Item>::Classify(Ptr<Packet> p){
-        for (unsigned i=0; i<q_class.size(); i++){
-            TrafficClass* trafficClass = q_class[i];		
-            if(trafficClass->match(p)){
-                trafficClass->Enqueue(p);
-				        std::cout << ">>>>>>>>>>>packet  insert to queue with priority_level "<< trafficClass->getPriorityLevel()<<std::endl;
-				        return; // only insert once, inset high priority_queue
-            }
-        }
-    }
-	
-	template <typename Item>
-    void DiffServ<Item>::LoadConfig(std::string path){
-		if (isLoad){
-			std::cout<<"already load "<<path <<std::endl;
-			return ;
-		}
-       std::cout<<this<<"DiffServ----------> isload  "<<isLoad<<path <<std::endl;
-	   Config config;
-	   q_class = config.readFileJson(path);
-	   orderTrafficClassByPriority();
-	   printTrafficClass();
-	   isLoad = true;
-	   return ;
-	   /*
-		q_class.resize(2);
-		
-		TrafficClass* trafficClass = new TrafficClass(true);
-		trafficClass->setPriorityLevel(0);
-		//trafficClass->print();
-		q_class[1] = trafficClass;
-		
-		
-		DestinationPortNumber* element = new DestinationPortNumber(53, "UDP");  // 53 DNS high priority 
-		TrafficClass* trafficClass2 = new TrafficClass();
-		Filter* filter = new Filter(1);
-		filter->Insert(0, element);
-		trafficClass2->resizeFilters(1);
-		trafficClass2->insertFilter(0, filter);
-		trafficClass2->setPriorityLevel(1);
-		
-		//trafficClass2->print();
-		
-		q_class[0] = trafficClass2;
-		
-		orderTrafficClassByPriority();
-		printTrafficClass();
-		
-		*/
-		
-    }
-	
-	template <typename Item>
-	void DiffServ<Item>::orderTrafficClassByPriority(){
-		std::sort(q_class.begin(), q_class.end(), compareTrafficClass);
-	}
-
-  template <typename Item>
-	void DiffServ<Item>::nextTurn(){
-    //plus traffic quantum
-    double_t quantum = quantums[curTurn];
-    TrafficClass* tc = q_class[curTurn];
-    tc->addWeight(quantum);
-    curTurn = (curTurn + 1) % q_class.size();
-	}
-	
-	template <typename Item>
-	void DiffServ<Item>::printTrafficClass(){
-		for(std::vector<TrafficClass*>::iterator it = q_class.begin(); it != q_class.end(); it++ ){
-			TrafficClass* c = *it;
-			std::cout << " trafficClass  priority  : "<< c->getPriorityLevel()<<std::endl;
-		}
-	}
-
-
-	
-	
-
-// The following explicit template instantiation declarations prevent all the
-// translation units including this header file to implicitly instantiate the
-// DiffServ<Packet> class and the DiffServ<QueueDiscItem> class. The
-// unique instances of these classes are explicitly created through the macros
-// NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServ,Packet) and
-// NS_OBJECT_TEMPLATE_CLASS_DEFINE (DiffServ,QueueDiscItem), which are included
-// in drop-tail-queue.cc
-extern template class DiffServ<Packet>;
-//extern template class DiffServ<QueueDiscItem>;
-
 } // namespace ns3
+
+
 
 #endif /* DROPTAIL_H */
