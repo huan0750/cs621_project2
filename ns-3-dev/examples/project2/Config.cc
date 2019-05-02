@@ -60,6 +60,7 @@ namespace ns3 {
 		 
 		 TrafficClass* trafficClass = new TrafficClass(true);
 		 trafficClass->setPriorityLevel(0);
+		 trafficClass->setWeight(400);
 		 qConfig[num_queues] = trafficClass;    // size = 2, there are 3 queue, [2] == defualt 
 		
 		Json::Value traffic_array = root["traffic"];

@@ -46,7 +46,7 @@ namespace ns3 {
       void setMaxPackets(uint32_t num);
 	  uint32_t getMaxBytes();
       void setMaxBytes(uint32_t num);
-	  double getWeight();
+	  double_t getWeight();
       void setWeight(double_t num);
 	  uint32_t  getPriorityLevel();
       void setPriorityLevel(uint32_t num);

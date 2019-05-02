@@ -9,7 +9,7 @@ template <typename Item>
 	class DRR : public  DiffServ<Item> {
 		private:
         using DiffServ<Item>::q_class;
-		std::vector <double_t> quantums;
+		using DiffServ<Item>::quantums;
 		int turn = 0;
 	  
 	  

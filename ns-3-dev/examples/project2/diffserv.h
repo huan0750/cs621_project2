@@ -89,7 +89,6 @@ public:
   std::vector<TrafficClass*> q_class;
   std::vector<double_t> quantums;
   bool isLoad = false;
-  int curTurn = 0;
   
 
   //function
@@ -102,7 +101,7 @@ public:
 	void LoadConfig(std::string path);
 	void orderTrafficClassByPriority(); 
 	void printTrafficClass();
-    void nextTurn();
+    //void nextTurn();
 
 };
 

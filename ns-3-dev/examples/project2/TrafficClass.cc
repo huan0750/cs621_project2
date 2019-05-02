@@ -127,7 +127,7 @@ namespace ns3 {
         this->weight += num;
     }
 
-    double TrafficClass::getWeight(){
+    double_t TrafficClass::getWeight(){
         return this->weight;
 
     }

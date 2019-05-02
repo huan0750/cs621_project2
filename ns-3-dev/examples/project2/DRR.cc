@@ -28,7 +28,7 @@ namespace ns3{
         double_t quantum = quantums[curTurn];
         TrafficClass* tc = q_class[curTurn];
         tc->addWeight(quantum);
-        curTurn = (curTurn + 1) % q_class.size();
+        turn = (turn + 1) % q_class.size();
 	}
 
     // template <typename Item>

@@ -146,6 +146,13 @@ DiffServ<Item>::Peek (void) const
        std::cout<<this<<"DiffServ----------> isload  "<<isLoad<<path <<std::endl;
 	   Config config;
 	   q_class = config.readFileJson(path);
+	   
+	   quantums.resize(q_class.size());
+	   for(unsigned int i = 0; i < q_class.size(); i++){
+		   quantums[i] = q_class[i] ->getWeight();
+	   }
+	   
+	   
 	   orderTrafficClassByPriority();
 	   printTrafficClass();
 	   isLoad = true;
@@ -157,14 +164,14 @@ DiffServ<Item>::Peek (void) const
 		std::sort(q_class.begin(), q_class.end(), compareTrafficClass);
 	}
 
-  template <typename Item>
-	void DiffServ<Item>::nextTurn(){
+	//template <typename Item>
+	//void DiffServ<Item>::nextTurn(){
     //plus traffic quantum
-    double_t quantum = quantums[curTurn];
-    TrafficClass* tc = q_class[curTurn];
-    tc->addWeight(quantum);
-    curTurn = (curTurn + 1) % q_class.size();
-	}
+    //double_t quantum = quantums[curTurn];
+    //TrafficClass* tc = q_class[curTurn];
+    //tc->addWeight(quantum);
+    //curTurn = (curTurn + 1) % q_class.size();
+	//}
 	
 	template <typename Item>
 	void DiffServ<Item>::printTrafficClass(){
