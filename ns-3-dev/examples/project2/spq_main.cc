@@ -21,6 +21,7 @@
 #include "ns3/applications-module.h"
 #include "diffserv.h"
 
+
 using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE ("FirstScriptExample");
@@ -93,7 +94,7 @@ main (int argc, char *argv[])
   
 
   UdpClientHelper udpClient (interfaces2.GetAddress (1), 61);
-  udpClient.SetAttribute ("MaxPackets", UintegerValue (5));
+  udpClient.SetAttribute ("MaxPackets", UintegerValue (5000));
   udpClient.SetAttribute ("Interval", TimeValue (Seconds (0.001)));
   udpClient.SetAttribute ("PacketSize", UintegerValue (1024));
 
@@ -104,7 +105,7 @@ main (int argc, char *argv[])
   
   // dns query client 
    UdpClientHelper udpClient2(interfaces2.GetAddress (1), 53);
-  udpClient2.SetAttribute ("MaxPackets", UintegerValue (5));
+  udpClient2.SetAttribute ("MaxPackets", UintegerValue (5000));
   udpClient2.SetAttribute ("Interval", TimeValue (Seconds (0.001)));
   udpClient2.SetAttribute ("PacketSize", UintegerValue (1024));
 
