@@ -94,24 +94,24 @@ main (int argc, char *argv[])
   
 
   UdpClientHelper udpClient (interfaces2.GetAddress (1), 61);
-  udpClient.SetAttribute ("MaxPackets", UintegerValue (5000));
+  udpClient.SetAttribute ("MaxPackets", UintegerValue (10000));
   udpClient.SetAttribute ("Interval", TimeValue (Seconds (0.001)));
   udpClient.SetAttribute ("PacketSize", UintegerValue (1024));
 
   ApplicationContainer clientApps = udpClient.Install (nodes.Get (0));
-  clientApps.Start (Seconds (2.0));
-  clientApps.Stop (Seconds (10.0));
+  clientApps.Start (Seconds (1.0));
+  clientApps.Stop (Seconds (9.0));
   
   
   // dns query client 
-   UdpClientHelper udpClient2(interfaces2.GetAddress (1), 53);
-  udpClient2.SetAttribute ("MaxPackets", UintegerValue (5000));
+   UdpClientHelper udpClient2(interfaces2.GetAddress (1), 53); //
+  udpClient2.SetAttribute ("MaxPackets", UintegerValue (10000));
   udpClient2.SetAttribute ("Interval", TimeValue (Seconds (0.001)));
   udpClient2.SetAttribute ("PacketSize", UintegerValue (1024));
 
   ApplicationContainer clientApps2 = udpClient2.Install (nodes.Get (0));
-  clientApps2.Start (Seconds (2.0));
-  clientApps2.Stop (Seconds (10.0));
+  clientApps2.Start (Seconds (3.0));
+  clientApps2.Stop (Seconds (6.0));
 
 
   // this will record all the nodes in pointToPoint, n0 n1 n2
