@@ -102,7 +102,7 @@ main (int argc, char *argv[])
 
   UdpClientHelper udpClient (interfaces2.GetAddress (1), 80);
   udpClient.SetAttribute ("MaxPackets", UintegerValue (5000));
-  udpClient.SetAttribute ("Interval", TimeValue (Seconds (0.05)));
+  udpClient.SetAttribute ("Interval", TimeValue (Seconds (0.005)));
   udpClient.SetAttribute ("PacketSize", UintegerValue (500));
 
   ApplicationContainer clientApps = udpClient.Install (nodes.Get (0));
@@ -113,7 +113,7 @@ main (int argc, char *argv[])
    //dns query client 
    UdpClientHelper udpClient2(interfaces2.GetAddress (1), 70);
    udpClient2.SetAttribute ("MaxPackets", UintegerValue (5000));
-   udpClient2.SetAttribute ("Interval", TimeValue (Seconds (0.05)));
+   udpClient2.SetAttribute ("Interval", TimeValue (Seconds (0.005)));
    udpClient2.SetAttribute ("PacketSize", UintegerValue (500));
 
   ApplicationContainer clientApps2 = udpClient2.Install (nodes.Get (0));
@@ -122,7 +122,7 @@ main (int argc, char *argv[])
   
   UdpClientHelper udpClient3(interfaces2.GetAddress (1), 60);
   udpClient3.SetAttribute ("MaxPackets", UintegerValue (5000));
-  udpClient3.SetAttribute ("Interval", TimeValue (Seconds (0.05)));
+  udpClient3.SetAttribute ("Interval", TimeValue (Seconds (0.005)));
   udpClient3.SetAttribute ("PacketSize", UintegerValue (500));
 
   ApplicationContainer clientApps3 = udpClient3.Install (nodes.Get (0));
