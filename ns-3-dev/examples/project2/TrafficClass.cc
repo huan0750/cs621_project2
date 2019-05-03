@@ -6,6 +6,10 @@ namespace ns3 {
     //constructor
 
     TrafficClass::TrafficClass(bool isDefault) {
+        bytes = 0;
+        packets = 0;
+        max_bytes = 1024000;
+        max_packets = 1000;
         this->isDefault = isDefault;
     }
 
