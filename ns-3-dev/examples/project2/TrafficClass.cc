@@ -11,6 +11,7 @@ namespace ns3 {
 
 
     bool TrafficClass::Enqueue(Ptr <Packet> p) {
+      std::cout<<"queue mode"<<m_queueMode<<" max_bytes "<<max_bytes<<" bytes "<<bytes<<std::endl;
         if (m_queueMode == QueueModeByte)
         {
             if (bytes + p->GetSize () <= max_bytes) {
