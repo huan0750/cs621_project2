@@ -1,13 +1,13 @@
 {
   "num_queues": 2,
   "traffic":[
-   {
+    {
       "ifDefault": false,
       "quantum": 6000,
 	  "priority_level": 2,
       "filters":[
         {
-          "filter":[
+          "filter_element":[
             {
               "type":"DestinationPortNumber",
               "protocol":"UDP",
@@ -25,7 +25,7 @@
 	  "priority_level": 1,
       "filters":[
         {
-          "filter":[
+          "filter_element":[
             {
               "type":"DestinationPortNumber",
               "protocol":"UDP",

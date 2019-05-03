@@ -27,7 +27,7 @@ namespace ns3 {
       double_t weight;
       uint32_t priority_level;
       std::vector<ns3::Filter*> filters;
-	  QueueMode m_queueMode;
+	  QueueMode m_queueMode = QueueModePacket;
 
 
   public:

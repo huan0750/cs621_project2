@@ -159,6 +159,7 @@ DiffServ<Item>::Dequeue (void)
 {
     NS_LOG_INFO (this  <<"  DiffServ Dequeue  <--------- ");
     Ptr<Item>  item = Schedule();
+	//NS_LOG_INFO (this  <<"  DiffServ Dequeue  <--------- "<<item);
     return item;
 }
 

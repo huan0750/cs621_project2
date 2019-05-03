@@ -34,6 +34,7 @@ namespace ns3 {
 
     Ptr <Packet> TrafficClass::Dequeue() {
         if (m_queue.empty()) {
+			std::cout<<"Yalei loging: *************** queue is empty"<<std::endl;
             return NULL;
         } else {
             Ptr <Packet> p = m_queue.front();

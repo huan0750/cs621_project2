@@ -80,12 +80,15 @@ main (int argc, char *argv[])
     Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
 
   UdpServerHelper udpServer (80);      //realtime transport protocol   priority  0  61 
+  
   UdpServerHelper udpServer2 (70);  //DNS request , height priority  = 1  53
   UdpServerHelper udpServer3 (60); 
+ 
 
   ApplicationContainer serverApps = udpServer.Install (nodes.Get (2));
   serverApps.Start (Seconds (1.0));
   serverApps.Stop (Seconds (10.0));
+  
   
     ApplicationContainer serverApps2 = udpServer2.Install (nodes.Get (2));
   serverApps2.Start (Seconds (1.0));
@@ -95,30 +98,32 @@ main (int argc, char *argv[])
   serverApps3.Start (Seconds (1.0));
   serverApps3.Stop (Seconds (10.0));
 
+
+
   UdpClientHelper udpClient (interfaces2.GetAddress (1), 80);
-  udpClient.SetAttribute ("MaxPackets", UintegerValue (5));
+  udpClient.SetAttribute ("MaxPackets", UintegerValue (5000));
   udpClient.SetAttribute ("Interval", TimeValue (Seconds (0.001)));
-  udpClient.SetAttribute ("PacketSize", UintegerValue (1024));
+  udpClient.SetAttribute ("PacketSize", UintegerValue (500));
 
   ApplicationContainer clientApps = udpClient.Install (nodes.Get (0));
   clientApps.Start (Seconds (2.0));
   clientApps.Stop (Seconds (10.0));
   
   
-  // dns query client 
+   //dns query client 
    UdpClientHelper udpClient2(interfaces2.GetAddress (1), 70);
-  udpClient2.SetAttribute ("MaxPackets", UintegerValue (5));
-  udpClient2.SetAttribute ("Interval", TimeValue (Seconds (0.001)));
-  udpClient2.SetAttribute ("PacketSize", UintegerValue (1024));
+   udpClient2.SetAttribute ("MaxPackets", UintegerValue (5000));
+   udpClient2.SetAttribute ("Interval", TimeValue (Seconds (0.001)));
+   udpClient2.SetAttribute ("PacketSize", UintegerValue (500));
 
   ApplicationContainer clientApps2 = udpClient2.Install (nodes.Get (0));
   clientApps2.Start (Seconds (2.0));
   clientApps2.Stop (Seconds (10.0));
   
   UdpClientHelper udpClient3(interfaces2.GetAddress (1), 60);
-  udpClient3.SetAttribute ("MaxPackets", UintegerValue (5));
+  udpClient3.SetAttribute ("MaxPackets", UintegerValue (5000));
   udpClient3.SetAttribute ("Interval", TimeValue (Seconds (0.001)));
-  udpClient3.SetAttribute ("PacketSize", UintegerValue (1024));
+  udpClient3.SetAttribute ("PacketSize", UintegerValue (500));
 
   ApplicationContainer clientApps3 = udpClient3.Install (nodes.Get (0));
   clientApps3.Start (Seconds (2.0));

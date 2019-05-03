@@ -7,6 +7,11 @@ namespace ns3 {
 
     TrafficClass::TrafficClass(bool isDefault) {
         this->isDefault = isDefault;
+		bytes = 0;
+		packets = 0;
+		max_bytes = 1054000;
+		max_packets = 1000;
+		m_queueMode = QueueModePacket;
     }
 
 
@@ -19,6 +24,7 @@ namespace ns3 {
                 bytes += p->GetSize ();
                 return true;
             } else {
+				std::cout<<"Yalei loging: *************** enqueue failed 1"<<std::endl;
                 return false;
             }
         } else {
@@ -27,6 +33,7 @@ namespace ns3 {
                 packets++;
                 return true;
             } else {
+				std::cout<<"Yalei loging: *************** enqueue failed 2"<<std::endl;
                 return false;
             }
         }
@@ -49,12 +56,15 @@ namespace ns3 {
     }
 
     Ptr <Packet> TrafficClass::DequeueDrr() {
+		std::cout<<"Yalei loging: *************** in dequeue drr: "<< priority_level << m_queue.size() <<std::endl;
         if (m_queue.empty()) {
+			std::cout<<"Yalei loging: *************** queue is empty"<<std::endl;
             return NULL;
         } else {
             Ptr <Packet> p = m_queue.front();
             double_t size = (double_t)(p -> GetSize());
             if(size > weight){
+				std::cout<<"Yalei loging: size > weight ********** "<< size << " " << weight <<std::endl;
                 return NULL;
             }
             m_queue.pop();
@@ -134,7 +144,7 @@ namespace ns3 {
 
 
     bool TrafficClass::match(Ptr <Packet> p) {
-		std::cout<<"is default "<<isDefault << " priority "<<priority_level <<std::endl; 
+		//std::cout<<"is default "<<isDefault << " priority "<<priority_level <<std::endl; 
 		if(isDefault) return true; 
 		
         for (unsigned int i = 0; i < filters.size(); i++) {

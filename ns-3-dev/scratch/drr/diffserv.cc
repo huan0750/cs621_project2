@@ -122,7 +122,7 @@ DiffServ<Item>::Peek (void) const
                 trafficClass->Enqueue(p);
 				        std::cout << ">>>>>>>>>>>packet  insert to queue with priority_level "<< trafficClass->getPriorityLevel()<<std::endl;
 				        return; // only insert once, inset high priority_queue
-            }
+            }		
         }
     }
 	
@@ -138,6 +138,7 @@ DiffServ<Item>::Peek (void) const
 	   
 	   quantums.resize(q_class.size());
 	   for(unsigned int i = 0; i < q_class.size(); i++){
+		   std::cout<<this<<"quantums:  "<<q_class[i]->getWeight() <<std::endl;
 		   quantums[i] = q_class[i] ->getWeight();
 	   }
 	   

@@ -16,8 +16,10 @@ namespace ns3{
       TrafficClass* tc = q_class[turn];
       Ptr<Packet> p = tc->DequeueDrr();
       if(p != NULL){
+		   std::cout << "**********[DRR] get a packet from "<< tc->getWeight()<<std::endl;
         return p;
       } 
+	  std::cout << "**********cur turn: "<<turn<<std::endl;
       nextTurn();
       return NULL;
     }
@@ -29,6 +31,7 @@ namespace ns3{
         TrafficClass* tc = q_class[turn];
         tc->addWeight(quantum);
         turn = (turn + 1) % q_class.size();
+		std::cout << "**********next turn: "<<turn<<std::endl;
 	}
 
     // template <typename Item>
