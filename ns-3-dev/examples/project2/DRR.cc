@@ -12,8 +12,8 @@ namespace ns3{
 	}
 
     template <typename Item>
-    Ptr<Packet> Drr<Item>::Schedule(){
-      TrafficClass* tc = q_class[curTurn];
+    Ptr<Packet> DRR<Item>::Schedule(){
+      TrafficClass* tc = q_class[turn];
       Ptr<Packet> p = tc->DequeueDrr();
       if(p != NULL){
         return p;
@@ -23,10 +23,10 @@ namespace ns3{
     }
 
     template <typename Item>
-	void Drr<Item>::nextTurn(){
+	void DRR<Item>::nextTurn(){
         //plus traffic quantum
-        double_t quantum = quantums[curTurn];
-        TrafficClass* tc = q_class[curTurn];
+        double_t quantum = quantums[turn];
+        TrafficClass* tc = q_class[turn];
         tc->addWeight(quantum);
         turn = (turn + 1) % q_class.size();
 	}

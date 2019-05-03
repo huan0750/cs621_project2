@@ -1,5 +1,5 @@
-#ifndef CS621_PROJECT2_SPQ_H
-#define CS621_PROJECT2_SPQ_H
+#ifndef CS621_PROJECT2_DRR_H
+#define CS621_PROJECT2_DRR_H
 
 #include "diffserv.h"
 
@@ -29,7 +29,7 @@ DRR<Item>::GetTypeId (void)
   static TypeId tid = TypeId (("ns3::DRR<" + GetTypeParamName<DRR<Item> > () + ">").c_str ())
     .SetParent<Queue<Item> > ()
     .SetGroupName ("Network")
-    .template AddConstructor<DiffServ<Item> > ()
+    .template AddConstructor<DRR<Item> > ()
     .AddAttribute ("ConfigPath",
                     "The path of config file.",
                     StringValue ("drr.json"),
@@ -39,3 +39,5 @@ DRR<Item>::GetTypeId (void)
   ;
   return tid;
 }
+}
+#endif //CS621_PROJECT2_FILTER_H

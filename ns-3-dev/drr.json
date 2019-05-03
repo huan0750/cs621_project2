@@ -1,5 +1,5 @@
 {
-  "num_queues": 3,
+  "num_queues": 2,
   "traffic":[
     {
       "ifDefault": false,
@@ -28,21 +28,6 @@
               "type":"DestinationPortNumber",
               "protocol":"UDP",
               "port":70
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "ifDefault": true,
-      "quantum": 400,
-      "filters":[
-        {
-          "filter_element":[
-            {
-              "type":"DestinationPortNumber",
-              "protocol":"UDP",
-              "port":60
             }
           ]
         }
