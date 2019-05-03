@@ -1,0 +1,144 @@
+/* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation;
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+#include "ns3/core-module.h"
+#include "ns3/network-module.h"
+#include "ns3/internet-module.h"
+#include "ns3/point-to-point-module.h"
+#include "ns3/applications-module.h"
+#include "diffserv.h"
+
+using namespace ns3;
+
+NS_LOG_COMPONENT_DEFINE ("DrrExample");
+
+int
+main (int argc, char *argv[])
+{
+  CommandLine cmd;
+  std::string configFile = "config.txt";
+  cmd.AddValue("config","configFile", configFile);
+  cmd.Parse (argc, argv);
+
+  std::cout<<"config path : "<<configFile<<std::endl;
+
+  Time::SetResolution (Time::NS);
+  LogComponentEnable ("DropTailQueue", LOG_LEVEL_INFO);
+  LogComponentEnable ("DiffServ", LOG_LEVEL_INFO);
+  LogComponentEnable ("UdpClient", LOG_LEVEL_ALL);
+  LogComponentEnable ("UdpServer", LOG_LEVEL_ALL);
+
+  NodeContainer nodes;
+  nodes.Create (3);
+
+    // n0-->n1
+  PointToPointHelper pointToPoint;
+  pointToPoint.SetDeviceAttribute ("DataRate", StringValue ("4Mbps"));
+  pointToPoint.SetChannelAttribute ("Delay", StringValue ("0ms"));
+
+
+    //n1-->n2
+    PointToPointHelper pointToPoint2;
+                          //ns3::DiffServQueue
+    pointToPoint2.SetQueue("ns3::DRR<Packet>");
+    pointToPoint2.SetDeviceAttribute ("DataRate", StringValue ("1Mbps"));
+    pointToPoint2.SetChannelAttribute ("Delay", StringValue ("0ms"));
+    Config::SetDefault ("ns3::DRR<Packet>::ConfigPath", StringValue(configFile));
+
+    NetDeviceContainer devices;
+    devices = pointToPoint.Install (nodes.Get(0), nodes.Get(1));
+
+
+    NetDeviceContainer devices2;
+
+    devices2 = pointToPoint2.Install (nodes.Get(1), nodes.Get(2));
+
+
+
+
+  InternetStackHelper stack;
+  stack.Install (nodes);
+
+  Ipv4AddressHelper address;
+  address.SetBase ("10.1.1.0", "255.255.255.0");
+
+    Ipv4AddressHelper address2;
+    address2.SetBase ("10.1.2.0", "255.255.255.0");
+
+  Ipv4InterfaceContainer interfaces = address.Assign (devices);
+
+    Ipv4InterfaceContainer interfaces2 = address2.Assign (devices2);
+    Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
+
+  UdpServerHelper udpServer (80);      //realtime transport protocol   priority  0  61 
+  
+  UdpServerHelper udpServer2 (70);  //DNS request , height priority  = 1  53
+  UdpServerHelper udpServer3 (60); 
+ 
+
+  ApplicationContainer serverApps = udpServer.Install (nodes.Get (2));
+  serverApps.Start (Seconds (1.0));
+  serverApps.Stop (Seconds (10.0));
+  
+  
+    ApplicationContainer serverApps2 = udpServer2.Install (nodes.Get (2));
+  serverApps2.Start (Seconds (1.0));
+  serverApps2.Stop (Seconds (10.0));
+  
+    ApplicationContainer serverApps3 = udpServer3.Install (nodes.Get (2));
+  serverApps3.Start (Seconds (1.0));
+  serverApps3.Stop (Seconds (10.0));
+
+
+
+  UdpClientHelper udpClient (interfaces2.GetAddress (1), 80);
+  udpClient.SetAttribute ("MaxPackets", UintegerValue (5000));
+  udpClient.SetAttribute ("Interval", TimeValue (Seconds (0.005)));
+  udpClient.SetAttribute ("PacketSize", UintegerValue (500));
+
+  ApplicationContainer clientApps = udpClient.Install (nodes.Get (0));
+  clientApps.Start (Seconds (2.0));
+  clientApps.Stop (Seconds (10.0));
+  
+  
+   //dns query client 
+   UdpClientHelper udpClient2(interfaces2.GetAddress (1), 70);
+   udpClient2.SetAttribute ("MaxPackets", UintegerValue (5000));
+   udpClient2.SetAttribute ("Interval", TimeValue (Seconds (0.005)));
+   udpClient2.SetAttribute ("PacketSize", UintegerValue (500));
+
+  ApplicationContainer clientApps2 = udpClient2.Install (nodes.Get (0));
+  clientApps2.Start (Seconds (2.0));
+  clientApps2.Stop (Seconds (10.0));
+  
+  UdpClientHelper udpClient3(interfaces2.GetAddress (1), 60);
+  udpClient3.SetAttribute ("MaxPackets", UintegerValue (5000));
+  udpClient3.SetAttribute ("Interval", TimeValue (Seconds (0.005)));
+  udpClient3.SetAttribute ("PacketSize", UintegerValue (500));
+
+  ApplicationContainer clientApps3 = udpClient3.Install (nodes.Get (0));
+  clientApps3.Start (Seconds (2.0));
+  clientApps3.Stop (Seconds (10.0));
+
+
+  // this will record all the nodes in pointToPoint, n0 n1 n2
+  pointToPoint.EnablePcapAll ("project2_pointToPoint");
+
+
+  Simulator::Run ();
+  Simulator::Destroy ();
+  return 0;
+}
