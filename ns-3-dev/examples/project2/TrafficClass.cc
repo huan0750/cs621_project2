@@ -10,6 +10,7 @@ namespace ns3 {
         packets = 0;
         max_bytes = 1024000;
         max_packets = 1000;
+        m_queueMode = QueueModePacket;
         this->isDefault = isDefault;
     }
 

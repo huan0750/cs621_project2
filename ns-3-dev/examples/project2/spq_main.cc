@@ -30,6 +30,10 @@ int
 main (int argc, char *argv[])
 {
   CommandLine cmd;
+
+
+  std::string configFile = "config.txt";
+  cmd.AddValue("config","configFile", configFile);
   cmd.Parse (argc, argv);
 
   Time::SetResolution (Time::NS);
@@ -53,7 +57,7 @@ main (int argc, char *argv[])
     pointToPoint2.SetQueue("ns3::SPQ<Packet>");
     pointToPoint2.SetDeviceAttribute ("DataRate", StringValue ("1Mbps"));
     pointToPoint2.SetChannelAttribute ("Delay", StringValue ("0ms"));
-    Config::SetDefault ("ns3::SPQ<Packet>::ConfigPath", StringValue ("spq.json"));
+    Config::SetDefault ("ns3::SPQ<Packet>::ConfigPath", StringValue (configFile));
 
     NetDeviceContainer devices;
     devices = pointToPoint.Install (nodes.Get(0), nodes.Get(1));
