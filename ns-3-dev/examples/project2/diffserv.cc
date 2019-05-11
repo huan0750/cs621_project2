@@ -109,22 +109,6 @@ DiffServ<Item>::Peek (void) const
 }
 
 
- //   template <typename Item>
- //   Ptr<Packet> DiffServ<Item>::Schedule(){/
-//
- //   }
-
-    //template <typename Item>
-    //Ptr<Packet> DiffServ<Item>::ScheduleDrr(){
-      //TrafficClass* tc = q_class[curTurn];
-      //Ptr<Packet> p = tc->DequeueDrr();
-      //if(p != NULL){
-        //return p;
-      //} 
-      //nextTurn();
-      //return NULL;
-    //}
-
     template <typename Item>
     void DiffServ<Item>::Classify(Ptr<Packet> p){
         for (unsigned i=0; i<q_class.size(); i++){
@@ -143,7 +127,6 @@ DiffServ<Item>::Peek (void) const
 			std::cout<<"already load "<<path <<std::endl;
 			return ;
 		}
-       std::cout<<this<<"DiffServ----------> isload  "<<isLoad<<path <<std::endl;
 	   Config config;
 	   q_class = config.readFileJson(path);
 	   

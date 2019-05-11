@@ -93,15 +93,32 @@ public:
 
   //function
 public:
+    // set mode of queue: QueueModePacket/QueueModeByte
     void SetMode(QueueMode mode);
     QueueMode GetMode();
+    /*
+     * Schedule function should be implement in child class. this function defines QoS service feature (DRR/SPQ)
+     */
     virtual Ptr<Packet> Schedule();
-    //Ptr<Packet> ScheduleDrr();
+    /*
+     * classify the packet to the special queue of traffic.
+     */
     void Classify(Ptr<Packet> p);
+    /*
+     * load traffic class vectors from the config file
+     *
+     *  param path the path of config file
+     */
 	void LoadConfig(std::string path);
-	void orderTrafficClassByPriority(); 
+    /*
+     * sort the traffic class vectors by priority
+     *
+     */
+	void orderTrafficClassByPriority();
+    /*
+     * help function to print the traffic classes from high priority to low priority
+     */
 	void printTrafficClass();
-    //void nextTurn();
 
 };
 

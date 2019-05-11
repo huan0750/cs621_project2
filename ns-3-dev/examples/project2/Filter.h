@@ -18,21 +18,40 @@
 #include "FilterElement.h"
 
 
-
-
-
 namespace ns3 {
-  class Filter{
-  private:
-      std::vector<FilterElement*> list;
+    class Filter {
+    private:
+        std::vector<FilterElement *> list;
 
 
-  public:
-      Filter(int elementSize);
-	  void Resize(int elementSize);
-      void Insert(int pos, FilterElement* element);
-      bool match(Ptr<Packet> p);
-  
-  
-  };
+    public:
+        Filter(int elementSize);
+
+        /*
+         * resize number of  elementSize
+         *
+         * /param  elementSize  size of elementSize
+         *
+         */
+        void Resize(int elementSize);
+
+        /*
+         * insert filter element at position of vector
+         *
+         * /param  pos  pos of vector of FilterElement
+         * /param  element  filter element
+         *
+         */
+        void Insert(int pos, FilterElement *element);
+
+        /*
+         * check packet satisfied all filter elements
+         *
+         * return true when the packet matches all filter elements rules
+         *
+         */
+        bool match(Ptr <Packet> p);
+
+
+    };
 }

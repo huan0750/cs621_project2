@@ -30,10 +30,7 @@ typedef std::vector<FilterConfig> TrafficClassConfig;
 namespace ns3 {
 
   class Config{
-//  public:
-//     Config();
-     
-	 
+
    private:
      std::vector<ns3::TrafficClass*> qConfig;
 	 std::vector<TrafficClassConfig> list;
@@ -41,11 +38,15 @@ namespace ns3 {
 
 
   public :
-      bool load(std::string path);
+	  /*
+	   * return the the number of traffic classes
+	   */
 	  int  getTrafficClassSize();
-	  std::vector<TrafficClassConfig> getTrafficClass();
+
+	  /*
+	   *  read config of traffic class from json file, and return the vector of traffic class
+	   */
 	  std::vector<ns3::TrafficClass*> readFileJson(std::string path);
-	  std::vector<ns3::TrafficClass*> getTraffics();
   };
 }
 

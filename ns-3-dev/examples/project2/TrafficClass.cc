@@ -1,4 +1,5 @@
 #include "TrafficClass.h"
+
 namespace ns3 {
 
 
@@ -16,13 +17,12 @@ namespace ns3 {
 
 
     bool TrafficClass::Enqueue(Ptr <Packet> p) {
-      std::cout<<"queue mode"<<m_queueMode<<" max_bytes "<<max_bytes<<" bytes "<<bytes<<std::endl;
-        if (m_queueMode == QueueModeByte)
-        {
-            if (bytes + p->GetSize () <= max_bytes) {
+        std::cout << "queue mode" << m_queueMode << " max_bytes " << max_bytes << " bytes " << bytes << std::endl;
+        if (m_queueMode == QueueModeByte) {
+            if (bytes + p->GetSize() <= max_bytes) {
 
                 m_queue.push(p);
-                bytes += p->GetSize ();
+                bytes += p->GetSize();
                 return true;
             } else {
                 return false;
@@ -44,9 +44,8 @@ namespace ns3 {
         } else {
             Ptr <Packet> p = m_queue.front();
             m_queue.pop();
-            if (m_queueMode == QueueModeByte)
-            {
-                bytes -= p->GetSize ();
+            if (m_queueMode == QueueModeByte) {
+                bytes -= p->GetSize();
             } else {
                 packets--;
             }
@@ -59,14 +58,13 @@ namespace ns3 {
             return NULL;
         } else {
             Ptr <Packet> p = m_queue.front();
-            double_t size = (double_t)(p -> GetSize());
-            if(size > weight){
+            double_t size = (double_t)(p->GetSize());
+            if (size > weight) {
                 return NULL;
             }
             m_queue.pop();
-            if (m_queueMode == QueueModeByte)
-            {
-                bytes -= p->GetSize ();
+            if (m_queueMode == QueueModeByte) {
+                bytes -= p->GetSize();
             } else {
                 packets--;
             }
@@ -76,7 +74,7 @@ namespace ns3 {
     }
 
 
-    uint32_t TrafficClass::getBytes(){
+    uint32_t TrafficClass::getBytes() {
         return this->bytes;
 
     }
@@ -86,7 +84,7 @@ namespace ns3 {
 
     }
 
-    uint32_t TrafficClass::getPackets(){
+    uint32_t TrafficClass::getPackets() {
         return this->packets;
 
     }
@@ -96,7 +94,7 @@ namespace ns3 {
 
     }
 
-    uint32_t TrafficClass::getMaxPackets(){
+    uint32_t TrafficClass::getMaxPackets() {
         return this->max_packets;
 
     }
@@ -106,7 +104,7 @@ namespace ns3 {
 
     }
 
-    uint32_t TrafficClass::getMaxBytes(){
+    uint32_t TrafficClass::getMaxBytes() {
         return this->max_bytes;
 
     }
@@ -120,10 +118,10 @@ namespace ns3 {
     void TrafficClass::setPriorityLevel(uint32_t num) {
         this->priority_level = num;
     }
-	
-	uint32_t  TrafficClass::getPriorityLevel(){
-		return priority_level;
-	}
+
+    uint32_t TrafficClass::getPriorityLevel() {
+        return priority_level;
+    }
 
     void TrafficClass::setWeight(double_t num) {
         this->weight = num;
@@ -133,39 +131,39 @@ namespace ns3 {
         this->weight += num;
     }
 
-    double_t TrafficClass::getWeight(){
+    double_t TrafficClass::getWeight() {
         return this->weight;
 
     }
 
 
     bool TrafficClass::match(Ptr <Packet> p) {
-		std::cout<<"is default "<<isDefault << " priority "<<priority_level <<std::endl; 
-		if(isDefault) return true; 
-		
+        std::cout << "is default " << isDefault << " priority " << priority_level << std::endl;
+        if (isDefault) return true;
+
         for (unsigned int i = 0; i < filters.size(); i++) {
-                if (filters[i]->match(p) == true) {
-                    return true;
-                }
+            if (filters[i]->match(p) == true) {
+                return true;
+            }
         }
 
         return false;
 
     }
 
-	
-	void TrafficClass::resizeFilters(int size){
-		filters.resize(size);	
-	}
-	
-	void TrafficClass::insertFilter(int pos, ns3::Filter* filter){
-		filters[pos] = filter;
-		
-	}
-	
-	void TrafficClass::print(){
-		std::cout<<"traffic class queue size " <<m_queue.size() <<"  isDefault "<< isDefault 
-		<< " priority_level "<< priority_level <<std::endl;
-	}
+
+    void TrafficClass::resizeFilters(int size) {
+        filters.resize(size);
+    }
+
+    void TrafficClass::insertFilter(int pos, ns3::Filter *filter) {
+        filters[pos] = filter;
+
+    }
+
+    void TrafficClass::print() {
+        std::cout << "traffic class queue size " << m_queue.size() << "  isDefault " << isDefault
+                  << " priority_level " << priority_level << std::endl;
+    }
 
 }
