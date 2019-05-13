@@ -1,6 +1,4 @@
-/* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- *//*
-
-*/
+/* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -14,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *//*
+ */
 
 
 #include "ns3/core-module.h"
@@ -31,6 +29,7 @@ NS_LOG_COMPONENT_DEFINE ("DrrExample");
 int
 main (int argc, char *argv[])
 {
+  // first contruct the nodes
   CommandLine cmd;
   std::string configFile = "config.txt";
   cmd.AddValue("config","configFile", configFile);
@@ -92,6 +91,7 @@ main (int argc, char *argv[])
   UdpServerHelper udpServer3 (60); 
  
 
+// initiate three servers to receive the packets, and start at the same time
   ApplicationContainer serverApps = udpServer.Install (nodes.Get (2));
   serverApps.Start (Seconds (1.0));
   serverApps.Stop (Seconds (10.0));
@@ -106,7 +106,7 @@ main (int argc, char *argv[])
   serverApps3.Stop (Seconds (10.0));
 
 
-
+// initiate three applications to send the packets, and start at the same time
   UdpClientHelper udpClient (interfaces2.GetAddress (1), 80);
   udpClient.SetAttribute ("MaxPackets", UintegerValue (5000));
   udpClient.SetAttribute ("Interval", TimeValue (Seconds (0.005)));
@@ -145,4 +145,4 @@ main (int argc, char *argv[])
   Simulator::Destroy ();
   return 0;
 }
-*/
+
