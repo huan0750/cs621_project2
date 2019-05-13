@@ -25,6 +25,10 @@ namespace ns3 {
 
 
     public:
+        /**
+         * Constructor of Filter
+         * @param elementSize
+         */
         Filter(int elementSize);
 
         /*

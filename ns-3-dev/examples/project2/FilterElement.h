@@ -10,6 +10,7 @@ namespace ns3 {
     class FilterElement {
     public:
         /*
+         * if the filter element match will return true
          * implement in the child class for special matching logic
          *
          * /param p   packet

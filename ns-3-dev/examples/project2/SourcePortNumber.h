@@ -14,11 +14,23 @@ namespace ns3 {
         uint32_t port;
         std::string protocol;
     public:
+        /**
+         * constructor
+         *
+         * @param destination_port
+         * @param protocol
+         */
         SourcePortNumber(uint32_t destination_port, std::string protocol) {
             port = destination_port;
             this->protocol = protocol;
         }
 
+        /**
+         * match source packet port number
+         *
+         * @param p
+         * @return
+         */
         bool match(Ptr <Packet> p);
     };
 

@@ -13,13 +13,8 @@ namespace ns3 {
         Ipv4Header iph;
         copy->RemoveHeader(iph);
 
-
-        if (protocol == "TCP" && iph.GetProtocol() == 0x06) {
+        if (iph.GetProtocol() == protocol_num) {
             return true;
-        } else if (protocol == "UDP" && iph.GetProtocol() == 0x11) {
-            return true;
-        } else {
-            return false;
         }
         return false;
     }

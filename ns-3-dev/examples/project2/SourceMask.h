@@ -16,12 +16,24 @@ namespace ns3 {
         Ipv4Mask mask;
         std::string protocol;
     public:
+        /**
+         * constructor
+         *
+         * @param start_address
+         * @param mask
+         * @param protocol
+         */
         SourceMask(Ipv4Address start_address, Ipv4Mask mask, std::string protocol) {
             this->mask = mask;
             this->start_address = start_address;
             this->protocol = protocol;
         }
 
+        /**
+         * match the source ip range from start_address and mask
+         * @param p
+         * @return
+         */
         bool match(Ptr <Packet> p);
     };
 

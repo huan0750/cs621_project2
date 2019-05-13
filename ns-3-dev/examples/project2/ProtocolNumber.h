@@ -6,15 +6,23 @@
 #include "FilterElement.h"
 #include "ns3/ipv4-address.h"
 
+/**
+ * match the protocal number of packet
+ * for example UDP 17 (0x11)
+ *
+ */
 namespace ns3 {
     class ProtocolNumber : public FilterElement {
     private:
         int32_t protocol_num;
-        std::string protocol;
     public:
-        ProtocolNumber(int32_t protocol_num, std::string protocol) {
+        /**
+         * Constructor
+         *
+         * @param protocol_num
+         */
+        ProtocolNumber(int32_t protocol_num) {
             this->protocol_num = protocol_num;
-            this->protocol = protocol;
         }
 
         bool match(Ptr <Packet> p);

@@ -26,6 +26,16 @@ namespace ns3 {
     };
 
 
+    /**
+     * get SPQ<Packet> an IP for the type
+     * set config file by the attribute of ConfigPath
+     *
+     * ns3::SPQ<Packet>::ConfigPath
+     *
+     * @tparam Item
+     * @return
+     */
+
     template<typename Item>
     TypeId
     SPQ<Item>::GetTypeId(void) {

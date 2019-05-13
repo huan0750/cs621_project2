@@ -30,20 +30,55 @@ namespace ns3 {
 
 
     public:
+        /**
+         * Constructor
+         *
+         * @param isDefault   default traffic when packet no match other traffic will come here
+         */
         TrafficClass(bool isDefault = false);
 
+        /**
+         * resize the filter vector size
+         *
+         * @param size
+         */
         void resizeFilters(int size);
 
+        /**
+         * insert the filter at postion of vector Filters
+         *
+         * @param pos
+         * @param filter
+         */
         void insertFilter(int pos, ns3::Filter *filter);
 
+
+        /**
+         * print traffic for debug
+         */
         void print();
 
+        /**
+         * push a packet to the traffic queue, when the queue reaches the max size.
+         * the packet will be dropped.
+         *
+         * @param p
+         * @return
+         */
         bool Enqueue(Ptr <Packet> p);
 
+
+        /**
+         * pop a packet out of the traffic queue, if queue is empty will return NULL
+         *
+         * @return
+         */
         Ptr <Packet> Dequeue();
 
-        /*
+        /**
          * if packet match this traffic class rules , will return true. or return false
+         * Filter || Filter || ...
+         *
          * \param p packet
          *
          */
@@ -59,8 +94,16 @@ namespace ns3 {
 
         uint32_t getMaxPackets();
 
+        /**
+         * set max packets number
+         * @param num
+         */
         void setMaxPackets(uint32_t num);
 
+        /**
+         * set max byts
+         * @return
+         */
         uint32_t getMaxBytes();
 
         void setMaxBytes(uint32_t num);
@@ -69,6 +112,10 @@ namespace ns3 {
 
         void setWeight(double_t num);
 
+        /**
+         * return priority level
+         * @return
+         */
         uint32_t getPriorityLevel();
 
         // set priority level of traffic class for SPQ
@@ -78,6 +125,10 @@ namespace ns3 {
 
         void addWeight(double_t num);
 
+        /**
+         * dequeue for DRR
+         * @return
+         */
         Ptr <Packet> DequeueDrr();
     };
 }
